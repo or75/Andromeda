@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Andromeda">
+      <UniqueIdentifier>{9c202fe8-8153-4dc0-8e8c-1cf76095d8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Andromeda">
+      <UniqueIdentifier>{94ae83c4-37df-4b4d-9de3-88ad0647463d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Main">
+      <UniqueIdentifier>{91a8703a-6960-47b4-8301-458966167750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Source">
+      <UniqueIdentifier>{f3d027f8-44ea-4683-8b59-76c56cc81232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Valve">
+      <UniqueIdentifier>{7eaa99d0-0475-4ee6-9318-1e06826f6c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include">
+      <UniqueIdentifier>{8bf865a7-ba47-489f-a515-5c4729387215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Valve\Math">
+      <UniqueIdentifier>{1998d546-d082-4e51-a939-fef1af9d2460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Source\Engine">
+      <UniqueIdentifier>{4c69a43b-64fa-4308-8eb8-b12cb13cefe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Valve\Source">
+      <UniqueIdentifier>{0372f8f5-9382-40cb-8b4c-dc7d2c160e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Source\Hook">
+      <UniqueIdentifier>{29f33f84-7b25-4854-a2bd-ad08fadd351a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript">
+      <UniqueIdentifier>{a1eb9232-a9a5-4861-8945-df27e75da7e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\datetime">
+      <UniqueIdentifier>{b453c225-d289-438f-b20a-fb2371a3f0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptany">
+      <UniqueIdentifier>{e58f820c-d6df-467a-9bdc-a4fcca63a78b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptarray">
+      <UniqueIdentifier>{879f845e-92d1-4653-a9c7-9a81ccccf069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptbuilder">
+      <UniqueIdentifier>{21844a48-7b6d-4f12-89bd-b62e704aaec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptdictionary">
+      <UniqueIdentifier>{3168112e-006b-4c0c-8c67-ace7e0f94ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptmath">
+      <UniqueIdentifier>{d3657af6-f0da-4911-8d6e-0d743552b323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scriptstdstring">
+      <UniqueIdentifier>{2283334c-2957-48b9-9d95-4512ff3bed61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\ImGui">
+      <UniqueIdentifier>{fa2c785e-1552-4368-9daa-d07866425c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\XorString">
+      <UniqueIdentifier>{2e777c1c-b1e0-46a6-8bba-737f60822597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Source\Feature">
+      <UniqueIdentifier>{6e05f399-6029-4470-9bc3-38508f84a872}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Andromeda\Include\Win32.hpp">
+      <Filter>Andromeda\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Auto.hpp">
+      <Filter>Andromeda\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Config.hpp">
+      <Filter>Andromeda\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Andromeda\Core.hpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Andromeda\Log.hpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Andromeda\Memory.hpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Math\Matrix.hpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Math\QAngle.hpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Andromeda\Input.hpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine.hpp">
+      <Filter>Andromeda\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\Factory.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\NetProp.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\SDK.hpp">
+      <Filter>Andromeda\Valve</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\Color.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\Font.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Source\Entity.hpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Source\Player.hpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Source\Weapon.hpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Hook\Hook.hpp">
+      <Filter>Andromeda\Source\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\Render.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\angelscript.h">
+      <Filter>Andromeda\Include\AngelScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.h">
+      <Filter>Andromeda\Include\AngelScript\scriptstdstring</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.h">
+      <Filter>Andromeda\Include\AngelScript\scriptmath</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.h">
+      <Filter>Andromeda\Include\AngelScript\scriptdictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.h">
+      <Filter>Andromeda\Include\AngelScript\scriptbuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.h">
+      <Filter>Andromeda\Include\AngelScript\scriptarray</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptany\scriptany.h">
+      <Filter>Andromeda\Include\AngelScript\scriptany</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\datetime\datetime.h">
+      <Filter>Andromeda\Include\AngelScript\datetime</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\Script.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Engine\ScriptReg.hpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Client.hpp">
+      <Filter>Andromeda\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Math\Vector3.hpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Math\Vector2.hpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Valve\Math\Vector4.hpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imconfig.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imgui.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_impl_dx9.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_impl_win32.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_internal.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_rectpack.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_textedit.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_truetype.h">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\Menu.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\Notification.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\FontAwesomeIcon.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\Gui.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\XorString\Indexes.h">
+      <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\XorString\Inline.h">
+      <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\XorString\Log.h">
+      <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\XorString\MetaRandom.h">
+      <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\XorString\MetaString.h">
+      <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Andromeda\Main\Main.cpp">
+      <Filter>Andromeda\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Andromeda\Core.cpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Andromeda\Log.cpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Andromeda\Memory.cpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Math\Matrix.cpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Math\QAngle.cpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\SDK.cpp">
+      <Filter>Andromeda\Valve</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Andromeda\Input.cpp">
+      <Filter>Andromeda\Andromeda</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine.cpp">
+      <Filter>Andromeda\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\Factory.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\NetProp.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\Font.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Source\Entity.cpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Source\Player.cpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Source\Weapon.cpp">
+      <Filter>Andromeda\Valve\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Hook\Present.cpp">
+      <Filter>Andromeda\Source\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Hook\Reset.cpp">
+      <Filter>Andromeda\Source\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\Render.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptstdstring</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring_utils.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptstdstring</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptmath</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptdictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptbuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptarray</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptany\scriptany.cpp">
+      <Filter>Andromeda\Include\AngelScript\scriptany</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\datetime\datetime.cpp">
+      <Filter>Andromeda\Include\AngelScript\datetime</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\Script.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Engine\ScriptReg.cpp">
+      <Filter>Andromeda\Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Client.cpp">
+      <Filter>Andromeda\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Math\Vector3.cpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Math\Vector2.cpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Valve\Math\Vector4.cpp">
+      <Filter>Andromeda\Valve\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Hook\CreateMove.cpp">
+      <Filter>Andromeda\Source\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\ImGui\imgui.cpp">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_draw.cpp">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_impl_dx9.cpp">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_impl_win32.cpp">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_widgets.cpp">
+      <Filter>Andromeda\Include\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Hook\LockCursor.cpp">
+      <Filter>Andromeda\Source\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Feature\Menu.cpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Feature\Notification.cpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Feature\Gui.cpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

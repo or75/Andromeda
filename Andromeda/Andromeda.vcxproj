@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{864C76C8-69BD-47A1-8D36-8777F7538224}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Andromeda</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+    <IncludePath>Andromeda\Include\DirectX\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Andromeda\Include\DirectX\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;ANDROMEDA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;ANDROMEDA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;ANDROMEDA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <GenerateMapFile>true</GenerateMapFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;ANDROMEDA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Andromeda\Andromeda\Core.hpp" />
+    <ClInclude Include="Andromeda\Andromeda\Input.hpp" />
+    <ClInclude Include="Andromeda\Andromeda\Log.hpp" />
+    <ClInclude Include="Andromeda\Andromeda\Memory.hpp" />
+    <ClInclude Include="Andromeda\Include\AngelScript\angelscript.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\datetime\datetime.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptany\scriptany.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.h" />
+    <ClInclude Include="Andromeda\Include\Auto.hpp" />
+    <ClInclude Include="Andromeda\Include\Config.hpp" />
+    <ClInclude Include="Andromeda\Include\ImGui\imconfig.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imgui.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_impl_dx9.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imgui_internal.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Andromeda\Include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Andromeda\Include\Win32.hpp" />
+    <ClInclude Include="Andromeda\Include\XorString\Indexes.h" />
+    <ClInclude Include="Andromeda\Include\XorString\Inline.h" />
+    <ClInclude Include="Andromeda\Include\XorString\Log.h" />
+    <ClInclude Include="Andromeda\Include\XorString\MetaRandom.h" />
+    <ClInclude Include="Andromeda\Include\XorString\MetaString.h" />
+    <ClInclude Include="Andromeda\Source\Client.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\Color.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\Factory.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\Font.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\NetProp.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\Render.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\Script.hpp" />
+    <ClInclude Include="Andromeda\Source\Engine\ScriptReg.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\FontAwesomeIcon.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\Gui.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\Menu.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\Notification.hpp" />
+    <ClInclude Include="Andromeda\Source\Hook\Hook.hpp" />
+    <ClInclude Include="Andromeda\Valve\Math\Matrix.hpp" />
+    <ClInclude Include="Andromeda\Valve\Math\QAngle.hpp" />
+    <ClInclude Include="Andromeda\Valve\Math\Vector3.hpp" />
+    <ClInclude Include="Andromeda\Valve\Math\Vector2.hpp" />
+    <ClInclude Include="Andromeda\Valve\Math\Vector4.hpp" />
+    <ClInclude Include="Andromeda\Valve\SDK.hpp" />
+    <ClInclude Include="Andromeda\Valve\Source\Entity.hpp" />
+    <ClInclude Include="Andromeda\Valve\Source\Player.hpp" />
+    <ClInclude Include="Andromeda\Valve\Source\Weapon.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Andromeda\Andromeda\Core.cpp" />
+    <ClCompile Include="Andromeda\Andromeda\Input.cpp" />
+    <ClCompile Include="Andromeda\Andromeda\Log.cpp" />
+    <ClCompile Include="Andromeda\Andromeda\Memory.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\datetime\datetime.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptany\scriptany.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring_utils.cpp" />
+    <ClCompile Include="Andromeda\Include\ImGui\imgui.cpp" />
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Andromeda\Include\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Andromeda\Main\Main.cpp" />
+    <ClCompile Include="Andromeda\Source\Client.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\Factory.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\Font.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\NetProp.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\Render.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\Script.cpp" />
+    <ClCompile Include="Andromeda\Source\Engine\ScriptReg.cpp" />
+    <ClCompile Include="Andromeda\Source\Feature\Gui.cpp" />
+    <ClCompile Include="Andromeda\Source\Feature\Menu.cpp" />
+    <ClCompile Include="Andromeda\Source\Feature\Notification.cpp" />
+    <ClCompile Include="Andromeda\Source\Hook\CreateMove.cpp" />
+    <ClCompile Include="Andromeda\Source\Hook\LockCursor.cpp" />
+    <ClCompile Include="Andromeda\Source\Hook\Present.cpp" />
+    <ClCompile Include="Andromeda\Source\Hook\Reset.cpp" />
+    <ClCompile Include="Andromeda\Valve\Math\Matrix.cpp" />
+    <ClCompile Include="Andromeda\Valve\Math\QAngle.cpp" />
+    <ClCompile Include="Andromeda\Valve\Math\Vector3.cpp" />
+    <ClCompile Include="Andromeda\Valve\Math\Vector2.cpp" />
+    <ClCompile Include="Andromeda\Valve\Math\Vector4.cpp" />
+    <ClCompile Include="Andromeda\Valve\SDK.cpp" />
+    <ClCompile Include="Andromeda\Valve\Source\Entity.cpp" />
+    <ClCompile Include="Andromeda\Valve\Source\Player.cpp" />
+    <ClCompile Include="Andromeda\Valve\Source\Weapon.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
