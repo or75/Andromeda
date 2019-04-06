@@ -116,7 +116,7 @@ namespace source
 		auto Gui::InitStyle() -> void
 		{
 			auto& style = ImGui::GetStyle();
-			ImVec4* colors = ImGui::GetStyle().Colors;
+			auto& colors = style.Colors;
 
 			float roundness = 2.0f;
 
@@ -125,14 +125,13 @@ namespace source
 			style.WindowMinSize = ImVec2( 75.f , 50.f );
 			style.FramePadding = ImVec2( 5 , 5 );
 			style.ItemSpacing = ImVec2( 6 , 5 );
-			style.ItemInnerSpacing = ImVec2( 6 , 4 );
+			style.ItemInnerSpacing = ImVec2( 2 , 4 );
 			style.Alpha = 1.0f;
 			style.WindowRounding = 0.f;
 			style.FrameRounding = roundness;
 			style.PopupRounding = 0;
 			style.PopupBorderSize = 2;
 			style.IndentSpacing = 6.0f;
-			style.ItemInnerSpacing = ImVec2( 2 , 4 );
 			style.ColumnsMinSpacing = 50.0f;
 			style.GrabMinSize = 14.0f;
 			style.GrabRounding = roundness;

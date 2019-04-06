@@ -64,6 +64,9 @@
     <Filter Include="Andromeda\Source\Feature">
       <UniqueIdentifier>{6e05f399-6029-4470-9bc3-38508f84a872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Andromeda\Include\Json">
+      <UniqueIdentifier>{6e9352b0-6c61-40f6-b81f-8677cbc3c218}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Andromeda\Include\Win32.hpp">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="Andromeda\Include\XorString\MetaString.h">
       <Filter>Andromeda\Include\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Json\json.hpp">
+      <Filter>Andromeda\Include\Json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
