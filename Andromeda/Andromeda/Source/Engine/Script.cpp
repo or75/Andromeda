@@ -300,8 +300,10 @@ namespace source
 			}
 		}
 
-		auto ScriptManager::OnInit() -> void
+		DWORD WINAPI OnInitThread( PVOID lpThreadParam )
 		{
+			auto m_script_system = (ScriptSystem*)lpThreadParam;
+
 			if ( m_script_system )
 			{
 				for ( auto& csgo_script : m_script_system->m_module_list )
@@ -310,6 +312,13 @@ namespace source
 						auto call_ok = csgo_script.CallInit();
 				}
 			}
+
+			return 0;
+		}
+
+		auto ScriptManager::OnInit() -> void
+		{
+			auto hThread = CreateThread( 0 , 0 , OnInitThread , m_script_system , 0 , 0 );
 		}
 
 		auto ScriptManager::OnRender() -> void
