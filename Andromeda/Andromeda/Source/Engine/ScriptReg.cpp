@@ -573,7 +573,7 @@ namespace source
 
 				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f()" ) , asFUNCTION( Color_Constructor ) , asCALL_CDECL_OBJLAST );
 				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f(uint8, uint8, uint8, uint8 a = 255)" ) , asFUNCTIONPR( Color_InitConstructor , ( BYTE , BYTE , BYTE , BYTE , Color* ) , void ) , asCALL_CDECL_OBJLAST );
-				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f(D3DCOLOR)" ) , asFUNCTIONPR( Color_InitConstructor , ( D3DCOLOR , Color* ) , void ) , asCALL_CDECL_OBJLAST );
+				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f(uint)" ) , asFUNCTIONPR( Color_InitConstructor , ( D3DCOLOR , Color* ) , void ) , asCALL_CDECL_OBJLAST );
 				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f(const Color &in)" ) , asFUNCTION( Color_CopyConstructor ) , asCALL_CDECL_OBJLAST );
 
 				script_engine->RegisterObjectProperty( XorStr( "Color" ) , XorStr( "uint8 r" ) , asOFFSET( Color , m_r ) );
@@ -871,103 +871,106 @@ namespace source
 					auto& style = ImGui::GetStyle();
 					auto& colors = style.Colors;
 
-					script_engine->RegisterObjectType( XorStr( "ImGuiStyle" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
+					// ImGuiStyle
+					{
+						script_engine->RegisterObjectType( XorStr( "ImGuiStyle" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float WindowBorderSize" ) , asOFFSET( ImGuiStyle , WindowBorderSize ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float FrameBorderSize" ) , asOFFSET( ImGuiStyle , FrameBorderSize ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 FramePadding" ) , asOFFSET( ImGuiStyle , FramePadding ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 ItemSpacing" ) , asOFFSET( ImGuiStyle , ItemSpacing ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 ItemInnerSpacing" ) , asOFFSET( ImGuiStyle , ItemInnerSpacing ) );
-			
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float Alpha" ) , asOFFSET( ImGuiStyle , Alpha ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float WindowRounding" ) , asOFFSET( ImGuiStyle , WindowRounding ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float FrameRounding" ) , asOFFSET( ImGuiStyle , FrameRounding ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float PopupRounding" ) , asOFFSET( ImGuiStyle , PopupRounding ) );		
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float PopupBorderSize" ) , asOFFSET( ImGuiStyle , PopupBorderSize ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float IndentSpacing" ) , asOFFSET( ImGuiStyle , IndentSpacing ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float GrabMinSize" ) , asOFFSET( ImGuiStyle , GrabMinSize ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float GrabRounding" ) , asOFFSET( ImGuiStyle , GrabRounding ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarSize" ) , asOFFSET( ImGuiStyle , ScrollbarSize ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarRounding" ) , asOFFSET( ImGuiStyle , ScrollbarRounding ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Text" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Text] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TextDisabled" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TextDisabled] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float WindowBorderSize" ) , asOFFSET( ImGuiStyle , WindowBorderSize ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float FrameBorderSize" ) , asOFFSET( ImGuiStyle , FrameBorderSize ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_WindowBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_WindowBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ChildBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ChildBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PopupBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PopupBg] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Border" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Border] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_BorderShadow" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_BorderShadow] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBgHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBgHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBgActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBgActive] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBgActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBgActive] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBgCollapsed" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBgCollapsed] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_MenuBarBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_MenuBarBg] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrab] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrabHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrabHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrabActive] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_CheckMark" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_CheckMark] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SliderGrab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SliderGrab] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SliderGrabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SliderGrabActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 FramePadding" ) , asOFFSET( ImGuiStyle , FramePadding ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 ItemSpacing" ) , asOFFSET( ImGuiStyle , ItemSpacing ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec2 ItemInnerSpacing" ) , asOFFSET( ImGuiStyle , ItemInnerSpacing ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Button" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Button] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ButtonHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ButtonHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ButtonActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ButtonActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float Alpha" ) , asOFFSET( ImGuiStyle , Alpha ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float WindowRounding" ) , asOFFSET( ImGuiStyle , WindowRounding ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float FrameRounding" ) , asOFFSET( ImGuiStyle , FrameRounding ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Header" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Header] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_HeaderHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_HeaderHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_HeaderActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_HeaderActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float PopupRounding" ) , asOFFSET( ImGuiStyle , PopupRounding ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float PopupBorderSize" ) , asOFFSET( ImGuiStyle , PopupBorderSize ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Separator" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Separator] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SeparatorHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SeparatorHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SeparatorActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SeparatorActive] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGrip" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGrip] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGripHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGripHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGripActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGripActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float IndentSpacing" ) , asOFFSET( ImGuiStyle , IndentSpacing ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Tab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Tab] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float GrabMinSize" ) , asOFFSET( ImGuiStyle , GrabMinSize ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float GrabRounding" ) , asOFFSET( ImGuiStyle , GrabRounding ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabActive] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabUnfocused" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabUnfocused] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabUnfocusedActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabUnfocusedActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarSize" ) , asOFFSET( ImGuiStyle , ScrollbarSize ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarRounding" ) , asOFFSET( ImGuiStyle , ScrollbarRounding ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotLines" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotLines] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotLinesHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotLinesHovered] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotHistogram" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotHistogram] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotHistogramHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotHistogramHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Text" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Text] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TextDisabled" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TextDisabled] ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TextSelectedBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TextSelectedBg] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_DragDropTarget" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_DragDropTarget] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_WindowBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_WindowBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ChildBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ChildBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PopupBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PopupBg] ) );
 
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavHighlight" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavHighlight] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavWindowingHighlight" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavWindowingHighlight] ) );
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavWindowingDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavWindowingDimBg] ) );
-					
-					script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ModalWindowDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ModalWindowDimBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Border" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Border] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_BorderShadow" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_BorderShadow] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBgHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBgHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_FrameBgActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_FrameBgActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBgActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBgActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TitleBgCollapsed" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TitleBgCollapsed] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_MenuBarBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_MenuBarBg] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrab] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrabHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrabHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ScrollbarGrabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ScrollbarGrabActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_CheckMark" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_CheckMark] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SliderGrab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SliderGrab] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SliderGrabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SliderGrabActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Button" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Button] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ButtonHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ButtonHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ButtonActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ButtonActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Header" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Header] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_HeaderHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_HeaderHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_HeaderActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_HeaderActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Separator" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Separator] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SeparatorHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SeparatorHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_SeparatorActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_SeparatorActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGrip" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGrip] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGripHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGripHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ResizeGripActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ResizeGripActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_Tab" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Tab] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabHovered] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabActive] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabUnfocused" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabUnfocused] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TabUnfocusedActive" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TabUnfocusedActive] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotLines" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotLines] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotLinesHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotLinesHovered] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotHistogram" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotHistogram] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_PlotHistogramHovered" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_PlotHistogramHovered] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_TextSelectedBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TextSelectedBg] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_DragDropTarget" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_DragDropTarget] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavHighlight" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavHighlight] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavWindowingHighlight" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavWindowingHighlight] ) );
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_NavWindowingDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavWindowingDimBg] ) );
+
+						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ImGuiCol_ModalWindowDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ModalWindowDimBg] ) );
+					}
 
 					script_engine->SetDefaultNamespace( XorStr( "ImGui" ) );
 
 					script_engine->RegisterGlobalFunction( XorStr( "ImGuiStyle@ GetStyle()" ) , asFUNCTION( ImGui::GetStyle ) , asCALL_CDECL );
 
-					script_engine->RegisterGlobalFunction( XorStr( "ImVec4 ColorConvertU32ToFloat4(ImU32)" ) , asFUNCTION( ImGui::ColorConvertU32ToFloat4 ) , asCALL_CDECL );
-					script_engine->RegisterGlobalFunction( XorStr( "ImU32 ColorConvertFloat4ToU32(ImVec4)" ) , asFUNCTION( ImGui::ColorConvertFloat4ToU32 ) , asCALL_CDECL );
+					script_engine->RegisterGlobalFunction( XorStr( "ImVec4 ColorConvertU32ToFloat4(uint)" ) , asFUNCTION( ImGui::ColorConvertU32ToFloat4 ) , asCALL_CDECL );
+					script_engine->RegisterGlobalFunction( XorStr( "uint ColorConvertFloat4ToU32(ImVec4)" ) , asFUNCTION( ImGui::ColorConvertFloat4ToU32 ) , asCALL_CDECL );
 					
 					script_engine->RegisterGlobalFunction( XorStr( "void ColorConvertRGBtoHSV(float,float,float,float &out,float &out,float &out)" ) , asFUNCTION( ImGui::ColorConvertRGBtoHSV ) , asCALL_CDECL );
 					script_engine->RegisterGlobalFunction( XorStr( "void ColorConvertHSVtoRGB(float,float,float,float &out,float &out,float &out)" ) , asFUNCTION( ImGui::ColorConvertHSVtoRGB ) , asCALL_CDECL );
@@ -978,6 +981,9 @@ namespace source
 
 			// Global Function
 			{
+				script_engine->RegisterGlobalFunction( XorStr( "uint GetTickCount()" ) , asFUNCTION( GetTickCount ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "uint64 GetTickCount64()" ) , asFUNCTION( GetTickCount64 ) , asCALL_CDECL );
+
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,Vector2 &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , Vector2& ) , bool ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );
 			}
