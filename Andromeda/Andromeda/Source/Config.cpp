@@ -8,7 +8,15 @@ namespace source
 {
 	void LoadConfig( const char* file_name )
 	{
+		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
 
+		json json_config;
+		ifstream cfg_file( dll_dir + file_name );
+
+		cfg_file >> json_config;
+
+		cfg_file.clear();
+		cfg_file.close();
 	}
 
 	void SaveConfig( const char* file_name )
@@ -32,9 +40,9 @@ namespace source
 
 		ofstream cfg_file( dll_dir + file_name );
 
-		cfg_file << json_config.dump( 1 , '\t' ) << endl;
+		cfg_file <<  setfill('\t') << setw(1) << json_config << endl;
 
-		cfg_file.close();
 		cfg_file.clear();
+		cfg_file.close();
 	}
 }
