@@ -225,6 +225,9 @@
     <ClInclude Include="Andromeda\Include\Json\json.hpp">
       <Filter>Andromeda\Include\Json</Filter>
     </ClInclude>
+    <ClInclude Include="Andromeda\Source\Config.hpp">
+      <Filter>Andromeda\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Andromeda\Main\Main.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="Andromeda\Source\Feature\Gui.cpp">
       <Filter>Andromeda\Source\Feature</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Config.cpp">
+      <Filter>Andromeda\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

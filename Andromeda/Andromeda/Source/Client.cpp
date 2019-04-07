@@ -1,5 +1,6 @@
 ﻿#include "Client.hpp"
 #include "Engine.hpp"
+#include "Config.hpp"
 
 #include "Engine/Render.hpp"
 #include "Engine/Script.hpp"
@@ -64,6 +65,8 @@ namespace source
 		feature::Gui::Instance().AddMenuRenderFn( OnRenderMenu );
 
 		notify.AddNotification( 10 , feature::nt_warning , XorStr( "Welcome to Andromeda Hack !" ) );
+
+		SaveConfig( 0 );
 
 		return true;
 	}

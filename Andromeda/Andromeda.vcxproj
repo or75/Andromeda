@@ -182,6 +182,7 @@
     <ClInclude Include="Andromeda\Include\XorString\MetaRandom.h" />
     <ClInclude Include="Andromeda\Include\XorString\MetaString.h" />
     <ClInclude Include="Andromeda\Source\Client.hpp" />
+    <ClInclude Include="Andromeda\Source\Config.hpp" />
     <ClInclude Include="Andromeda\Source\Engine.hpp" />
     <ClInclude Include="Andromeda\Source\Engine\Color.hpp" />
     <ClInclude Include="Andromeda\Source\Engine\Factory.hpp" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Andromeda\Include\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Andromeda\Main\Main.cpp" />
     <ClCompile Include="Andromeda\Source\Client.cpp" />
+    <ClCompile Include="Andromeda\Source\Config.cpp" />
     <ClCompile Include="Andromeda\Source\Engine.cpp" />
     <ClCompile Include="Andromeda\Source\Engine\Factory.cpp" />
     <ClCompile Include="Andromeda\Source\Engine\Font.cpp" />
