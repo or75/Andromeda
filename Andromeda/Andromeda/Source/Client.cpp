@@ -66,7 +66,7 @@ namespace source
 
 		notify.AddNotification( 10 , feature::nt_warning , XorStr( "Welcome to Andromeda Hack !" ) );
 
-		SaveConfig( 0 );
+		SaveConfig( CONFIG_FILE );
 
 		return true;
 	}

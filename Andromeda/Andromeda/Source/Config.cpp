@@ -13,7 +13,7 @@ namespace source
 
 	void SaveConfig( const char* file_name )
 	{
-		json cfg = 
+		json jcfg = 
 		{
 		  {"pi", 3.141},
 		  {"happy", true},
@@ -29,6 +29,10 @@ namespace source
 		  }}
 		};
 
-		Andromeda::WriteDebugLog( "cfg:\n%s\n" , cfg.dump( 1 , '\t' ).c_str() );
+		ofstream cfg_file( file_name );
+
+		cfg_file << std::setw( 4 ) << jcfg << std::endl;
+
+		//Andromeda::WriteDebugLog( "cfg:\n%s\n" , cfg.dump( 1 , '\t' ).c_str() );
 	}
 }
