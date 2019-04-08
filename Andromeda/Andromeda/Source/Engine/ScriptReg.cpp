@@ -4,6 +4,8 @@
 #include "../../Valve/Source/Player.hpp"
 #include "../../Valve/Source/Weapon.hpp"
 
+#include "../Feature/Notification.hpp"
+
 namespace source
 {
 	namespace engine
@@ -135,6 +137,7 @@ namespace source
 		auto asGetScriptDir() -> string
 		{
 			auto& script_manager = ScriptManager::Instance();
+
 			return Andromeda::str_wide_to_str_unicode( script_manager.m_script_dir );
 		}
 
@@ -143,6 +146,20 @@ namespace source
 			string sound_file_name = XorStr( "\\andromeda\\" ) + sound_file;
 			
 			m_surface->PlaySoundFile( sound_file_name.c_str() );
+		}
+
+		auto asAddNotification( asIScriptGeneric* Gen )
+		{
+			auto& notify = feature::Notification::Instance();
+
+			auto show_sec = *(asDWORD*)Gen->GetAddressOfArg( 0 );
+			auto type = *(asDWORD*)Gen->GetAddressOfArg( 1 );
+
+			char buf[2048] = { 0 };
+
+			asParseFormat( Gen , 2 , buf , ARRAYSIZE( buf ) );
+
+			notify.AddNotification( show_sec , ( feature::notify_type )type , buf );
 		}
 
 #pragma endregion
@@ -376,19 +393,15 @@ namespace source
 		{
 			script_engine->SetDefaultNamespace( "" );
 
-			// global
+			// global typedef
 			{
 				script_engine->RegisterTypedef( XorStr( "byte" ) , XorStr( "uint8" ) );
 				script_engine->RegisterTypedef( XorStr( "word" ) , XorStr( "uint16" ) );
 				script_engine->RegisterTypedef( XorStr( "dword" ) , XorStr( "uint" ) );
 				script_engine->RegisterTypedef( XorStr( "qword" ) , XorStr( "uint64" ) );
 
-				script_engine->RegisterGlobalFunction( XorStr( "string sprintf(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asSprintf ) , asCALL_GENERIC );
-				script_engine->RegisterGlobalFunction( XorStr( "void log(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asLog ) , asCALL_GENERIC );
-				
-				script_engine->RegisterGlobalFunction( XorStr( "string GetModuleName()" ) , asFUNCTION( asGetModuleName ) , asCALL_CDECL );
-				script_engine->RegisterGlobalFunction( XorStr( "string GetScriptDir()" ) , asFUNCTION( asGetScriptDir ) , asCALL_CDECL );
-				script_engine->RegisterGlobalFunction( XorStr( "void PlaySound(string)" ) , asFUNCTION( asPlaySound ) , asCALL_CDECL );
+				script_engine->RegisterTypedef( XorStr( "D3DCOLOR" ) , XorStr( "uint" ) );
+				script_engine->RegisterTypedef( XorStr( "ImU32" ) , XorStr( "uint" ) );
 			}
 
 			// Vector2
@@ -567,8 +580,6 @@ namespace source
 
 			// Color
 			{
-				script_engine->RegisterTypedef( XorStr( "D3DCOLOR" ) , XorStr( "uint" ) );
-
 				script_engine->RegisterObjectType( XorStr( "Color" ) , sizeof( Color ) , asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<Color>() | asOBJ_APP_CLASS_ALLFLOATS );
 
 				script_engine->RegisterObjectBehaviour( XorStr( "Color" ) , asBEHAVE_CONSTRUCT , XorStr( "void f()" ) , asFUNCTION( Color_Constructor ) , asCALL_CDECL_OBJLAST );
@@ -866,8 +877,6 @@ namespace source
 						script_engine->RegisterObjectProperty( XorStr( "ImVec4" ) , XorStr( "float w" ) , asOFFSET( ImVec4 , w ) );
 					}
 
-					script_engine->RegisterTypedef( XorStr( "ImU32" ) , XorStr( "uint" ) );
-
 					auto& style = ImGui::GetStyle();
 					auto& colors = style.Colors;
 
@@ -981,8 +990,17 @@ namespace source
 
 			// Global Function
 			{
+				script_engine->RegisterGlobalFunction( XorStr( "string sprintf(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asSprintf ) , asCALL_GENERIC );
+				script_engine->RegisterGlobalFunction( XorStr( "void log(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asLog ) , asCALL_GENERIC );
+
+				script_engine->RegisterGlobalFunction( XorStr( "string GetModuleName()" ) , asFUNCTION( asGetModuleName ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "string GetScriptDir()" ) , asFUNCTION( asGetScriptDir ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "void PlaySound(string)" ) , asFUNCTION( asPlaySound ) , asCALL_CDECL );
+
 				script_engine->RegisterGlobalFunction( XorStr( "uint GetTickCount()" ) , asFUNCTION( GetTickCount ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "uint64 GetTickCount64()" ) , asFUNCTION( GetTickCount64 ) , asCALL_CDECL );
+
+				script_engine->RegisterGlobalFunction( XorStr( "void AddNotification(uint,uint,string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asAddNotification ) , asCALL_CDECL );
 
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,Vector2 &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , Vector2& ) , bool ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );

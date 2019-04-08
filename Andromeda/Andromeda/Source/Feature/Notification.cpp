@@ -78,8 +78,6 @@ namespace source
 						if ( ImGui::IsWindowHovered( ImGuiHoveredFlags_RootWindow ) )
 							notifi.m_show_time = GetTickCount() + ( notifi.m_show_sec * 1000 );
 
-						//string buff = Andromeda::str_wide_to_str_unicode( notifi.m_msg );
-
 						ImGui::TextColored( notifi_color , buff_unicode.c_str() );
 						ImGui::End();
 					}
@@ -105,6 +103,9 @@ namespace source
 			va_start( list , format );
 			vsnprintf_s( buf , sizeof( buf ) - 1 , _TRUNCATE , format , list );
 			va_end( list );
+
+			if ( type < nt_error || type > nt_success )
+				type = nt_info;
 
 			string message = buf;
 
