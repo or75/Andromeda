@@ -33,21 +33,21 @@ namespace Andromeda
 
 	auto ansi_to_unicode( const string& ansi ) -> wstring
 	{
-		wchar_t unicode[2048] = { };
+		wchar_t unicode[2048] = { 0 };
 		MultiByteToWideChar( CP_UTF8 , 0u , ansi.c_str() , -1 , unicode , 2048 );
 		return unicode;
 	}
 
 	auto unicode_to_ansi( const wstring& unicode ) -> string
 	{
-		char ansi[2048] = { };
+		char ansi[2048] = { 0 };
 		WideCharToMultiByte( CP_UTF8 , 0u , unicode.c_str() , -1 , ansi , 2048 , nullptr , nullptr );
 		return ansi;
 	}
 
 	auto str_wide_to_str_unicode( const string& ansi ) -> string
 	{
-		wchar_t unicode[2048] = { };
+		wchar_t unicode[2048] = { 0 };
 		MultiByteToWideChar( CP_ACP , 0u , ansi.c_str() , -1 , unicode , 2048 );
 		return unicode_to_ansi( wstring( unicode ) );
 	}

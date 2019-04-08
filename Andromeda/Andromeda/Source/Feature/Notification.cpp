@@ -24,7 +24,7 @@ namespace source
 					auto push_style = false;
 					auto padding = 10.f;
 
-					string buff_unicode = Andromeda::str_wide_to_str_unicode( notifi.m_msg );
+					string buff_unicode = notifi.m_msg;
 
 					auto notification_width = ImGui::CalcTextSize( buff_unicode.c_str() ).x + padding + 10.f;
 					auto notification_height = 70.f;

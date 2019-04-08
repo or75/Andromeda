@@ -159,7 +159,9 @@ namespace source
 
 			asParseFormat( Gen , 2 , buf , ARRAYSIZE( buf ) );
 
-			notify.AddNotification( show_sec , ( feature::notify_type )type , buf );
+			string message = buf;
+
+			notify.AddNotification( show_sec , ( feature::notify_type )type , message.c_str() );
 		}
 
 #pragma endregion
@@ -1000,7 +1002,7 @@ namespace source
 				script_engine->RegisterGlobalFunction( XorStr( "uint GetTickCount()" ) , asFUNCTION( GetTickCount ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "uint64 GetTickCount64()" ) , asFUNCTION( GetTickCount64 ) , asCALL_CDECL );
 
-				script_engine->RegisterGlobalFunction( XorStr( "void AddNotification(uint,uint,string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asAddNotification ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "void AddNotification(uint,uint,string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asAddNotification ) , asCALL_GENERIC );
 
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,Vector2 &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , Vector2& ) , bool ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );

@@ -19,7 +19,7 @@ namespace Andromeda
 
 	auto ansi_to_unicode( const string& ansi ) -> wstring;
 	auto unicode_to_ansi( const wstring& unicode )->string;
-	auto str_wide_to_str_unicode( const string& ansi ) -> string;
+	auto str_wide_to_str_unicode( const string& ansi )->string;
 
 	void WriteDebugLog( const char * format , ... );
 }

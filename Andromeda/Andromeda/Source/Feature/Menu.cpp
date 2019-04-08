@@ -118,7 +118,7 @@ namespace source
 
 					if ( ImGui::MenuItem( XorStr( "Unload Script##ModuleList" ) ) )
 					{
-						string module_name = module.m_script_module->GetName();
+						string module_name = Andromeda::str_wide_to_str_unicode( module.m_script_module->GetName() );
 						
 						module.Unload();
 						
