@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GetHWID">
+      <UniqueIdentifier>{9c48010b-a07f-4079-85d0-5ba4b5f8cec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GetHWID\XorString">
+      <UniqueIdentifier>{acb9ef06-385a-4b37-98d5-4c19040b7281}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="XorString\Indexes.h">
+      <Filter>GetHWID\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\Inline.h">
+      <Filter>GetHWID\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\Log.h">
+      <Filter>GetHWID\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\MetaRandom.h">
+      <Filter>GetHWID\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\MetaString.h">
+      <Filter>GetHWID\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Base64.h">
+      <Filter>GetHWID</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareID.h">
+      <Filter>GetHWID</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>GetHWID</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HardwareID.cpp">
+      <Filter>GetHWID</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>GetHWID</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
