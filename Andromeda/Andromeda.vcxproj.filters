@@ -64,8 +64,17 @@
     <Filter Include="Andromeda\Source\Feature">
       <UniqueIdentifier>{6e05f399-6029-4470-9bc3-38508f84a872}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Andromeda\Include\Json">
-      <UniqueIdentifier>{6e9352b0-6c61-40f6-b81f-8677cbc3c218}</UniqueIdentifier>
+    <Filter Include="Andromeda\Include\Rapidjson">
+      <UniqueIdentifier>{06fb2d52-c927-4c45-9ac7-1a01369475ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\Rapidjson\error">
+      <UniqueIdentifier>{32f8430a-b7b3-47dd-95e8-78319fd5b02b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\Rapidjson\internal">
+      <UniqueIdentifier>{2dcd4237-d82c-4e2f-b35e-23eb824e0b23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Andromeda\Include\Rapidjson\msinttypes">
+      <UniqueIdentifier>{4bc63711-518b-4976-a4da-aec6ed6d6382}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -222,11 +231,116 @@
     <ClInclude Include="Andromeda\Include\XorString\MetaString.h">
       <Filter>Andromeda\Include\XorString</Filter>
     </ClInclude>
-    <ClInclude Include="Andromeda\Include\Json\json.hpp">
-      <Filter>Andromeda\Include\Json</Filter>
-    </ClInclude>
     <ClInclude Include="Andromeda\Source\Config.hpp">
       <Filter>Andromeda\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\msinttypes\inttypes.h">
+      <Filter>Andromeda\Include\Rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\msinttypes\stdint.h">
+      <Filter>Andromeda\Include\Rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\biginteger.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\diyfp.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\dtoa.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\ieee754.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\itoa.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\meta.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\pow10.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\regex.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\stack.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\strfunc.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\strtod.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\swap.h">
+      <Filter>Andromeda\Include\Rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\error\en.h">
+      <Filter>Andromeda\Include\Rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\error\error.h">
+      <Filter>Andromeda\Include\Rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\allocators.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\cursorstreamwrapper.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\document.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\encodedstream.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\encodings.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\filereadstream.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\filewritestream.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\fwd.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\istreamwrapper.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\memorybuffer.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\memorystream.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\ostreamwrapper.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\pointer.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\prettywriter.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\rapidjson.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\reader.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\schema.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\stream.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\stringbuffer.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\Rapidjson\writer.h">
+      <Filter>Andromeda\Include\Rapidjson</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

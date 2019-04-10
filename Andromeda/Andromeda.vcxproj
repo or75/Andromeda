@@ -81,7 +81,7 @@
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>false</GenerateManifest>
     <IncludePath>Andromeda\Include\DirectX\include;$(IncludePath)</IncludePath>
-    <LibraryPath>Andromeda\Include\DirectX\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>Andromeda\Include\DirectX\lib;Andromeda\Include\Json;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\Cheat\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -176,7 +176,42 @@
     <ClInclude Include="Andromeda\Include\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Andromeda\Include\ImGui\imstb_textedit.h" />
     <ClInclude Include="Andromeda\Include\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Andromeda\Include\Json\json.hpp" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\allocators.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\document.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\encodedstream.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\encodings.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\error\en.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\error\error.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\filereadstream.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\filewritestream.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\fwd.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\biginteger.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\diyfp.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\dtoa.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\ieee754.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\itoa.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\meta.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\pow10.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\regex.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\stack.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\strfunc.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\strtod.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\internal\swap.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\istreamwrapper.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\memorybuffer.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\memorystream.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\pointer.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\prettywriter.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\rapidjson.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\reader.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\schema.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\stream.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\stringbuffer.h" />
+    <ClInclude Include="Andromeda\Include\Rapidjson\writer.h" />
     <ClInclude Include="Andromeda\Include\Win32.hpp" />
     <ClInclude Include="Andromeda\Include\XorString\Indexes.h" />
     <ClInclude Include="Andromeda\Include\XorString\Inline.h" />
