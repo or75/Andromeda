@@ -2,7 +2,10 @@
 
 #include "../Include/Rapidjson/rapidjson.h"
 #include "../Include/Rapidjson/prettywriter.h"
-#include "../Include/Rapidjson/filewritestream.h"
+#include "../Include/Rapidjson/document.h"
+#include "../Include/Rapidjson/istreamwrapper.h"
+#include "../Include/Rapidjson/ostreamwrapper.h"
+#include "../Include/Rapidjson/error/en.h"
 
 namespace source
 {
@@ -12,62 +15,56 @@ namespace source
 	{
 		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
 
-		/*
-		try
+		ifstream cfg_file( dll_dir + file_name );
+		Document doc_config;
+		IStreamWrapper isw( cfg_file );
+
+		doc_config.ParseStream( isw );
+
+		if ( doc_config.HasParseError() )
 		{
-			Json::Value json_config;
-
-			ifstream cfg_file( dll_dir + file_name );
-
-			cfg_file >> json_config;
-
-			cfg_file.clear();
-			cfg_file.close();
-
-			json_config.clear();
+			Andromeda::WriteDebugLog( "[error] load json: %s (%i)\n" , GetParseError_En( doc_config.GetParseError() ) , doc_config.GetErrorOffset() );
 		}
-		catch ( exception& e )
-		{
-			Andromeda::WriteDebugLog( "[error] json parse error: %s\n" , e.what() );
-		}
-		*/
+
+		doc_config.Clear();
+
+		cfg_file.clear();
+		cfg_file.close();
 	}
 
 	void SaveConfig( const char* file_name )
 	{
 		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
 
-		StringBuffer s;
-		PrettyWriter<StringBuffer> writer( s );
-
-		writer.SetIndent( '\t' , 1 );
-		writer.SetFormatOptions( kFormatSingleLineArray );
-
-		writer.StartObject(); 
-		writer.Key( "hello" );
-		writer.String( "world" );
-		writer.Key( "t" );
-		writer.Bool( true );
-		writer.Key( "f" );
-		writer.Bool( false );
-		writer.Key( "n" );
-		writer.Null();
-		writer.Key( "i" );
-		writer.Uint( 123 );
-		writer.Key( "pi" );
-		writer.Double( 3.1416 );
-		writer.Key( "a" );
-		writer.StartArray();
-
-		for ( unsigned i = 0; i < 4; i++ )
-			writer.Uint( i );
-
-		writer.EndArray();
-		writer.EndObject();
+		auto& style = ImGui::GetStyle();
+		auto& colors = style.Colors;
 
 		ofstream cfg_file( dll_dir + file_name );
 
-		cfg_file << s.GetString();
+		Document doc_config;
+		Value array( rapidjson::kArrayType );
+		Document::AllocatorType& allocator = doc_config.GetAllocator();
+
+		doc_config.SetObject();
+
+		doc_config.AddMember( "Name" , "XYZ" , allocator );
+		doc_config.AddMember( "Rollnumer" , 2 , allocator );
+		doc_config.AddMember( "array" , array , allocator );
+
+		if ( doc_config.HasParseError() )
+		{
+			Andromeda::WriteDebugLog( "[error] save json: %s (%i)\n" , GetParseError_En( doc_config.GetParseError() ) , doc_config.GetErrorOffset() );
+		}
+		else
+		{
+			OStreamWrapper osw( cfg_file );
+			PrettyWriter<OStreamWrapper> cfg_writer( osw );
+
+			cfg_writer.SetIndent( '\t' , 1 );
+			cfg_writer.SetFormatOptions( PrettyFormatOptions::kFormatSingleLineArray );
+
+			doc_config.Accept( cfg_writer );
+		}
 
 		cfg_file.clear();
 		cfg_file.close();
