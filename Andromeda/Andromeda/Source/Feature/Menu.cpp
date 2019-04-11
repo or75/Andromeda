@@ -153,8 +153,6 @@ namespace source
 
 					script_system->m_module_list.clear();
 
-					m_engine_client->ClientCmd_Unrestricted( XorStr( "snd_restart" ) );
-
 					notify.AddNotification( 5 , feature::nt_success , XorStr( "All modules was successfully unloaded" ) );
 				}
 
