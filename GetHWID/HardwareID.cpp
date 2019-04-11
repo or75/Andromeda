@@ -2,7 +2,7 @@
 
 namespace HardwareID
 {
-	vector<string> GetWmiInfo( char* szQuery , char* szPropertie , bool usb_drive )
+	vector<string> GetWmiInfo( const char* szQuery , const char* szPropertie , bool usb_drive )
 	{
 		vector<string> ReturnData;
 
@@ -79,7 +79,7 @@ namespace HardwareID
 		{
 			hres = pEnumerator->Next( WBEM_INFINITE , 1 , &pclsObj , &uReturn );
 
-			if ( 0 == uReturn )
+			if ( uReturn == 0 )
 				break;
 
 			VARIANT vtProp;
@@ -93,8 +93,8 @@ namespace HardwareID
 
 			if ( SUCCEEDED( hres ) && usb_drive )
 			{
-				pclsObj->Get( _com_util::ConvertStringToBSTR( XorStr( "InterfaceType" ) ) , 0 , &vtType , 0 , 0 );
-				
+				hres = pclsObj->Get( _com_util::ConvertStringToBSTR( XorStr( "InterfaceType" ) ) , 0 , &vtType , 0 , 0 );
+
 				InterfaceType = _com_util::ConvertBSTRToString( vtType.bstrVal );
 
 				if ( !InterfaceType.empty() && InterfaceType == XorStr( "USB" ) )
@@ -215,18 +215,22 @@ namespace HardwareID
 		vector<string> DiskDriver = GetWmiInfo( XorStr( "SELECT * FROM Win32_DiskDrive" ) , XorStr( "SerialNumber" ) , true );
 		vector<string> ComputerSystemProduct = GetWmiInfo( XorStr( "SELECT * FROM Win32_ComputerSystemProduct" ) , XorStr( "UUID" ) );
 
-#if DEBUG_HARDWARE == 1
-		printf( "PhysicalMemory: %i\n" , PhysicalMemory.size() );
-		printf( "DiskDriver: %i\n" , DiskDriver.size() );
-		printf( "ComputerSystemProduct: %i\n" , ComputerSystemProduct.size() );
-#endif
-
 		if ( DiskDriver.size() && ComputerSystemProduct.size() )
 		{
+#if DEBUG_HARDWARE == 1
+			printf( "PhysicalMemory: %i\n" , PhysicalMemory.size() );
+			printf( "DiskDriver: %i\n" , DiskDriver.size() );
+			printf( "ComputerSystemProduct: %i\n" , ComputerSystemProduct.size() );
+#endif
 			HardwareID += XorStr( "3D49C753B6217" );
 
 			for ( auto Ram : PhysicalMemory )
+			{
+#if DEBUG_HARDWARE == 1
+				printf( "PhysicalMemory: %s\n" , Ram.c_str() );
+#endif
 				HardwareID += "-" + Ram;
+			}
 
 			for ( auto Drive : DiskDriver )
 				HardwareID += "-" + Drive;

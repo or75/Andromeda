@@ -15,7 +15,9 @@ namespace Andromeda
 
 	auto Log::Destroy() -> void
 	{
-		m_log_file.clear();
+		CloseHandle( m_file_handle );
+		
+		m_log_file.clear();	
 		m_file_handle = nullptr;
 	}
 

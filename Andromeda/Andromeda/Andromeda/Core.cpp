@@ -4,17 +4,17 @@ namespace Andromeda
 {
 	auto ImageLoader::OnLoadImage( HMODULE DllImage , PVOID pReserved ) -> bool
 	{
-		memset( &m_data , 0 , sizeof loader_data_s );
-
 #if ENABLE_SUPPORT_MANUAL_MAP == 1 
 		if ( pReserved )
 		{
-			auto pLoaderData = (loader_data_s*)pReserved;
+			auto pManualInject = (PMANUAL_INJECT)pReserved;
 
-			if ( pLoaderData->m_cheat_key == LOADER_LICENSE_KEY )
+			if ( pManualInject->m_cheat_key == LOADER_LICENSE_KEY )
 			{
-				memcpy( &m_data , pLoaderData , sizeof loader_data_s );
-				memset( pLoaderData , 0 , sizeof loader_data_s );
+				auto image_name = string( pManualInject->m_cheat_dir ) + XorStr( "\\" );
+
+				m_dll_dir = image_name.substr( 0 , image_name.find_last_of( '\\' ) );
+				m_dll_dir += '\\';
 
 				return true;
 			}
@@ -38,8 +38,6 @@ namespace Andromeda
 
 	auto ImageLoader::Destroy() -> void
 	{
-		memset( &m_data , 0 , sizeof loader_data_s );
-
 		m_dll_dir.clear();
 	}
 

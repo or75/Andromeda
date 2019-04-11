@@ -11,13 +11,21 @@ auto WINAPI CheatThread( PVOID lpThreadParam ) -> DWORD
 #endif
 	}
 
+	/*auto pManualInject = ( Andromeda::PMANUAL_INJECT )lpThreadParam;
+
+	if ( pManualInject )
+	{
+		Sleep( 1000 );
+		VirtualFree( pManualInject->ShellCode , 0 , MEM_RELEASE );
+	}*/
+
 	return 0;
 }
 
 auto OnLoadImage( HMODULE DllImage , PVOID pReserved ) -> void
 {
 	if ( Andromeda::ImageLoader::Instance().OnLoadImage( DllImage , pReserved ) )
-		CreateThread( 0 , 0 , CheatThread , DllImage , 0 , 0 );
+		CreateThread( 0 , 0 , CheatThread , pReserved , 0 , 0 );
 }
 
 auto WINAPI DllMain( HINSTANCE hinstDLL , DWORD Reason , PVOID pReserved ) -> BOOL

@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Injector">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Injector\cryptlib">
+      <UniqueIdentifier>{3909ba63-e1dd-4ecb-81e0-cd0b6f7b0889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Injector\curl">
+      <UniqueIdentifier>{d007edfc-79bc-4122-af95-1a07f88c5f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Injector\XorString">
+      <UniqueIdentifier>{34820bf4-45fc-4547-a0d7-b8ed973edf32}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cryptlib\3way.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\adler32.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\adv_simd.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\aes.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\aes_armv4.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\algebra.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\algparam.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\arc4.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\argnames.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\aria.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\arm_simd.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\asn.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\authenc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\base32.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\base64.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\basecode.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\bench.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\blake2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\blowfish.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\blumshub.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\camellia.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cast.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cbcmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ccm.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\chacha.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\chachapoly.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cham.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\channels.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\config.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cpu.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\crc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\cryptlib.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\darn.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\default.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\des.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\dh.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\dh2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\dll.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\dmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\donna.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\donna_32.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\donna_64.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\donna_sse.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\drbg.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\dsa.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\eax.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ec2n.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\eccrypto.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ecp.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ecpoint.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\elgamal.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\emsa2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\eprecomp.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\esign.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\factory.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\fhmqv.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\files.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\filters.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\fips140.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\fltrimpl.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gcm.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gf2_32.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gf2n.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gf256.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gfpcrypt.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gost.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\gzip.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hashfwd.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hc128.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hc256.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hex.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hight.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hkdf.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hmqv.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\hrtimer.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ida.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\idea.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\integer.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\iterhash.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\kalyna.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\keccak.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\lea.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\lubyrack.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\luc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\mars.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\md2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\md4.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\md5.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\mdc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\mersenne.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\misc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\modarith.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\modes.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\modexppc.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\mqueue.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\mqv.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\naclite.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\nbtheory.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\nr.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\oaep.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\oids.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\osrng.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ossig.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\padlkrng.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\panama.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\pch.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\pkcspad.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\poly1305.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\polynomi.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ppc_simd.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\pssr.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\pubkey.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\pwdbased.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\queue.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rabbit.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rabin.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\randpool.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rc2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rc5.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rc6.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rdrand.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\resource.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rijndael.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ripemd.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rng.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rsa.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\rw.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\safer.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\salsa.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\scrypt.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\seal.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\secblock.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\seckey.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\seed.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\serpent.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\serpentp.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\sha.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\sha3.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\shacal2.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\shake.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\shark.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\simeck.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\simon.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\simple.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\siphash.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\skipjack.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\sm3.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\sm4.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\smartptr.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\sosemanuk.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\speck.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\square.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\stdcpp.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\strciphr.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\tea.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\threefish.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\tiger.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\trap.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\trunhash.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\ttmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\tweetnacl.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\twofish.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\validate.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\vmac.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\wake.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\whrlpool.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\words.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\xed25519.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\xtr.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\xtrcrypt.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\zdeflate.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\zinflate.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="cryptlib\zlib.h">
+      <Filter>Injector\cryptlib</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\curl.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\curlver.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\easy.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\mprintf.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\multi.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\stdcheaders.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\system.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="curl\typecheck-gcc.h">
+      <Filter>Injector\curl</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\Indexes.h">
+      <Filter>Injector\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\Inline.h">
+      <Filter>Injector\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\Log.h">
+      <Filter>Injector\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\MetaRandom.h">
+      <Filter>Injector\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="XorString\MetaString.h">
+      <Filter>Injector\XorString</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Injector</Filter>
+    </ClInclude>
+    <ClInclude Include="HardwareID.h">
+      <Filter>Injector</Filter>
+    </ClInclude>
+    <ClInclude Include="License.h">
+      <Filter>Injector</Filter>
+    </ClInclude>
+    <ClInclude Include="Inject.h">
+      <Filter>Injector</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Injector</Filter>
+    </ClCompile>
+    <ClCompile Include="HardwareID.cpp">
+      <Filter>Injector</Filter>
+    </ClCompile>
+    <ClCompile Include="License.cpp">
+      <Filter>Injector</Filter>
+    </ClCompile>
+    <ClCompile Include="Inject.cpp">
+      <Filter>Injector</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

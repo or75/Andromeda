@@ -78,20 +78,29 @@ namespace source
 
 			string font_unicode_ms_file = "";
 
-			/*char szWindowFolder[MAX_PATH] = { 0 };
+			char szWindowFontsFolder[MAX_PATH] = { 0 };
 
-			if ( GetWindowsDirectoryA( szWindowFolder , MAX_PATH ) )
+			if ( SUCCEEDED( SHGetFolderPathA( NULL , CSIDL_FONTS , NULL , 0 , szWindowFontsFolder ) ) )
 			{
-				font_unicode_ms_file = szWindowFolder;
+				font_unicode_ms_file = szWindowFontsFolder;
 				font_unicode_ms_file += XorStr( "\\Fonts\\ARIALUNI.ttf" );
 
 				if ( GetFileAttributesA( font_unicode_ms_file.c_str() ) == INVALID_FILE_ATTRIBUTES )
 				{
-					font_unicode_ms_file = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( "ARIALUNI.ttf" );
-				}
-			}*/
+					char szAppDataFolder[MAX_PATH] = { 0 };
 
-			font_unicode_ms_file = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( "ARIALUNI.ttf" );
+					if ( SUCCEEDED( SHGetFolderPathA( NULL , CSIDL_LOCAL_APPDATA , NULL , 0 , szAppDataFolder ) ) )
+					{
+						font_unicode_ms_file = szAppDataFolder;
+						font_unicode_ms_file += XorStr( "\\Microsoft\\Windows\\Fonts\\ARIALUNI.ttf" );
+
+						if ( GetFileAttributesA( font_unicode_ms_file.c_str() ) == INVALID_FILE_ATTRIBUTES )
+						{
+							font_unicode_ms_file = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( "ARIALUNI.ttf" );
+						}
+					}
+				}
+			}
 
 			if ( GetFileAttributesA( font_unicode_ms_file.c_str() ) != INVALID_FILE_ATTRIBUTES )
 			{
@@ -99,7 +108,7 @@ namespace source
 				m_font_unicode_ms->DisplayOffset.y -= 1.f;
 
 				m_font_awesome_icon = io.Fonts->AddFontFromMemoryCompressedTTF( FontAwesomeIcon_compressed_data , FontAwesomeIcon_compressed_size , 25.f , &FontAwesomeIconConfig , AwesomeIconRanges );
-				//m_font_awesome_icon->DisplayOffset.y -= 1.f;
+				m_font_awesome_icon->DisplayOffset.y -= 1.f;
 
 				font_unicode_ms_file = "";
 

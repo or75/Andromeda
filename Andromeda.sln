@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Andromeda", "Andromeda\Andr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetHWID", "GetHWID\GetHWID.vcxproj", "{825B7BD0-DA7E-40E8-8D7C-F1D19E8295E5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Injector", "Injector\Injector.vcxproj", "{1B44C56F-768C-4DA7-892A-6192EFB1F73A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{825B7BD0-DA7E-40E8-8D7C-F1D19E8295E5}.Release|x64.Build.0 = Release|x64
 		{825B7BD0-DA7E-40E8-8D7C-F1D19E8295E5}.Release|x86.ActiveCfg = Release|Win32
 		{825B7BD0-DA7E-40E8-8D7C-F1D19E8295E5}.Release|x86.Build.0 = Release|Win32
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Debug|x64.ActiveCfg = Debug|x64
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Debug|x64.Build.0 = Debug|x64
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Debug|x86.ActiveCfg = Debug|Win32
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Debug|x86.Build.0 = Debug|Win32
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Release|x64.ActiveCfg = Release|x64
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Release|x64.Build.0 = Release|x64
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Release|x86.ActiveCfg = Release|Win32
+		{1B44C56F-768C-4DA7-892A-6192EFB1F73A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -403,10 +403,10 @@ namespace source
 			return s->Colors[idx];
 		}
 
-		ImVec4 ImGuiStyle_Colors_set_array( unsigned int idx , ImVec4 value , ImGuiStyle* s )
+		void ImGuiStyle_Colors_set_array( unsigned int idx , ImVec4 value , ImGuiStyle* s )
 		{
 			if ( idx >= ImGuiCol_COUNT )
-				return ImVec4();
+				return;
 			
 			s->Colors[idx].x = value.x;
 			s->Colors[idx].y = value.y;
@@ -872,7 +872,7 @@ namespace source
 				script_engine->SetDefaultNamespace( "" );
 			}
 
-			// cheat
+			// Cheat
 			{
 				// imgui
 				{
@@ -933,7 +933,7 @@ namespace source
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarRounding" ) , asOFFSET( ImGuiStyle , ScrollbarRounding ) );
 
 						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 get_Colors(uint)" ) , asFUNCTION( ImGuiStyle_Colors_get_array ) , asCALL_CDECL_OBJLAST );
-						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 set_Colors(uint, ImVec4)" ) , asFUNCTION( ImGuiStyle_Colors_set_array ) , asCALL_CDECL_OBJLAST );
+						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "void set_Colors(uint, ImVec4)" ) , asFUNCTION( ImGuiStyle_Colors_set_array ) , asCALL_CDECL_OBJLAST );
 					}
 
 					script_engine->SetDefaultNamespace( XorStr( "ImGui" ) );
