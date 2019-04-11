@@ -393,6 +393,29 @@ namespace source
 
 #pragma endregion
 
+#pragma region ImGui_Color_Array
+
+		ImVec4 ImGuiStyle_Colors_get_array( unsigned int idx , ImGuiStyle* s )
+		{
+			if ( idx >= ImGuiCol_COUNT )
+				return ImVec4();
+
+			return s->Colors[idx];
+		}
+
+		ImVec4 ImGuiStyle_Colors_set_array( unsigned int idx , ImVec4 value , ImGuiStyle* s )
+		{
+			if ( idx >= ImGuiCol_COUNT )
+				return ImVec4();
+			
+			s->Colors[idx].x = value.x;
+			s->Colors[idx].y = value.y;
+			s->Colors[idx].z = value.z;
+			s->Colors[idx].w = value.w;
+		}
+
+#pragma endregion
+
 		void RegisterScriptAndromeda( asIScriptEngine* script_engine )
 		{
 			script_engine->SetDefaultNamespace( "" );
@@ -433,10 +456,10 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "float Normalize()" ) , asMETHOD( Vector2 , Normalize ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "void NormalizeFast()" ) , asMETHOD( Vector2 , NormalizeFast ) , asCALL_THISCALL );
 
+				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "Vector2& opAssign(const Vector2 &in)" ) , asMETHOD( Vector2 , operator= ) , asCALL_THISCALL );
+
 				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "float& opIndex(uint idx)" ) , asMETHODPR( Vector2 , At , ( unsigned int ) , float& ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "float opIndex(uint idx) const" ) , asMETHODPR( Vector2 , At , ( unsigned int ) const , const float ) , asCALL_THISCALL );
-
-				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "Vector2& opAssign(const Vector2 &in)" ) , asMETHOD( Vector2 , operator= ) , asCALL_THISCALL );
 
 				script_engine->RegisterObjectMethod( XorStr( "Vector2" ) , XorStr( "bool opEquals(const Vector2 &in) const" ) , asMETHOD( Vector2 , operator== ) , asCALL_THISCALL );
 
@@ -633,7 +656,7 @@ namespace source
 			// ClientClass
 			{
 				script_engine->RegisterObjectType( XorStr( "ClientClass" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
-				script_engine->RegisterObjectMethod( XorStr( "ClientClass" ) , XorStr( "string get_m_pNetworkName()" ) , asFUNCTION( ClientClass_get_m_pNetworkName ) , asCALL_CDECL_OBJLAST );
+				script_engine->RegisterObjectMethod( XorStr( "ClientClass" ) , XorStr( "const string get_m_pNetworkName()" ) , asFUNCTION( ClientClass_get_m_pNetworkName ) , asCALL_CDECL_OBJLAST );
 				script_engine->RegisterObjectProperty( XorStr( "ClientClass" ) , XorStr( "ClientClass@ m_pNext" ) , asOFFSET( ClientClass , m_pNext ) );
 				script_engine->RegisterObjectProperty( XorStr( "ClientClass" ) , XorStr( "int m_ClassID" ) , asOFFSET( ClientClass , m_ClassID ) );
 			}
@@ -662,26 +685,26 @@ namespace source
 			{
 				script_engine->RegisterObjectType( XorStr( "IClientEntity" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "int GetPropInt(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<int> , ( string , string , DWORD ) , int ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropInt(int,string,string)" ) , asMETHODPR( IClientEntity , SetNetProp<int> , ( int , string , string ) , void ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "int GetPropInt(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<int> , ( string , string , DWORD ) , int ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropInt(int, string, string)" ) , asMETHODPR( IClientEntity , SetNetProp<int> , ( int , string , string ) , void ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "bool GetPropBool(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<bool> , ( string , string , DWORD ) , bool ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropBool(bool,string,string)" ) , asMETHODPR( IClientEntity , SetNetProp<bool> , ( bool , string , string ) , void ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "bool GetPropBool(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<bool> , ( string , string , DWORD ) , bool ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropBool(bool, string, string)" ) , asMETHODPR( IClientEntity , SetNetProp<bool> , ( bool , string , string ) , void ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "byte GetPropByte(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<BYTE> , ( string , string , DWORD ) , BYTE ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "word GetPropWord(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<asWORD> , ( string , string , DWORD ) , asWORD ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "dword GetPropDword(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<asDWORD> , ( string , string , DWORD ) , asDWORD ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "byte GetPropByte(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<BYTE> , ( string , string , DWORD ) , BYTE ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "word GetPropWord(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<asWORD> , ( string , string , DWORD ) , asWORD ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "dword GetPropDword(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<asDWORD> , ( string , string , DWORD ) , asDWORD ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "float GetPropFloat(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<float> , ( string , string , DWORD ) , float ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropFloat(float,string,string)" ) , asMETHODPR( IClientEntity , SetNetProp<float> , ( float , string , string ) , void ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "float GetPropFloat(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<float> , ( string , string , DWORD ) , float ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropFloat(float, string, string)" ) , asMETHODPR( IClientEntity , SetNetProp<float> , ( float , string , string ) , void ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "Vector3 GetPropVector3(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<Vector3> , ( string , string , DWORD ) , Vector3 ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropVector3(Vector3,string,string)" ) , asMETHODPR( IClientEntity , SetNetProp<Vector3> , ( Vector3 , string , string ) , void ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "Vector3 GetPropVector3(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<Vector3> , ( string , string , DWORD ) , Vector3 ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropVector3(Vector3, string, string)" ) , asMETHODPR( IClientEntity , SetNetProp<Vector3> , ( Vector3 , string , string ) , void ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "QAngle GetPropQAngle(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<QAngle> , ( string , string , DWORD ) , QAngle ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropQAngle(QAngle,string,string)" ) , asMETHODPR( IClientEntity , SetNetProp<QAngle> , ( QAngle , string , string ) , void ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "QAngle GetPropQAngle(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetProp<QAngle> , ( string , string , DWORD ) , QAngle ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "void SetPropQAngle(QAngle, string, string)" ) , asMETHODPR( IClientEntity , SetNetProp<QAngle> , ( QAngle , string , string ) , void ) , asCALL_THISCALL );
 				
-				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "string GetPropString(string,string,uint def = 0)" ) , asMETHODPR( IClientEntity , GetNetPropString , ( string , string , DWORD ) , string ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "string GetPropString(string, string, uint custom_offset = 0)" ) , asMETHODPR( IClientEntity , GetNetPropString , ( string , string , DWORD ) , string ) , asCALL_THISCALL );
 
 				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "Vector3& OBBMins() const" ) , asMETHOD( IClientEntity , OBBMins ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IClientEntity" ) , XorStr( "Vector3& OBBMaxs() const" ) , asMETHOD( IClientEntity , OBBMaxs ) , asCALL_THISCALL );
@@ -730,7 +753,7 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "int GetPlayerForUserID(int)" ) , asMETHOD( IVEngineClient , GetPlayerForUserID ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "int GetLocalPlayer()" ) , asMETHOD( IVEngineClient , GetLocalPlayer ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "float GetLastTimeStamp()" ) , asMETHOD( IVEngineClient , GetLastTimeStamp ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "void GetViewAngles(QAngle &in)" ) , asMETHOD( IVEngineClient , GetViewAngles ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "void GetViewAngles(QAngle &out)" ) , asMETHOD( IVEngineClient , GetViewAngles ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "void SetViewAngles(QAngle &in)" ) , asMETHOD( IVEngineClient , SetViewAngles ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "int GetMaxClients()" ) , asMETHOD( IVEngineClient , GetMaxClients ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "bool IsInGame()" ) , asMETHOD( IVEngineClient , IsInGame ) , asCALL_THISCALL );
@@ -754,16 +777,16 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "bool IsReliable()" ) , asMETHOD( IGameEvent , IsReliable ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "bool IsLocal()" ) , asMETHOD( IGameEvent , IsLocal ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "bool IsEmpty(string)" ) , asMETHOD( IGameEvent , IsEmpty ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "bool GetBool(string,bool def = false)" ) , asMETHOD( IGameEvent , GetBool ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "int GetInt(string,int def = 0)" ) , asMETHOD( IGameEvent , GetInt ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "uint64 GetUint64(string,uint64 def = 0)" ) , asMETHOD( IGameEvent , GetUint64 ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "float GetFloat(string,float def = 0.f)" ) , asMETHOD( IGameEvent , GetFloat ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "string GetString(string,string def = \"\")" ) , asMETHOD( IGameEvent , GetString ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetBool(string,bool def = false)" ) , asMETHOD( IGameEvent , SetBool ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetInt(string,int def = 0)" ) , asMETHOD( IGameEvent , SetInt ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetUint64(string,uint64 def = 0)" ) , asMETHOD( IGameEvent , SetUint64 ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetFloat(string,float def = 0.f)" ) , asMETHOD( IGameEvent , SetFloat ) , asCALL_THISCALL );
-				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetString(string,string def = \"\")" ) , asMETHOD( IGameEvent , SetString ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "bool GetBool(string,bool value = false)" ) , asMETHOD( IGameEvent , GetBool ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "int GetInt(string,int value = 0)" ) , asMETHOD( IGameEvent , GetInt ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "uint64 GetUint64(string,uint64 value = 0)" ) , asMETHOD( IGameEvent , GetUint64 ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "float GetFloat(string,float value = 0.f)" ) , asMETHOD( IGameEvent , GetFloat ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "string GetString(string,string value = \"\")" ) , asMETHOD( IGameEvent , GetString ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetBool(string,bool value = false)" ) , asMETHOD( IGameEvent , SetBool ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetInt(string,int value = 0)" ) , asMETHOD( IGameEvent , SetInt ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetUint64(string,uint64 value = 0)" ) , asMETHOD( IGameEvent , SetUint64 ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetFloat(string,float value = 0.f)" ) , asMETHOD( IGameEvent , SetFloat ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IGameEvent" ) , XorStr( "void SetString(string,string value = \"\")" ) , asMETHOD( IGameEvent , SetString ) , asCALL_THISCALL );
 			}
 
 			// CGlobalVarsBase
@@ -910,6 +933,10 @@ namespace source
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarSize" ) , asOFFSET( ImGuiStyle , ScrollbarSize ) );
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarRounding" ) , asOFFSET( ImGuiStyle , ScrollbarRounding ) );
 
+						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 get_Colors(uint)" ) , asFUNCTION( ImGuiStyle_Colors_get_array ) , asCALL_CDECL_OBJLAST );
+						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 set_Colors(uint, ImVec4)" ) , asFUNCTION( ImGuiStyle_Colors_set_array ) , asCALL_CDECL_OBJLAST );
+
+						/*
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 Text" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_Text] ) );
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 TextDisabled" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_TextDisabled] ) );
 
@@ -976,6 +1003,7 @@ namespace source
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 NavWindowingDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_NavWindowingDimBg] ) );
 
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 ModalWindowDimBg" ) , asOFFSET( ImGuiStyle , Colors[ImGuiCol_ModalWindowDimBg] ) );
+						*/
 					}
 
 					script_engine->SetDefaultNamespace( XorStr( "ImGui" ) );
