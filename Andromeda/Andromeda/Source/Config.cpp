@@ -157,7 +157,7 @@ namespace source
 
 			if ( notifi )
 			{
-				string message = XorStr( "Config '" ) + file_name + XorStr( "' loaded !" );
+				string message = "'" + file_name + XorStr( "' loaded !" );
 				notify.AddNotification( 5 , feature::nt_success , message.c_str() );
 			}
 		}
@@ -244,7 +244,7 @@ namespace source
 
 		if ( notifi )
 		{
-			string message = XorStr( "Config '" ) + file_name + XorStr( "' saved !" );
+			string message = "'" + file_name + XorStr( "' saved !" );
 			notify.AddNotification( 5 , feature::nt_success , message.c_str() );
 		}
 	}
