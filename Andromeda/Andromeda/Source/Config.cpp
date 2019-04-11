@@ -101,7 +101,9 @@ namespace source
 		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
 		auto& notify = feature::Notification::Instance();
 
-		ifstream cfg_file( dll_dir + file_name );
+		wstring cfg_full_file_name = Andromeda::ansi_to_unicode( dll_dir + file_name );
+
+		ifstream cfg_file( cfg_full_file_name );
 		Document doc_config;
 		IStreamWrapper isw( cfg_file );
 
@@ -109,7 +111,7 @@ namespace source
 
 		if ( doc_config.HasParseError() )
 		{
-			Andromeda::WriteDebugLog( "[error] load json: %s (%i)\n" , GetParseError_En( doc_config.GetParseError() ) , doc_config.GetErrorOffset() );
+			Andromeda::WriteDebugLog( "[error] load (%ws) json: %s (%i)\n" , cfg_full_file_name.c_str() , GetParseError_En( doc_config.GetParseError() ) , doc_config.GetErrorOffset() );
 		}
 		else
 		{
@@ -152,18 +154,18 @@ namespace source
 						GetImVec4Json( imgui_style_json , ImGui::GetStyleColorName( idx ) , ImGui_Colors[ImGuiCol_Text] );
 				}
 			}
+
+			if ( notifi )
+			{
+				string message = XorStr( "Config " ) + file_name + XorStr( " loaded !" );
+				notify.AddNotification( 5 , feature::nt_success , message.c_str() );
+			}
 		}
 
 		doc_config.Clear();
 
 		cfg_file.clear();
 		cfg_file.close();
-
-		if ( notifi )
-		{
-			string message = XorStr( "Config " ) + file_name + XorStr( " loaded !" );
-			notify.AddNotification( 5 , feature::nt_success , message.c_str() );
-		}
 	}
 
 	void SaveConfig( string file_name , bool notifi )
@@ -174,7 +176,9 @@ namespace source
 		auto& style = ImGui::GetStyle();
 		auto& colors = style.Colors;
 
-		ofstream cfg_file( dll_dir + file_name );
+		wstring cfg_full_file_name = Andromeda::ansi_to_unicode( dll_dir + file_name );
+
+		ofstream cfg_file( cfg_full_file_name );
 
 		OStreamWrapper osw( cfg_file );
 		PrettyWriter<OStreamWrapper> cfg_writer( osw );
