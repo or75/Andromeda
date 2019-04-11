@@ -59,15 +59,17 @@ namespace source
 
 		m_engine_client->GetScreenSize( iScreenWidth , iScreenHeight );
 		
+		// Загрузим настройки
+		LoadConfig( XorStr( CONFIG_FILE ) );
+		//SaveConfig( XorStr( CONFIG_FILE ) );
+
+		// Выполняем Init во всех скриптах
 		script.OnInit();
 
 		feature::Menu::Instance().Create();
 		feature::Gui::Instance().AddMenuRenderFn( OnRenderMenu );
 
 		notify.AddNotification( 10 , feature::nt_warning , XorStr( "Welcome to Andromeda Hack !" ) );
-
-		//LoadConfig( XorStr( CONFIG_FILE ) );
-		SaveConfig( XorStr( CONFIG_FILE ) );
 
 		return true;
 	}
