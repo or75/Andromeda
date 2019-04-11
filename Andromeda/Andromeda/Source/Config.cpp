@@ -7,6 +7,8 @@
 #include "../Include/Rapidjson/ostreamwrapper.h"
 #include "../Include/Rapidjson/error/en.h"
 
+#include "Feature/Notification.hpp"
+
 namespace source
 {
 	using namespace rapidjson;
@@ -18,11 +20,7 @@ namespace source
 			auto& value = style[name];
 
 			if ( !value.IsNull() && value.IsFloat() )
-			{
 				output = value.GetFloat();
-
-				Andromeda::WriteDebugLog( "[%s] , %0.2f\n" , name , output );
-			}
 		}
 	}
 
@@ -61,8 +59,6 @@ namespace source
 					output.y = Array_ImVec4[1].GetFloat();
 					output.z = Array_ImVec4[2].GetFloat();
 					output.w = Array_ImVec4[3].GetFloat();
-
-					Andromeda::WriteDebugLog( "[%s] , %0.2f , %0.2f , %0.2f , %0.2f\n" , name , output.x , output.y , output.z , output.w );
 				}
 			}
 		}
@@ -100,9 +96,10 @@ namespace source
 		writer.EndArray();
 	}
 
-	void LoadConfig( const char* file_name )
+	void LoadConfig( string file_name , bool notifi )
 	{
 		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
+		auto& notify = feature::Notification::Instance();
 
 		ifstream cfg_file( dll_dir + file_name );
 		Document doc_config;
@@ -161,11 +158,18 @@ namespace source
 
 		cfg_file.clear();
 		cfg_file.close();
+
+		if ( notifi )
+		{
+			string message = XorStr( "Config " ) + file_name + XorStr( " loaded !" );
+			notify.AddNotification( 5 , feature::nt_success , message.c_str() );
+		}
 	}
 
-	void SaveConfig( const char* file_name )
+	void SaveConfig( string file_name , bool notifi )
 	{
 		auto dll_dir = Andromeda::ImageLoader::Instance().GetDllDir();
+		auto& notify = feature::Notification::Instance();
 
 		auto& style = ImGui::GetStyle();
 		auto& colors = style.Colors;
@@ -233,5 +237,11 @@ namespace source
 
 		cfg_file.clear();
 		cfg_file.close();
+
+		if ( notifi )
+		{
+			string message = XorStr( "Config " ) + file_name + XorStr( " saved !" );
+			notify.AddNotification( 5 , feature::nt_success , message.c_str() );
+		}
 	}
 }

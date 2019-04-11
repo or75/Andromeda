@@ -6,6 +6,8 @@
 
 #include "../Feature/Notification.hpp"
 
+#include "../Config.hpp"
+
 namespace source
 {
 	namespace engine
@@ -998,6 +1000,9 @@ namespace source
 				script_engine->RegisterGlobalFunction( XorStr( "string GetModuleName()" ) , asFUNCTION( asGetModuleName ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "string GetScriptDir()" ) , asFUNCTION( asGetScriptDir ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "void PlaySound(string)" ) , asFUNCTION( asPlaySound ) , asCALL_CDECL );
+
+				script_engine->RegisterGlobalFunction( XorStr( "void LoadConfig(string,bool notifi = true)" ) , asFUNCTION( LoadConfig ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "void SaveConfig(string,bool notifi = true)" ) , asFUNCTION( SaveConfig ) , asCALL_CDECL );
 
 				script_engine->RegisterGlobalFunction( XorStr( "uint GetTickCount()" ) , asFUNCTION( GetTickCount ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "uint64 GetTickCount64()" ) , asFUNCTION( GetTickCount64 ) , asCALL_CDECL );

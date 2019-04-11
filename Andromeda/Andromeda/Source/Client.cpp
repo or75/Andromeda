@@ -60,8 +60,7 @@ namespace source
 		m_engine_client->GetScreenSize( iScreenWidth , iScreenHeight );
 		
 		// Загрузим настройки
-		LoadConfig( XorStr( CONFIG_FILE ) );
-		//SaveConfig( XorStr( CONFIG_FILE ) );
+		LoadConfig( XorStr( CONFIG_FILE ) , false );
 
 		// Выполняем Init во всех скриптах
 		script.OnInit();
