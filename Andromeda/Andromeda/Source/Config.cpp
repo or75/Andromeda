@@ -9,26 +9,55 @@
 
 #include "Feature/Notification.hpp"
 
+namespace config
+{
+	namespace script
+	{
+		UINT Timeout = 300;
+	}
+}
+
 namespace source
 {
 	using namespace rapidjson;
 
-	void GetFloatJson( Value& style, const char* name , float& output )
+	void GetUintJson( Value& json , const char* name , UINT& output , UINT min , UINT max )
 	{
-		if ( !style.IsNull() && style.HasMember( name ) )
-		{		
-			auto& value = style[name];
+		if ( !json.IsNull() && json.HasMember( name ) )
+		{
+			auto& value = json[name];
 
-			if ( !value.IsNull() && value.IsFloat() )
-				output = value.GetFloat();
+			if ( !value.IsNull() && value.IsUint() )
+			{
+				auto f = value.GetUint();
+
+				if ( f >= min && f <= max )
+					output = f;
+			}
 		}
 	}
 
-	void GetImVec2Json( Value& style , const char* name , ImVec2& output )
+	void GetFloatJson( Value& json , const char* name , float& output , float min , float max )
 	{
-		if ( !style.IsNull() && style.HasMember( name ) )
+		if ( !json.IsNull() && json.HasMember( name ) )
 		{
-			auto& value = style[name];
+			auto& value = json[name];
+
+			if ( !value.IsNull() && value.IsFloat() )
+			{
+				auto f = value.GetFloat();
+
+				if ( f >= min && f <= max )
+					output = f;
+			}
+		}
+	}
+
+	void GetImVec2Json( Value& json , const char* name , ImVec2& output )
+	{
+		if ( !json.IsNull() && json.HasMember( name ) )
+		{
+			auto& value = json[name];
 
 			if ( !value.IsNull() && value.IsArray() )
 			{
@@ -43,11 +72,11 @@ namespace source
 		}
 	}
 
-	void GetImVec4Json( Value& style , const char* name , ImVec4& output )
+	void GetImVec4Json( Value& json , const char* name , ImVec4& output )
 	{
-		if ( !style.IsNull() && style.HasMember( name ) )
+		if ( !json.IsNull() && json.HasMember( name ) )
 		{
-			auto& value = style[name];
+			auto& value = json[name];
 
 			if ( !value.IsNull() && value.IsArray() )
 			{
@@ -62,6 +91,12 @@ namespace source
 				}
 			}
 		}
+	}
+
+	void AddUintJson( PrettyWriter<OStreamWrapper>& writer , const char* name , UINT& output )
+	{
+		writer.String( name );
+		writer.Uint( output );
 	}
 
 	void AddImGuiStyleJson( PrettyWriter<OStreamWrapper>& writer , const char* name , float& value )
@@ -115,6 +150,16 @@ namespace source
 		}
 		else
 		{
+			// Script
+			{
+				auto& script_json = doc_config[XorStr( "Script" )];
+
+				if ( !script_json.IsNull() )
+				{
+					GetUintJson( script_json , XorStr( "Timeout" ) , config::script::Timeout , 150 , 5000 );
+				}
+			}
+
 			// ImGui
 			{
 				auto& ImGui_Style = ImGui::GetStyle();
@@ -125,27 +170,27 @@ namespace source
 
 				if ( !imgui_style_json.IsNull() )
 				{
-					GetFloatJson( imgui_style_json , XorStr( "WindowBorderSize" ) , ImGui_Style.WindowBorderSize );
-					GetFloatJson( imgui_style_json , XorStr( "FrameBorderSize" ) , ImGui_Style.FrameBorderSize );
+					GetFloatJson( imgui_style_json , XorStr( "WindowBorderSize" ) , ImGui_Style.WindowBorderSize , 0.f , 10.f );
+					GetFloatJson( imgui_style_json , XorStr( "FrameBorderSize" ) , ImGui_Style.FrameBorderSize , 0.f , 10.f );
 
 					GetImVec2Json( imgui_style_json , XorStr( "FramePadding" ) , ImGui_Style.FramePadding );
 					GetImVec2Json( imgui_style_json , XorStr( "ItemSpacing" ) , ImGui_Style.ItemSpacing );
 					GetImVec2Json( imgui_style_json , XorStr( "ItemInnerSpacing" ) , ImGui_Style.ItemInnerSpacing );
 
-					GetFloatJson( imgui_style_json , XorStr( "Alpha" ) , ImGui_Style.Alpha );
-					GetFloatJson( imgui_style_json , XorStr( "WindowRounding" ) , ImGui_Style.WindowRounding );
-					GetFloatJson( imgui_style_json , XorStr( "FrameRounding" ) , ImGui_Style.FrameRounding );
+					GetFloatJson( imgui_style_json , XorStr( "Alpha" ) , ImGui_Style.Alpha , 0.f , 1.f );
+					GetFloatJson( imgui_style_json , XorStr( "WindowRounding" ) , ImGui_Style.WindowRounding , 0.f , 10.f );
+					GetFloatJson( imgui_style_json , XorStr( "FrameRounding" ) , ImGui_Style.FrameRounding , 0.f , 10.f );
 
-					GetFloatJson( imgui_style_json , XorStr( "PopupRounding" ) , ImGui_Style.PopupRounding );
-					GetFloatJson( imgui_style_json , XorStr( "PopupBorderSize" ) , ImGui_Style.PopupBorderSize );
+					GetFloatJson( imgui_style_json , XorStr( "PopupRounding" ) , ImGui_Style.PopupRounding , 0.f , 10.f );
+					GetFloatJson( imgui_style_json , XorStr( "PopupBorderSize" ) , ImGui_Style.PopupBorderSize , 0.f , 10.f );
 
-					GetFloatJson( imgui_style_json , XorStr( "IndentSpacing" ) , ImGui_Style.IndentSpacing );
+					GetFloatJson( imgui_style_json , XorStr( "IndentSpacing" ) , ImGui_Style.IndentSpacing , 0.f , 10.f );
 
-					GetFloatJson( imgui_style_json , XorStr( "GrabMinSize" ) , ImGui_Style.GrabMinSize );
-					GetFloatJson( imgui_style_json , XorStr( "GrabRounding" ) , ImGui_Style.GrabRounding );
+					GetFloatJson( imgui_style_json , XorStr( "GrabMinSize" ) , ImGui_Style.GrabMinSize , 0.f , 10.f );
+					GetFloatJson( imgui_style_json , XorStr( "GrabRounding" ) , ImGui_Style.GrabRounding , 0.f , 10.f );
 
-					GetFloatJson( imgui_style_json , XorStr( "ScrollbarSize" ) , ImGui_Style.ScrollbarSize );
-					GetFloatJson( imgui_style_json , XorStr( "ScrollbarRounding" ) , ImGui_Style.ScrollbarRounding );
+					GetFloatJson( imgui_style_json , XorStr( "ScrollbarSize" ) , ImGui_Style.ScrollbarSize , 0.f , 10.f );
+					GetFloatJson( imgui_style_json , XorStr( "ScrollbarRounding" ) , ImGui_Style.ScrollbarRounding , 0.f , 10.f );
 				}
 
 				if ( !imgui_color_json.IsNull() )
@@ -189,6 +234,15 @@ namespace source
 
 		{
 			cfg_writer.StartObject();
+
+			cfg_writer.String( XorStr( "Script" ) );
+			{
+				cfg_writer.StartObject();
+
+				AddUintJson( cfg_writer , XorStr( "Timeout" ) , config::script::Timeout );
+
+				cfg_writer.EndObject();
+			}
 
 			cfg_writer.String( XorStr( "ImGui" ) );
 			{

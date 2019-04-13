@@ -46,9 +46,12 @@ namespace source
 				for ( size_t Index = 0; Index < script_system->m_module_list.size(); Index++ )
 				{
 					auto module = script_system->m_module_list.at( Index );
-
 					auto script_module = module.m_script_module;
-					auto script_module_context = module.m_script_context;
+					
+					if ( !script_module )
+						continue;
+
+					//auto script_module_context = module.m_script_context;
 
 					string module_name = script_module->GetName();
 
@@ -56,7 +59,10 @@ namespace source
 
 					if ( module.m_enable )
 					{
-						if ( script_module_context->GetState() == asEContextState::asEXECUTION_FINISHED )
+						module_name += XorStr( " (enabled)" );
+						StatusColor = ImColor( 0 , 255 , 0 );
+
+						/*if ( script_module_context->GetState() == asEContextState::asEXECUTION_FINISHED )
 						{
 							module_name += XorStr( " (enabled)" );
 							StatusColor = ImColor( 0 , 255 , 0 );
@@ -82,7 +88,7 @@ namespace source
 								module_name += XorStr( " (suspended)" );
 							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_UNINITIALIZED )
 								module_name += XorStr( " (uninitialized)" );
-						}
+						}*/
 					}
 					else
 					{
@@ -138,6 +144,7 @@ namespace source
 				if ( ImGui::Button( XorStr( "Update list" ) , ImVec2( button_size_x , button_size_y ) ) )
 				{
 					script_manager.UpdateScriptList( true );
+					
 					notify.AddNotification( 5 , feature::nt_success , XorStr( "Modules was successfully loaded" ) );
 				}
 
@@ -145,13 +152,7 @@ namespace source
 
 				if ( ImGui::Button( XorStr( "Unload all" ) , ImVec2( button_size_x , button_size_y ) ) )
 				{
-					for ( size_t Index = 0; Index < script_system->m_module_list.size(); Index++ )
-					{
-						auto module = script_system->m_module_list.at( Index );
-						module.Unload();
-					}
-
-					script_system->m_module_list.clear();
+					script_system->UnloadAll();
 
 					notify.AddNotification( 5 , feature::nt_success , XorStr( "All modules was successfully unloaded" ) );
 				}

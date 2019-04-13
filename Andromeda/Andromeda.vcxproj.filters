@@ -76,6 +76,9 @@
     <Filter Include="Andromeda\Include\Rapidjson\msinttypes">
       <UniqueIdentifier>{4bc63711-518b-4976-a4da-aec6ed6d6382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\scripthelper">
+      <UniqueIdentifier>{5b72ecea-adeb-4f2b-9770-19d4ad638ade}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Andromeda\Include\Win32.hpp">
@@ -342,6 +345,9 @@
     <ClInclude Include="Andromeda\Include\Rapidjson\writer.h">
       <Filter>Andromeda\Include\Rapidjson</Filter>
     </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.h">
+      <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Andromeda\Main\Main.cpp">
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="Andromeda\Source\Config.cpp">
       <Filter>Andromeda\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.cpp">
+      <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 #include "../Engine.hpp"
 
-constexpr auto EXECUTE_TIMEOUT = 8000;
+//constexpr auto EXECUTE_TIMEOUT = 250;
 
 namespace source
 {
@@ -13,8 +13,8 @@ namespace source
 		public:
 			ScriptModule( asIScriptModule* script_module );
 
-			auto PrepateFunctionContext( asIScriptContext* script_context , asIScriptModule* script_module , const char* function_decl ) -> asIScriptFunction*;
-			auto ExecuteScriptContext( asIScriptContext* script_context , asIScriptModule* script_module ) -> bool;
+			auto PrepateFunctionContext( asIScriptModule* script_module , const char* function_decl ) -> asIScriptFunction*;
+			auto ExecuteScriptContext( asIScriptModule* script_module ) -> bool;
 
 			auto CallInit() -> bool;
 			auto CallRender() -> bool;
@@ -39,9 +39,15 @@ namespace source
 			auto BuildModule( string file_name , string module_name ) -> ScriptModule*;
 			auto AddModule( ScriptModule* script_module ) -> bool;
 
+			auto UnloadAll() -> void;
+
+			auto PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*;
+			auto ReturnContextToPool( asIScriptContext* script_context ) -> void;
+
 		public:
-			vector<ScriptModule>	m_module_list;
-			asIScriptEngine*		m_script_engine;
+			vector<asIScriptContext*>	m_contexts_list;
+			vector<ScriptModule>		m_module_list;
+			asIScriptEngine*			m_script_engine;		
 		};
 
 		class ScriptManager : public Singleton<ScriptManager>

@@ -163,6 +163,8 @@ namespace source
 
 			string message = buf;
 
+			//message = Andromeda::str_wide_to_str_unicode( message );
+
 			notify.AddNotification( show_sec , ( feature::notify_type )type , message.c_str() );
 		}
 
@@ -672,11 +674,11 @@ namespace source
 
 			// IBaseClientDLL
 			{
-				script_engine->RegisterObjectType( XorStr( "IBaseClientDLL" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "IBaseClientDLL" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 				script_engine->RegisterObjectMethod( XorStr( "IBaseClientDLL" ) , XorStr( "ClientClass@ GetAllClasses()" ) , asMETHOD( IBaseClientDLL , GetAllClasses ) , asCALL_THISCALL );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "IBaseClientDLL m_base_client" ) , source::m_base_client );
+				script_engine->RegisterGlobalProperty( XorStr( "IBaseClientDLL@ m_base_client" ) , &source::m_base_client );
 				script_engine->SetDefaultNamespace( "" );
 			}
 
@@ -721,14 +723,14 @@ namespace source
 
 			// IClientEntityList
 			{
-				script_engine->RegisterObjectType( XorStr( "IClientEntityList" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "IClientEntityList" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
 				script_engine->RegisterObjectMethod( XorStr( "IClientEntityList" ) , XorStr( "IClientEntity@ GetClientEntity(int)" ) , asMETHOD( IClientEntityList , GetClientEntity ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IClientEntityList" ) , XorStr( "IClientEntity@ GetClientEntityFromHandle(uint)" ) , asMETHOD( IClientEntityList , GetClientEntityFromHandle ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IClientEntityList" ) , XorStr( "int GetHighestEntityIndex()" ) , asMETHOD( IClientEntityList , GetHighestEntityIndex ) , asCALL_THISCALL );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "IClientEntityList m_client_entity_list" ) , source::m_client_entity_list );
+				script_engine->RegisterGlobalProperty( XorStr( "IClientEntityList@ m_client_entity_list" ) , &source::m_client_entity_list );
 				script_engine->SetDefaultNamespace( "" );
 			}
 			
@@ -745,7 +747,7 @@ namespace source
 
 			// IVEngineClient
 			{
-				script_engine->RegisterObjectType( XorStr( "IVEngineClient" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "IVEngineClient" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "void GetScreenSize(int &out,int &out)" ) , asMETHOD( IVEngineClient , GetScreenSize ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "void GetPlayerInfo(int,player_info_t &out)" ) , asMETHOD( IVEngineClient , GetPlayerInfo ) , asCALL_THISCALL );
@@ -764,7 +766,7 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "IVEngineClient" ) , XorStr( "bool IsActiveApp()" ) , asMETHOD( IVEngineClient , IsActiveApp ) , asCALL_THISCALL );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "IVEngineClient m_engine_client" ) , source::m_engine_client );
+				script_engine->RegisterGlobalProperty( XorStr( "IVEngineClient@ m_engine_client" ) , &source::m_engine_client );
 				script_engine->SetDefaultNamespace( "" );
 			}
 
@@ -790,7 +792,7 @@ namespace source
 
 			// CGlobalVarsBase
 			{
-				script_engine->RegisterObjectType( XorStr( "CGlobalVarsBase" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "CGlobalVarsBase" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
 				script_engine->RegisterObjectProperty( XorStr( "CGlobalVarsBase" ) , XorStr( "const float realtime" ) , asOFFSET( CGlobalVarsBase , realtime ) );
 				script_engine->RegisterObjectProperty( XorStr( "CGlobalVarsBase" ) , XorStr( "const int framecount" ) , asOFFSET( CGlobalVarsBase , framecount ) );
@@ -806,7 +808,7 @@ namespace source
 				script_engine->RegisterObjectProperty( XorStr( "CGlobalVarsBase" ) , XorStr( "const int network_protocol" ) , asOFFSET( CGlobalVarsBase , network_protocol ) );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "CGlobalVarsBase m_globals" ) , source::m_globals );
+				script_engine->RegisterGlobalProperty( XorStr( "CGlobalVarsBase@ m_globals" ) , &source::m_globals );
 				script_engine->SetDefaultNamespace( "" );
 			}
 
@@ -825,7 +827,7 @@ namespace source
 
 			// ICvar
 			{
-				script_engine->RegisterObjectType( XorStr( "ICvar" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "ICvar" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
 				script_engine->RegisterObjectMethod( XorStr( "ICvar" ) , XorStr( "ConVar@ FindVar(string)" ) , asMETHOD( ICvar , FindVar ) , asCALL_THISCALL );
 				
@@ -833,7 +835,7 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "ICvar" ) , XorStr( "void ConsolePrintf(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asICvar_ConsolePrintf ) , asCALL_GENERIC );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "ICvar m_cvar" ) , source::m_cvar );
+				script_engine->RegisterGlobalProperty( XorStr( "ICvar@ m_cvar" ) , &source::m_cvar );
 				script_engine->SetDefaultNamespace( "" );
 			}
 
@@ -858,7 +860,7 @@ namespace source
 
 			// IInputSystem
 			{
-				script_engine->RegisterObjectType( XorStr( "IInputSystem" ) , 0 , asOBJ_REF | asOBJ_NOHANDLE );
+				script_engine->RegisterObjectType( XorStr( "IInputSystem" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
 
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "void EnableInput(bool)" ) , asMETHOD( IInputSystem , EnableInput ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "bool IsButtonDown(int)" ) , asMETHOD( IInputSystem , IsButtonDown ) , asCALL_THISCALL );
@@ -868,7 +870,7 @@ namespace source
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "int ButtonCodeToVirtualKey(int)" ) , asMETHOD( IInputSystem , ButtonCodeToVirtualKey ) , asCALL_THISCALL );
 
 				script_engine->SetDefaultNamespace( XorStr( "source" ) );
-				script_engine->RegisterGlobalProperty( XorStr( "IInputSystem m_input_system" ) , source::m_input_system );
+				script_engine->RegisterGlobalProperty( XorStr( "IInputSystem@ m_input_system" ) , &source::m_input_system );
 				script_engine->SetDefaultNamespace( "" );
 			}
 

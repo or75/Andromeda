@@ -116,7 +116,7 @@ namespace source
 			}
 			else
 			{
-				Andromeda::WriteDebugLog( XorStr( "[error] #FontUnicodeMS\n" ) );
+				Andromeda::WriteDebugLog( XorStr( "[error] #FontUnicodeMS (Установите шрифт, инструкция на сайте !)\n" ) );
 			}
 
 			return false;

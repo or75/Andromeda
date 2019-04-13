@@ -30,6 +30,7 @@ namespace source
 
 		public:
 			bool			m_gui_open;
+			bool			m_gui_create;
 
 		private:
 			static auto Event( UINT message , WPARAM wparam , LPARAM lparam ) -> bool;
@@ -40,8 +41,7 @@ namespace source
 
 		private:
 			string			m_gui_file;
-			GuiRenderMenuFn m_render_menu_fn;
-			bool			m_gui_create;
+			GuiRenderMenuFn m_render_menu_fn;	
 		};
 	}
 }

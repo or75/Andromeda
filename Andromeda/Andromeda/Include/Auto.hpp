@@ -27,6 +27,7 @@ using namespace std;
 #include "AngelScript/datetime/datetime.h"
 #include "AngelScript/scriptany/scriptany.h"
 #include "AngelScript/scriptarray/scriptarray.h"
+#include "AngelScript/scripthelper/scripthelper.h"
 #include "AngelScript/scriptstdstring/scriptstdstring.h"
 #include "AngelScript/scriptbuilder/scriptbuilder.h"
 #include "AngelScript/scriptdictionary/scriptdictionary.h"

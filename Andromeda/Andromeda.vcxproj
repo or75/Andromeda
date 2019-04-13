@@ -164,6 +164,7 @@
     <ClInclude Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.h" />
     <ClInclude Include="Andromeda\Include\Auto.hpp" />
@@ -253,6 +254,7 @@
     <ClCompile Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptbuilder\scriptbuilder.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptdictionary\scriptdictionary.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring_utils.cpp" />

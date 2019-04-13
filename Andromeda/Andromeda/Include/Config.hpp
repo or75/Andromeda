@@ -5,7 +5,7 @@
 // Xor String
 #define ENABLE_XOR_STR				0
 // Manual Map Inject
-#define ENABLE_SUPPORT_MANUAL_MAP	1
+#define ENABLE_SUPPORT_MANUAL_MAP	0
 // Error Log File
 #define LOG_ERROR_FILE				"debug.log"
 // Config File

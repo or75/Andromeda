@@ -4,7 +4,10 @@
 
 namespace config
 {
-
+	namespace script
+	{
+		extern UINT Timeout;
+	}
 }
 
 namespace source

@@ -2,6 +2,8 @@
 
 #include "../Valve/SDK.hpp"
 
+#include "Config.hpp"
+
 namespace source
 {
 	auto Create() -> bool;
