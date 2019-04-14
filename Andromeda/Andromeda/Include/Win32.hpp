@@ -2,7 +2,6 @@
 
 #include <Windows.h>
 #include <ShlObj.h>
-#include <sys/timeb.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -13,7 +12,6 @@
 #pragma comment(lib,"d3dx9")
 
 #pragma comment(lib,"psapi")
-#pragma comment(lib,"Winmm")
 
 #include "Config.hpp"
 

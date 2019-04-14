@@ -51,53 +51,23 @@ namespace source
 					if ( !script_module )
 						continue;
 
-					//auto script_module_context = module.m_script_context;
-
 					string module_name = script_module->GetName();
 
-					ImColor StatusColor( 255 , 255 , 255 );
+					ImColor script_status_color( 255 , 255 , 255 );
 
 					if ( module.m_enable )
 					{
 						module_name += XorStr( " (enabled)" );
-						StatusColor = ImColor( 0 , 255 , 0 );
-
-						/*if ( script_module_context->GetState() == asEContextState::asEXECUTION_FINISHED )
-						{
-							module_name += XorStr( " (enabled)" );
-							StatusColor = ImColor( 0 , 255 , 0 );
-						}
-						else
-						{
-							StatusColor = ImColor( 255 , 0 , 0 );
-
-							if ( script_module_context->GetState() == asEContextState::asEXECUTION_ACTIVE )
-							{
-								module_name += XorStr( " (active)" );
-								StatusColor = ImColor( 0 , 255 , 0 );
-							}
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_ABORTED )
-								module_name += XorStr( " (aborted)" );
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_ERROR )
-								module_name += XorStr( " (error)" );
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_EXCEPTION )
-								module_name += XorStr( " (exception)" );
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_PREPARED )
-								module_name += XorStr( " (prepared)" );
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_SUSPENDED )
-								module_name += XorStr( " (suspended)" );
-							else if ( script_module_context->GetState() == asEContextState::asEXECUTION_UNINITIALIZED )
-								module_name += XorStr( " (uninitialized)" );
-						}*/
+						script_status_color = ImColor( 0 , 255 , 0 );
 					}
 					else
 					{
 						module_name += XorStr( " (disabled)" );
-						StatusColor = ImColor( 255 , 140 , 0 );
+						script_status_color = ImColor( 255 , 140 , 0 );
 					}
 
 					ImGui::PushStyleVar( ImGuiStyleVar_ButtonTextAlign , ImVec2( 0.f , 0.5f ) );
-					ImGui::PushStyleColor( ImGuiCol_Text , StatusColor.operator ImVec4() );
+					ImGui::PushStyleColor( ImGuiCol_Text , script_status_color.operator ImVec4() );
 
 					module_name = Andromeda::str_wide_to_str_unicode( module_name );
 
@@ -117,7 +87,7 @@ namespace source
 
 					if ( ImGui::BeginMenu( "Options" ) )
 					{
-						ImGui::MenuItem( XorStr( "Enable Script##ModuleList" ) , "" , &module.m_enable );
+						ImGui::MenuItem( XorStr( "Enable Script##ModuleList" ) , 0 , &module.m_enable );
 						ImGui::EndMenu();
 					}
 
@@ -136,12 +106,17 @@ namespace source
 						notify.AddNotification( 5 , feature::nt_success , XorStr( "module (%s) was successfully unloaded" ) , module_name.c_str() );
 					}
 
+					/*if ( ImGui::MenuItem( XorStr( "Edit Script##ModuleList" ) ) )
+					{
+
+					}*/
+
 					ImGui::EndPopup();
 				}
 
 				ImGui::EndChild();
 
-				if ( ImGui::Button( XorStr( "Update list" ) , ImVec2( button_size_x , button_size_y ) ) )
+				if ( ImGui::Button( XorStr( "Refresh list" ) , ImVec2( button_size_x , button_size_y ) ) )
 				{
 					script_manager.UpdateScriptList( true );
 					
@@ -188,17 +163,26 @@ namespace source
 				ImGui::Separator();
 				ImGui::Spacing();
 
-				if ( ButtonIcon( ICON_FA_PALETTE , XorStr( "Colors (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
+				if ( ButtonIcon( ICON_FA_USERS_COG , XorStr( "Config Manager (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) , -4.f ) )
+				{
+					notify.AddNotification( 5 , nt_info , "%s" , "Config Menu Clicked !" );
+				}
+
+				if ( ButtonIcon( ICON_FA_PALETTE , XorStr( "Color Manager (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
 				{
 					notify.AddNotification( 5 , nt_info , "%s" , "Colors Menu Clicked !" );
 				}
 
-				if ( ButtonIcon( ICON_FA_COG , XorStr( "Settings##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::Spacing();
+
+				if ( ButtonIcon( ICON_FA_COG , XorStr( "Settings (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
 				{
 					notify.AddNotification( 5 , nt_info , "%s" , "Settings Menu Clicked !" );
 				}
 
-				if ( ButtonIcon( ICON_FA_INFO_CIRCLE , XorStr( "About##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
+				if ( ButtonIcon( ICON_FA_INFO_CIRCLE , XorStr( "About (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
 				{
 					notify.AddNotification( 5 , nt_info , "%s" , "About Menu Clicked !" );
 				}
@@ -210,13 +194,19 @@ namespace source
 			}
 		}
 
-		auto Menu::ButtonIcon( const char* icon , const char* text , ImVec2 size ) -> bool
+		auto Menu::ButtonIcon( const char* icon , const char* text , ImVec2 size , float icon_offset ) -> bool
 		{
 			auto& gui = feature::Gui::Instance();
+
+			auto old_x_offset = gui.m_font_awesome_icon->DisplayOffset.x;
+
+			gui.m_font_awesome_icon->DisplayOffset.x += icon_offset;
 
 			ImGui::PushFont( gui.m_font_awesome_icon );
 			ImGui::Text( XorStr( "%s" ) , icon );
 			ImGui::PopFont();
+
+			gui.m_font_awesome_icon->DisplayOffset.x = old_x_offset;
 
 			ImGui::SameLine( 40.f );
 

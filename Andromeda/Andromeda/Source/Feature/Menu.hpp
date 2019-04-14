@@ -14,7 +14,7 @@ namespace source
 			auto RenderStartMenu() -> void;
 
 		private:
-			auto ButtonIcon( const char* icon , const char* text , ImVec2 size = ImVec2( -1.f , 0.f ) ) -> bool;
+			auto ButtonIcon( const char* icon , const char* text , ImVec2 size = ImVec2( -1.f , 0.f ) , float icon_offset = 0.f ) -> bool;
 
 		public:
 			float	m_start_width;
