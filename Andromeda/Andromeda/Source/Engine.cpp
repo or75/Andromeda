@@ -211,37 +211,50 @@ namespace source
 
 	bool WorldToScreen( const Vector3& vOrigin , Vector2& vScreen )
 	{
-		static const VMatrix& ViewMatrix = source::m_engine_client->WorldToScreenMatrix();
+		//static auto p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
 
-		Vector2 vTempScreen;
+		//if ( p_view_matrix && !IsBadReadPtr( p_view_matrix , sizeof( PVOID ) ) )
+		//{
+			//if ( IsBadReadPtr( (PVOID)( *(PDWORD)p_view_matrix ) , sizeof( PDWORD ) ) )
+			//	return false;
 
-		vTempScreen[0] = ViewMatrix[0][0] * vOrigin[0] + ViewMatrix[0][1] * vOrigin[1] + ViewMatrix[0][2] * vOrigin[2] + ViewMatrix[0][3];
-		vTempScreen[1] = ViewMatrix[1][0] * vOrigin[0] + ViewMatrix[1][1] * vOrigin[1] + ViewMatrix[1][2] * vOrigin[2] + ViewMatrix[1][3];
+			//VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC );
 
-		float w = ViewMatrix[3][0] * vOrigin[0] + ViewMatrix[3][1] * vOrigin[1] + ViewMatrix[3][2] * vOrigin[2] + ViewMatrix[3][3];
+			//static const VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC ); //  //source::m_engine_client->WorldToScreenMatrix();
+			static const VMatrix& ViewMatrix = source::m_engine_client->WorldToScreenMatrix();
 
-		if ( w < 0.001f )
-			return false;
+			Vector2 vTempScreen;
 
-		float invw = 1.0f / w;
+			vTempScreen[0] = ViewMatrix[0][0] * vOrigin[0] + ViewMatrix[0][1] * vOrigin[1] + ViewMatrix[0][2] * vOrigin[2] + ViewMatrix[0][3];
+			vTempScreen[1] = ViewMatrix[1][0] * vOrigin[0] + ViewMatrix[1][1] * vOrigin[1] + ViewMatrix[1][2] * vOrigin[2] + ViewMatrix[1][3];
 
-		vTempScreen.m_x *= invw;
-		vTempScreen.m_y *= invw;
+			float w = ViewMatrix[3][0] * vOrigin[0] + ViewMatrix[3][1] * vOrigin[1] + ViewMatrix[3][2] * vOrigin[2] + ViewMatrix[3][3];
 
-		int iScreenWidth = 0 , iScreenHeight = 0;
+			if ( w < 0.001f )
+				return false;
 
-		m_engine_client->GetScreenSize( iScreenWidth , iScreenHeight );
+			float invw = 1.0f / w;
 
-		float x = static_cast<float>( iScreenWidth ) / 2.f;
-		float y = static_cast<float>( iScreenHeight ) / 2.f;
+			vTempScreen.m_x *= invw;
+			vTempScreen.m_y *= invw;
 
-		x += 0.5f * vTempScreen[0] * static_cast<float>( iScreenWidth ) + 0.5f;
-		y -= 0.5f * vTempScreen[1] * static_cast<float>( iScreenHeight ) + 0.5f;
+			int iScreenWidth = 0 , iScreenHeight = 0;
 
-		vScreen[0] = x;
-		vScreen[1] = y;
+			m_engine_client->GetScreenSize( iScreenWidth , iScreenHeight );
 
-		return true;
+			float x = static_cast<float>( iScreenWidth ) / 2.f;
+			float y = static_cast<float>( iScreenHeight ) / 2.f;
+
+			x += 0.5f * vTempScreen[0] * static_cast<float>( iScreenWidth ) + 0.5f;
+			y -= 0.5f * vTempScreen[1] * static_cast<float>( iScreenHeight ) + 0.5f;
+
+			vScreen[0] = x;
+			vScreen[1] = y;
+
+			return true;
+		//}
+
+		//return false;
 	}
 
 	bool WorldToScreen( const Vector3& vOrigin , int& x , int& y )

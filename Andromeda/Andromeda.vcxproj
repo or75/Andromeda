@@ -114,18 +114,18 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MinSpace</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;ANDROMEDA_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <DebugInformationFormat>None</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FloatingPointModel>Fast</FloatingPointModel>
       <UseFullPaths>false</UseFullPaths>
     </ClCompile>
@@ -159,6 +159,7 @@
     <ClInclude Include="Andromeda\Andromeda\Log.hpp" />
     <ClInclude Include="Andromeda\Andromeda\Memory.hpp" />
     <ClInclude Include="Andromeda\Include\AngelScript\angelscript.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\as_jit.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\datetime\datetime.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptany\scriptany.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\virtual_asm.h" />
     <ClInclude Include="Andromeda\Include\Auto.hpp" />
     <ClInclude Include="Andromeda\Include\Config.hpp" />
     <ClInclude Include="Andromeda\Include\ImGui\imconfig.h" />
@@ -249,6 +251,7 @@
     <ClCompile Include="Andromeda\Andromeda\Input.cpp" />
     <ClCompile Include="Andromeda\Andromeda\Log.cpp" />
     <ClCompile Include="Andromeda\Andromeda\Memory.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\as_jit.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\datetime\datetime.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptany\scriptany.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.cpp" />
@@ -258,6 +261,8 @@
     <ClCompile Include="Andromeda\Include\AngelScript\scriptmath\scriptmath.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring.cpp" />
     <ClCompile Include="Andromeda\Include\AngelScript\scriptstdstring\scriptstdstring_utils.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\virtual_asm_windows.cpp" />
+    <ClCompile Include="Andromeda\Include\AngelScript\virtual_asm_x86.cpp" />
     <ClCompile Include="Andromeda\Include\ImGui\imgui.cpp" />
     <ClCompile Include="Andromeda\Include\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Andromeda\Include\ImGui\imgui_impl_dx9.cpp" />

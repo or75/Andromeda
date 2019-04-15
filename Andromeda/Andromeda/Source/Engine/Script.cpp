@@ -36,81 +36,60 @@ namespace source
 			}
 		}
 
-		auto ScriptModule::PrepateFunctionContext( asIScriptModule* script_module , const char* function_decl ) -> asIScriptFunction*
+		auto ScriptModule::ExecuteScriptContext( asIScriptContext* script_context ) -> bool
 		{
-			if ( !m_enable )
-				return nullptr;
-
-			auto& script_system = engine::ScriptManager::Instance().m_script_system;
-
-			asIScriptFunction* script_function = script_module->GetFunctionByDecl( function_decl );
-
-			if ( script_function )
-			{
-				m_script_context = script_system->PrepareContextFromPool( script_function );
-
-				//script_context->Unprepare();
-				//script_context->Prepare( script_function );
-
-				return script_function;
-			}
-
-			return nullptr;
-		}
-
-		auto ScriptModule::ExecuteScriptContext( asIScriptModule* script_module ) -> bool
-		{
-			if ( !m_enable || !m_script_context )
+			if ( !m_enable /*|| !m_script_context*/ )
 				return true;
 
-			auto& script_system = engine::ScriptManager::Instance().m_script_system;
+			auto module_name_notifi = Andromeda::str_wide_to_str_unicode( m_script_module->GetName() );
+
 			auto& notify = feature::Notification::Instance();
 
 			m_timeout = GetTickCount() + config::script::Timeout;
-
-			m_script_context->SetLineCallback( asFUNCTION( LineCallback ) , &m_timeout , asCALL_CDECL );
-
-			auto r = m_script_context->Execute();
+			
+			script_context->SetLineCallback( asFUNCTION( LineCallback ) , &m_timeout , asCALL_CDECL );
+			
+			auto r = script_context->Execute();
 
 			if ( r != asEXECUTION_FINISHED )
 			{
 				if ( r == asEXECUTION_EXCEPTION )
 				{
-					notify.AddNotification( 10 , feature::nt_error , XorStr( "(%s) An exception '%s' occurred. The script was forcibly disabled.\n" ) , script_module->GetName() , m_script_context->GetExceptionString() );
+					notify.AddNotification( 10 , feature::nt_error , XorStr( "(%s) An exception '%s' occurred. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() , script_context->GetExceptionString() );
 					
-					Andromeda::WriteDebugLog( XorStr( "[error] (%s) An exception '%s' occurred. The script was forcibly disabled.\n" ) , script_module->GetName() , m_script_context->GetExceptionString() );
+					Andromeda::WriteDebugLog( XorStr( "[error] (%s) An exception '%s' occurred. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() , script_context->GetExceptionString() );
 
-					asIScriptFunction* script_function_exception = m_script_context->GetExceptionFunction();
+					asIScriptFunction* script_function_exception = script_context->GetExceptionFunction();
 
 					if ( script_function_exception )
 					{
 						Andromeda::WriteDebugLog( XorStr( "declaration: %s\n" ) , script_function_exception->GetDeclaration() );
 						Andromeda::WriteDebugLog( XorStr( "module: %s\n" ) , script_function_exception->GetModuleName() );
 						Andromeda::WriteDebugLog( XorStr( "section: %s\n" ) , script_function_exception->GetScriptSectionName() );
-						Andromeda::WriteDebugLog( XorStr( "line: %i\n" ) , m_script_context->GetExceptionLineNumber() );
+						Andromeda::WriteDebugLog( XorStr( "line: %i\n" ) , script_context->GetExceptionLineNumber() );
 					}
 				}
 				else if ( r == asEXECUTION_ERROR )
 				{
-					notify.AddNotification( 10 , feature::nt_error , XorStr( "(%s) An error '%s' occurred. The script was forcibly disabled.\n" ) , script_module->GetName() , m_script_context->GetExceptionString() );
+					notify.AddNotification( 10 , feature::nt_error , XorStr( "(%s) An error '%s' occurred. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() , script_context->GetExceptionString() );
 					
-					Andromeda::WriteDebugLog( XorStr( "[error] (%s) An error '%s' occurred. The script was forcibly disabled.\n" ) , script_module->GetName() , m_script_context->GetExceptionString() );
+					Andromeda::WriteDebugLog( XorStr( "[error] (%s) An error '%s' occurred. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() , script_context->GetExceptionString() );
 				}
 				else if ( r == asEXECUTION_ABORTED )
 				{
-					notify.AddNotification( 10 , feature::nt_warning , XorStr( "Module (%s) context aborted. The script was forcibly disabled.\n" ) , script_module->GetName() );
+					notify.AddNotification( 10 , feature::nt_warning , XorStr( "Module (%s) context aborted. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() );
 					
-					Andromeda::WriteDebugLog( XorStr( "[warning] Module (%s) context aborted. The script was forcibly disabled.\n" ) , script_module->GetName() );
+					Andromeda::WriteDebugLog( XorStr( "[warning] Module (%s) context aborted. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() );
 				}
-
-				script_system->ReturnContextToPool( m_script_context );
 
 				m_enable = false;
 
 				return false;
 			}
 
-			script_system->ReturnContextToPool( m_script_context );
+			script_context->Unprepare();
+
+			ReturnContextToPool( script_context );
 
 			return true;
 		}
@@ -121,10 +100,13 @@ namespace source
 
 			if ( m_script_engine )
 			{
-				m_script_context = nullptr;
+				m_enable = true;
 				m_script_module = script_module;
 
-				m_enable = true;
+				/*m_script_context_init = m_script_engine->CreateContext();
+				m_script_context_render = m_script_engine->CreateContext();
+				m_script_context_event = m_script_engine->CreateContext();
+				m_script_context_move = m_script_engine->CreateContext();*/
 			}
 		}
 
@@ -133,10 +115,16 @@ namespace source
 			if ( !m_script_module || !m_enable )
 				return false;
 
-			asIScriptFunction* script_function = PrepateFunctionContext( m_script_module , XorStr( "void Init()" ) );
+			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void Init()" ) );
 
 			if ( script_function )
-				return ExecuteScriptContext( m_script_module );
+			{
+				//m_script_context_init->Prepare( script_function );
+				m_script_context_init = PrepareContextFromPool( script_function );
+				
+				if ( m_script_context_init )
+					return ExecuteScriptContext( m_script_context_init );
+			}
 
 			return false;
 		}
@@ -146,10 +134,16 @@ namespace source
 			if ( !m_script_module || !m_enable )
 				return false;
 
-			asIScriptFunction* script_function = PrepateFunctionContext( m_script_module , XorStr( "void Render()" ) );
+			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void Render()" ) );
 
 			if ( script_function )
-				return ExecuteScriptContext( m_script_module );
+			{
+				//m_script_context_render->Prepare( script_function );
+				m_script_context_render = PrepareContextFromPool( script_function );
+
+				if ( m_script_context_render )
+					return ExecuteScriptContext( m_script_context_render );
+			}
 
 			return false;
 		}
@@ -159,13 +153,19 @@ namespace source
 			if ( !m_script_module || !m_enable )
 				return false;
 
-			asIScriptFunction* script_function = PrepateFunctionContext( m_script_module , XorStr( "void FireGameEvent(IGameEvent@)" ) );
+			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void FireGameEvent(IGameEvent@)" ) );
 
 			if ( script_function )
-			{		
-				m_script_context->SetArgObject( 0 , pEvent );
+			{
+				//m_script_context_event->Prepare( script_function );
+				m_script_context_event = PrepareContextFromPool( script_function );
+				
+				if ( m_script_context_event )
+				{
+					m_script_context_event->SetArgObject( 0 , pEvent );
 
-				return ExecuteScriptContext( m_script_module );
+					return ExecuteScriptContext( m_script_context_event );
+				}
 			}
 
 			return false;
@@ -176,29 +176,64 @@ namespace source
 			if ( !m_script_module || !m_enable )
 				return false;
 
-			asIScriptFunction* script_function = PrepateFunctionContext( m_script_module , XorStr( "void CreateMove(float,CUserCmd@)" ) );
+			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void CreateMove(float,CUserCmd@)" ) );
 
 			if ( script_function )
 			{
-				m_script_context->SetArgFloat( 0 , flInputSampleTime );
-				m_script_context->SetArgObject( 1 , pCmd );
+				//m_script_context_move->Prepare( script_function );
+				m_script_context_move = PrepareContextFromPool( script_function );
+				
+				if ( m_script_context_move )
+				{
+					m_script_context_move->SetArgFloat( 0 , flInputSampleTime );
+					m_script_context_move->SetArgObject( 1 , pCmd );
 
-				return ExecuteScriptContext( m_script_module );
+					return ExecuteScriptContext( m_script_context_move );
+				}
 			}
 
 			return false;
 		}
 
+		auto ScriptModule::PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*
+		{
+			asIScriptContext* script_context = nullptr;
+			asIScriptEngine* script_engine = m_script_module->GetEngine();
+
+			if ( m_contexts_list.size() )
+			{
+				script_context = *m_contexts_list.rbegin();
+				m_contexts_list.pop_back();
+			}
+			else
+				script_context = script_engine->CreateContext();
+
+			script_context->Prepare( script_function );
+
+			return script_context;
+		}
+
+		auto ScriptModule::ReturnContextToPool( asIScriptContext* script_context ) -> void
+		{
+			script_context->Unprepare();
+
+			m_contexts_list.push_back( script_context );
+		}
+
 		auto ScriptModule::Unload() -> void
 		{
 			m_enable = false;
+
 			m_script_module = nullptr;
+			//m_script_context = nullptr;
+
+			m_contexts_list.clear();
 		}
 
 		auto ScriptSystem::Create() -> bool
 		{
 			m_script_engine = asCreateScriptEngine();
-
+	
 			if ( !m_script_engine )
 				return false;
 
@@ -288,39 +323,8 @@ namespace source
 		{
 			for ( auto& module : m_module_list )
 				module.Unload();
-			
-			for ( auto& context : m_contexts_list )
-			{
-				context->Suspend();
-				context->Release();
-			}
-			
+
 			m_module_list.clear();
-			m_contexts_list.clear();
-		}
-
-		auto ScriptSystem::PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*
-		{
-			asIScriptContext* m_script_context = nullptr;
-
-			if ( m_contexts_list.size() )
-			{
-				m_script_context = *m_contexts_list.rbegin();
-				m_contexts_list.pop_back();
-			}
-			else
-				m_script_context = m_script_engine->CreateContext();
-
-			m_script_context->Prepare( script_function );
-
-			return m_script_context;
-		}
-
-		auto ScriptSystem::ReturnContextToPool( asIScriptContext* script_context ) -> void
-		{
-			script_context->Unprepare();
-
-			m_contexts_list.push_back( script_context );
 		}
 
 		auto ScriptManager::Create() -> bool

@@ -348,6 +348,12 @@
     <ClInclude Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.h">
       <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
     </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\as_jit.h">
+      <Filter>Andromeda\Include\AngelScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\virtual_asm.h">
+      <Filter>Andromeda\Include\AngelScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Andromeda\Main\Main.cpp">
@@ -481,6 +487,15 @@
     </ClCompile>
     <ClCompile Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.cpp">
       <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\as_jit.cpp">
+      <Filter>Andromeda\Include\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\virtual_asm_windows.cpp">
+      <Filter>Andromeda\Include\AngelScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Include\AngelScript\virtual_asm_x86.cpp">
+      <Filter>Andromeda\Include\AngelScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

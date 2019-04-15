@@ -13,21 +13,29 @@ namespace source
 		public:
 			ScriptModule( asIScriptModule* script_module );
 
-			auto PrepateFunctionContext( asIScriptModule* script_module , const char* function_decl ) -> asIScriptFunction*;
-			auto ExecuteScriptContext( asIScriptModule* script_module ) -> bool;
+			auto ExecuteScriptContext( asIScriptContext* script_context ) -> bool;
 
 			auto CallInit() -> bool;
 			auto CallRender() -> bool;
 			auto CallFireGameEvent( IGameEvent* pEvent ) -> bool;
 			auto CallCreateMove( float flInputSampleTime , CUserCmd* pCmd ) -> bool;
 
+			auto PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*;
+			auto ReturnContextToPool( asIScriptContext* script_context ) -> void;
+
 			auto Unload() -> void;
 
 		public:
 			bool				m_enable;
 			DWORD				m_timeout;
-			asIScriptContext*	m_script_context;
 			asIScriptModule*	m_script_module;
+
+			asIScriptContext*	m_script_context_init;
+			asIScriptContext*	m_script_context_render;
+			asIScriptContext*	m_script_context_event;
+			asIScriptContext*	m_script_context_move;
+
+			vector<asIScriptContext*>	m_contexts_list;
 		};
 
 		class ScriptSystem
@@ -41,13 +49,9 @@ namespace source
 
 			auto UnloadAll() -> void;
 
-			auto PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*;
-			auto ReturnContextToPool( asIScriptContext* script_context ) -> void;
-
 		public:
-			vector<asIScriptContext*>	m_contexts_list;
-			vector<ScriptModule>		m_module_list;
-			asIScriptEngine*			m_script_engine;		
+			vector<ScriptModule>	m_module_list;
+			asIScriptEngine*	m_script_engine;
 		};
 
 		class ScriptManager : public Singleton<ScriptManager>

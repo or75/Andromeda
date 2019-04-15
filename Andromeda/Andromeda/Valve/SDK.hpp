@@ -341,7 +341,8 @@ enum CSWeaponType
 
 enum EntityClassId
 {
-	CItem = 0 ,	CAI_BaseNPC = 0 ,
+	CItem = 0 ,
+	CAI_BaseNPC = 0 ,
 	CPropVehicleChoreoGeneric = 0 ,
 	CWeaponCubemap = 0 ,
 	CItemAssaultSuitUseable = 0 ,
