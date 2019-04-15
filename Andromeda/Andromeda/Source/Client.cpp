@@ -103,6 +103,6 @@ namespace source
 
 	auto OnCreateMove( float flInputSampleTime , CUserCmd* pCmd ) -> void
 	{
-		engine::ScriptManager::Instance().OnCreateMove( flInputSampleTime , pCmd );
+		engine::ScriptManager::Instance().OnCreateMove( pCmd );
 	}
 }

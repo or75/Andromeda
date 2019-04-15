@@ -218,8 +218,6 @@ namespace source
 			//if ( IsBadReadPtr( (PVOID)( *(PDWORD)p_view_matrix ) , sizeof( PDWORD ) ) )
 			//	return false;
 
-			//VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC );
-
 			//static const VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC ); //  //source::m_engine_client->WorldToScreenMatrix();
 			static const VMatrix& ViewMatrix = source::m_engine_client->WorldToScreenMatrix();
 

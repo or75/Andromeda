@@ -23,6 +23,7 @@ using namespace std;
 #include "ImGui/imgui_impl_win32.h"
 
 #include "AngelScript/angelscript.h"
+#include "AngelScript/as_jit.h"
 
 #include "AngelScript/datetime/datetime.h"
 #include "AngelScript/scriptany/scriptany.h"

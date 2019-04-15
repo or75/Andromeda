@@ -38,7 +38,7 @@ namespace source
 
 		auto ScriptModule::ExecuteScriptContext( asIScriptContext* script_context ) -> bool
 		{
-			if ( !m_enable /*|| !m_script_context*/ )
+			if ( !m_enable || !script_context )
 				return true;
 
 			auto module_name_notifi = Andromeda::str_wide_to_str_unicode( m_script_module->GetName() );
@@ -89,8 +89,6 @@ namespace source
 
 			script_context->Unprepare();
 
-			ReturnContextToPool( script_context );
-
 			return true;
 		}
 
@@ -103,139 +101,91 @@ namespace source
 				m_enable = true;
 				m_script_module = script_module;
 
-				/*m_script_context_init = m_script_engine->CreateContext();
-				m_script_context_render = m_script_engine->CreateContext();
-				m_script_context_event = m_script_engine->CreateContext();
-				m_script_context_move = m_script_engine->CreateContext();*/
+				m_script_function_init = m_script_module->GetFunctionByDecl( XorStr( "void Init()" ) );
+				m_script_function_render = m_script_module->GetFunctionByDecl( XorStr( "void Render()" ) );
+				m_script_function_event = m_script_module->GetFunctionByDecl( XorStr( "void FireGameEvent(IGameEvent@)" ) );
+				m_script_function_move = m_script_module->GetFunctionByDecl( XorStr( "void CreateMove(CUserCmd@)" ) );
 			}
 		}
 
-		auto ScriptModule::CallInit() -> bool
+		auto ScriptModule::CallInit( asIScriptContext* script_context ) -> bool
 		{
-			if ( !m_script_module || !m_enable )
+			if ( !m_enable || !m_script_function_init )
 				return false;
 
-			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void Init()" ) );
-
-			if ( script_function )
+			if ( script_context )
 			{
-				//m_script_context_init->Prepare( script_function );
-				m_script_context_init = PrepareContextFromPool( script_function );
+				script_context->Prepare( m_script_function_init );
+
+				return ExecuteScriptContext( script_context );
+			}
+
+			return false;
+		}
+
+		auto ScriptModule::CallRender( asIScriptContext* script_context ) -> bool
+		{
+			if ( !m_enable || !m_script_function_render )
+				return false;
+
+			if ( script_context )
+			{
+				script_context->Prepare( m_script_function_render );
+
+				return ExecuteScriptContext( script_context );
+			}
+
+			return false;
+		}
+
+		auto ScriptModule::CallFireGameEvent( asIScriptContext* script_context , IGameEvent* pEvent ) -> bool
+		{
+			if ( !m_enable || !m_script_function_event )
+				return false;
+
+			if ( script_context )
+			{
+				script_context->Prepare( m_script_function_event );
+				script_context->SetArgObject( 0 , pEvent );
 				
-				if ( m_script_context_init )
-					return ExecuteScriptContext( m_script_context_init );
+				return ExecuteScriptContext( script_context );
 			}
 
 			return false;
 		}
 
-		auto ScriptModule::CallRender() -> bool
+		auto source::engine::ScriptModule::CallCreateMove( asIScriptContext* script_context , CUserCmd* pCmd ) -> bool
 		{
-			if ( !m_script_module || !m_enable )
+			if ( !m_enable || !m_script_function_move )
 				return false;
 
-			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void Render()" ) );
-
-			if ( script_function )
+			if (  script_context )
 			{
-				//m_script_context_render->Prepare( script_function );
-				m_script_context_render = PrepareContextFromPool( script_function );
+				script_context->Prepare( m_script_function_move );
+				script_context->SetArgObject( 0 , pCmd );
 
-				if ( m_script_context_render )
-					return ExecuteScriptContext( m_script_context_render );
+				return ExecuteScriptContext( script_context );
 			}
 
 			return false;
-		}
-
-		auto ScriptModule::CallFireGameEvent( IGameEvent* pEvent ) -> bool
-		{
-			if ( !m_script_module || !m_enable )
-				return false;
-
-			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void FireGameEvent(IGameEvent@)" ) );
-
-			if ( script_function )
-			{
-				//m_script_context_event->Prepare( script_function );
-				m_script_context_event = PrepareContextFromPool( script_function );
-				
-				if ( m_script_context_event )
-				{
-					m_script_context_event->SetArgObject( 0 , pEvent );
-
-					return ExecuteScriptContext( m_script_context_event );
-				}
-			}
-
-			return false;
-		}
-
-		auto source::engine::ScriptModule::CallCreateMove( float flInputSampleTime , CUserCmd* pCmd ) -> bool
-		{
-			if ( !m_script_module || !m_enable )
-				return false;
-
-			asIScriptFunction* script_function = m_script_module->GetFunctionByDecl( XorStr( "void CreateMove(float,CUserCmd@)" ) );
-
-			if ( script_function )
-			{
-				//m_script_context_move->Prepare( script_function );
-				m_script_context_move = PrepareContextFromPool( script_function );
-				
-				if ( m_script_context_move )
-				{
-					m_script_context_move->SetArgFloat( 0 , flInputSampleTime );
-					m_script_context_move->SetArgObject( 1 , pCmd );
-
-					return ExecuteScriptContext( m_script_context_move );
-				}
-			}
-
-			return false;
-		}
-
-		auto ScriptModule::PrepareContextFromPool( asIScriptFunction* script_function ) -> asIScriptContext*
-		{
-			asIScriptContext* script_context = nullptr;
-			asIScriptEngine* script_engine = m_script_module->GetEngine();
-
-			if ( m_contexts_list.size() )
-			{
-				script_context = *m_contexts_list.rbegin();
-				m_contexts_list.pop_back();
-			}
-			else
-				script_context = script_engine->CreateContext();
-
-			script_context->Prepare( script_function );
-
-			return script_context;
-		}
-
-		auto ScriptModule::ReturnContextToPool( asIScriptContext* script_context ) -> void
-		{
-			script_context->Unprepare();
-
-			m_contexts_list.push_back( script_context );
 		}
 
 		auto ScriptModule::Unload() -> void
 		{
 			m_enable = false;
-
 			m_script_module = nullptr;
-			//m_script_context = nullptr;
-
-			m_contexts_list.clear();
 		}
 
 		auto ScriptSystem::Create() -> bool
 		{
 			m_script_engine = asCreateScriptEngine();
+			m_script_jit = new asCJITCompiler( 0 );
 	
 			if ( !m_script_engine )
 				return false;
+
+			m_script_engine->SetEngineProperty( asEP_INCLUDE_JIT_INSTRUCTIONS , 1 );
+			m_script_engine->SetJITCompiler( m_script_jit );
 
 			m_script_engine->SetMessageCallback( asFUNCTION( MessageCallback ) , 0 , asCALL_CDECL );
 
@@ -259,6 +209,8 @@ namespace source
 
 			m_script_engine->ClearMessageCallback();
 			m_script_engine->ShutDownAndRelease();
+
+			delete m_script_jit;
 		}
 
 		auto ScriptSystem::BuildModule( string file_name , string module_name ) -> ScriptModule*
@@ -334,6 +286,11 @@ namespace source
 			if ( m_script_system->Create() )
 			{
 				m_script_dir = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( "script\\" );
+
+				m_script_context_init = m_script_system->m_script_engine->CreateContext();
+				m_script_context_render = m_script_system->m_script_engine->CreateContext();
+				m_script_context_event = m_script_system->m_script_engine->CreateContext();
+				m_script_context_move = m_script_system->m_script_engine->CreateContext();
 				
 				UpdateScriptList();
 
@@ -363,7 +320,9 @@ namespace source
 				for ( auto& csgo_script : m_script_system->m_module_list )
 				{
 					if ( csgo_script.m_enable )
-						auto call_ok = csgo_script.CallInit();
+					{
+						auto call_ok = csgo_script.CallInit( m_script_context_init );
+					}
 				}
 			}
 		}
@@ -375,7 +334,9 @@ namespace source
 				for ( auto& csgo_script : m_script_system->m_module_list )
 				{
 					if ( csgo_script.m_enable )
-						auto call_ok = csgo_script.CallRender();
+					{
+						auto call_ok = csgo_script.CallRender( m_script_context_render );
+					}
 				}
 			}
 		}
@@ -387,19 +348,23 @@ namespace source
 				for ( auto& csgo_script : m_script_system->m_module_list )
 				{
 					if ( csgo_script.m_enable )
-						auto call_ok = csgo_script.CallFireGameEvent( pEvent );
+					{
+						auto call_ok = csgo_script.CallFireGameEvent( m_script_context_event , pEvent );
+					}
 				}
 			}
 		}
 
-		auto source::engine::ScriptManager::OnCreateMove( float flInputSampleTime , CUserCmd* pCmd ) -> void
+		auto source::engine::ScriptManager::OnCreateMove( CUserCmd* pCmd ) -> void
 		{
 			if ( m_script_system )
 			{
 				for ( auto& csgo_script : m_script_system->m_module_list )
 				{
 					if ( csgo_script.m_enable )
-						auto call_ok = csgo_script.CallCreateMove( flInputSampleTime , pCmd );
+					{
+						auto call_ok = csgo_script.CallCreateMove( m_script_context_move , pCmd );
+					}
 				}
 			}
 		}
@@ -445,9 +410,11 @@ namespace source
 							{
 								m_script_system->AddModule( script_module );
 
+								m_script_system->m_script_jit->finalizePages();
+
 								if ( call_new_init )
 								{
-									script_module->CallInit();
+									auto call_ok = script_module->CallInit( m_script_context_init );
 								}
 							}
 						}
@@ -456,6 +423,8 @@ namespace source
 
 				FindClose( hSearch );
 			}
+
+			//m_script_system->m_script_jit->finalizePages();
 
 			// copy sounds
 			string script_sound_dir = m_script_dir + XorStr( "sound\\" );
