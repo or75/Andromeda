@@ -47,7 +47,7 @@ namespace source
 		public:
 			vector<ScriptModule>	m_module_list;
 			asIScriptEngine*		m_script_engine;
-			asCJITCompiler*			m_script_jit;
+			//asCJITCompiler*		m_script_jit;
 		};
 
 		class ScriptManager : public Singleton<ScriptManager>

@@ -211,15 +211,15 @@ namespace source
 
 	bool WorldToScreen( const Vector3& vOrigin , Vector2& vScreen )
 	{
-		//static auto p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
+		if ( !source::m_engine_client->IsInGame() )
+			return false;
 
-		//if ( p_view_matrix && !IsBadReadPtr( p_view_matrix , sizeof( PVOID ) ) )
-		//{
-			//if ( IsBadReadPtr( (PVOID)( *(PDWORD)p_view_matrix ) , sizeof( PDWORD ) ) )
-			//	return false;
+		auto p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
 
-			//static const VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC ); //  //source::m_engine_client->WorldToScreenMatrix();
-			static const VMatrix& ViewMatrix = source::m_engine_client->WorldToScreenMatrix();
+		if ( p_view_matrix && *(PDWORD)p_view_matrix > 1 )
+		{
+			const VMatrix& ViewMatrix = *(VMatrix*)( ( *(PDWORD)p_view_matrix ) + 0x3DC ); //  //source::m_engine_client->WorldToScreenMatrix();
+			//static const VMatrix& ViewMatrix = source::m_engine_client->WorldToScreenMatrix();
 
 			Vector2 vTempScreen;
 
@@ -250,14 +250,17 @@ namespace source
 			vScreen[1] = y;
 
 			return true;
-		//}
+		}
 
-		//return false;
+		return false;
 	}
 
 	bool WorldToScreen( const Vector3& vOrigin , int& x , int& y )
 	{
 		Vector2 vScreen;
+
+		x = 0;
+		y = 0;
 
 		if ( WorldToScreen( vOrigin , vScreen ) )
 		{
@@ -266,9 +269,6 @@ namespace source
 
 			return true;
 		}
-
-		x = 0;
-		y = 0;
 
 		return false;
 	}

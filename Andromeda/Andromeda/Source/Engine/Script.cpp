@@ -11,6 +11,10 @@ namespace source
 		{
 			if ( *time_out < GetTickCount() )
 			{
+				Andromeda::WriteDebugLog( "[LineCallback] (%s) Timeout: %s\n" , 
+										  script_context->GetFunction()->GetModuleName() ,
+										  script_context->GetFunction()->GetDeclaration() );
+
 				script_context->Abort();
 			}
 		}
@@ -82,7 +86,7 @@ namespace source
 					Andromeda::WriteDebugLog( XorStr( "[warning] Module (%s) context aborted. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() );
 				}
 
-				m_enable = false;
+				//m_enable = false;
 
 				return false;
 			}
@@ -179,13 +183,13 @@ namespace source
 		auto ScriptSystem::Create() -> bool
 		{
 			m_script_engine = asCreateScriptEngine();
-			m_script_jit = new asCJITCompiler( 0 );
+			//m_script_jit = new asCJITCompiler( 0 );
 	
 			if ( !m_script_engine )
 				return false;
 
-			m_script_engine->SetEngineProperty( asEP_INCLUDE_JIT_INSTRUCTIONS , 1 );
-			m_script_engine->SetJITCompiler( m_script_jit );
+			//m_script_engine->SetEngineProperty( asEP_INCLUDE_JIT_INSTRUCTIONS , 1 );
+			//m_script_engine->SetJITCompiler( m_script_jit );
 
 			m_script_engine->SetMessageCallback( asFUNCTION( MessageCallback ) , 0 , asCALL_CDECL );
 
@@ -210,7 +214,7 @@ namespace source
 			m_script_engine->ClearMessageCallback();
 			m_script_engine->ShutDownAndRelease();
 
-			delete m_script_jit;
+			//delete m_script_jit;
 		}
 
 		auto ScriptSystem::BuildModule( string file_name , string module_name ) -> ScriptModule*
@@ -306,6 +310,18 @@ namespace source
 
 			if ( m_script_system )
 			{
+				m_script_context_init->Release();
+				m_script_context_init = nullptr;
+
+				m_script_context_render->Release();
+				m_script_context_render = nullptr;
+
+				m_script_context_event->Release();
+				m_script_context_event = nullptr;
+
+				m_script_context_move->Release();
+				m_script_context_move = nullptr;
+
 				m_script_system->Destroy();
 				m_script_system = nullptr;
 			}
@@ -410,7 +426,7 @@ namespace source
 							{
 								m_script_system->AddModule( script_module );
 
-								m_script_system->m_script_jit->finalizePages();
+								//m_script_system->m_script_jit->finalizePages();
 
 								if ( call_new_init )
 								{

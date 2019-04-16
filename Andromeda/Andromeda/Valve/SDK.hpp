@@ -87,6 +87,8 @@ namespace index
 	{
 		constexpr auto EnableInput = 11;
 		constexpr auto IsButtonDown = 15;
+		constexpr auto GetButtonPressedTick = 16;
+		constexpr auto GetButtonReleasedTick = 17;
 		constexpr auto ButtonCodeToString = 40;
 		constexpr auto StringToButtonCode = 42;
 		constexpr auto VirtualKeyToButtonCode = 45;
@@ -1643,6 +1645,16 @@ public:
 	{
 		VirtualFn( bool )( PVOID , int );
 		return Andromeda::Memory::vget< Fn >( this , index::IInputSystem::IsButtonDown )( this , code );
+	}
+	auto GetButtonPressedTick( int code ) -> int
+	{
+		VirtualFn( int )( PVOID , int );
+		return Andromeda::Memory::vget< Fn >( this , index::IInputSystem::GetButtonPressedTick )( this , code );
+	}
+	auto GetButtonReleasedTick( int code ) -> int
+	{
+		VirtualFn( int )( PVOID , int );
+		return Andromeda::Memory::vget< Fn >( this , index::IInputSystem::GetButtonReleasedTick )( this , code );
 	}
 	auto ButtonCodeToString( int code ) -> string
 	{

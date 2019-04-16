@@ -864,6 +864,8 @@ namespace source
 
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "void EnableInput(bool)" ) , asMETHOD( IInputSystem , EnableInput ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "bool IsButtonDown(int)" ) , asMETHOD( IInputSystem , IsButtonDown ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "int GetButtonPressedTick(int)" ) , asMETHOD( IInputSystem , GetButtonPressedTick ) , asCALL_THISCALL );
+				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "int GetButtonReleasedTick(int)" ) , asMETHOD( IInputSystem , GetButtonReleasedTick ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "string ButtonCodeToString(int)" ) , asMETHOD( IInputSystem , ButtonCodeToString ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "int StringToButtonCode(string)" ) , asMETHOD( IInputSystem , StringToButtonCode ) , asCALL_THISCALL );
 				script_engine->RegisterObjectMethod( XorStr( "IInputSystem" ) , XorStr( "int VirtualKeyToButtonCode(int)" ) , asMETHOD( IInputSystem , VirtualKeyToButtonCode ) , asCALL_THISCALL );
