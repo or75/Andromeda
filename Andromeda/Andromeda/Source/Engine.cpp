@@ -214,7 +214,7 @@ namespace source
 		if ( !source::m_engine_client->IsInGame() )
 			return false;
 
-		auto p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
+		static auto p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
 
 		if ( p_view_matrix && *(PDWORD)p_view_matrix > 1 )
 		{
@@ -251,6 +251,8 @@ namespace source
 
 			return true;
 		}
+		else
+			p_view_matrix = (PVOID)( reinterpret_cast<DWORD>( &source::m_engine_client->WorldToScreenMatrix() ) + 0x40 );
 
 		return false;
 	}
