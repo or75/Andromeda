@@ -19,7 +19,15 @@ namespace source
 			auto GetArrayEntry( const string& array_name ) -> RecvTable*;
 
 		private:
+			struct StoredPropData
+			{
+				//RecvProp* prop_ptr = nullptr;
+				uint16_t class_relative_offset = 0;
+			};
+
+		private:
 			vector< RecvTable* > m_recv_array = { };
+			map<uint32_t , StoredPropData> m_props = { };
 		};
 	}
 }

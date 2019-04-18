@@ -292,17 +292,20 @@ namespace source
 			vsprintf_s( buffer , text , args );
 			va_end( args );
 
-			auto w = 0 , h = 0;
+			if ( font_align != FONT_RENDER_RIGHT )
+			{
+				auto w = 0 , h = 0;
 
-			pFont->GetTextSize( buffer , w , h );
+				pFont->GetTextSize( buffer , w , h );
 
-			if ( font_align & FONT_RENDER_LEFT )
-				x -= w;
-			else if ( font_align & FONT_RENDER_CENTER_H )
-				x -= w / 2;
+				if ( font_align & FONT_RENDER_LEFT )
+					x -= w;
+				else if ( font_align & FONT_RENDER_CENTER_H )
+					x -= w / 2;
 
-			if ( font_align & FONT_RENDER_CENTER_V )
-				y -= h / 2;
+				if ( font_align & FONT_RENDER_CENTER_V )
+					y -= h / 2;
+			}
 
 			m_direct_device->SetFVF( D3DFVF_CUSTOM_TEXT );
 

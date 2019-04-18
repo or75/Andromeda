@@ -168,6 +168,32 @@ namespace source
 			notify.AddNotification( show_sec , ( feature::notify_type )type , message.c_str() );
 		}
 
+		auto asGetEntityArrayByClassId( int class_id ) -> CScriptArray*
+		{
+			asIScriptContext* ctx = asGetActiveContext();
+			
+			if ( ctx )
+			{
+				asIScriptEngine* engine = ctx->GetEngine();
+				asITypeInfo* arr_type = engine->GetTypeInfoByDecl( "array<IClientEntity@>" );
+				CScriptArray* arr = CScriptArray::Create( arr_type );
+
+				for ( int ent_idx = 0; ent_idx < m_client_entity_list->GetHighestEntityIndex(); ent_idx++ )
+				{
+					auto pEntity = m_client_entity_list->GetClientEntity( ent_idx );
+
+					if ( pEntity && pEntity->GetClientClass()->m_ClassID == class_id )
+					{
+						arr->InsertLast( &pEntity );
+					}
+				}
+
+				return arr;
+			}
+
+			return nullptr;
+		}
+
 #pragma endregion
 
 #pragma region Vector2
@@ -971,6 +997,8 @@ namespace source
 
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,Vector2 &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , Vector2& ) , bool ) , asCALL_CDECL );
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );
+			
+				script_engine->RegisterGlobalFunction( XorStr( "array<IClientEntity@>@ GetEntityArrayByClassId(uint)" ) , asFUNCTION( asGetEntityArrayByClassId ) , asCALL_CDECL );
 			}
 		}
 	}

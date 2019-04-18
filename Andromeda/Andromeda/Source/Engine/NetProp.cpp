@@ -4,6 +4,19 @@ namespace source
 {
 	namespace engine
 	{
+		uint32_t crc32c( const char* s )
+		{
+			int i = 0;
+			uint32_t crc = 0;
+			do
+			{
+				crc ^= (uint8_t)( *s++ | 0x20 );
+				for ( i = 0; i < 8; i++ )
+					crc = ( crc >> 1 ) ^ ( 0x82F63B78 * ( crc & 1 ) );
+			} while ( *( s - 1 ) != 0 );
+			return crc;
+		}
+
 		auto NetProp::Create( IBaseClientDLL* base_client ) -> bool
 		{
 			m_recv_array.clear();
@@ -27,13 +40,37 @@ namespace source
 			m_recv_array.clear();
 		}
 
-		auto NetProp::Get( const string & array_name , const string & prop_name , RecvProp * *prop_out /*= nullptr*/ ) -> int
+		auto NetProp::Get( const string& array_name , const string& prop_name , RecvProp** prop_out /*= nullptr*/ ) -> int
 		{
-			auto array_entry = GetArrayEntry( array_name );
-			return Get( array_entry , prop_name , prop_out );
+			auto hash_name = array_name + "->" + prop_name;
+			auto hash = crc32c( hash_name.c_str() );
+
+			if ( m_props.find( hash ) != m_props.end() )
+			{
+				return m_props[hash].class_relative_offset;
+			}
+			else
+			{
+				//Andromeda::WriteDebugLog( "AddHashProp (%s) (0x%X)\n" , hash_name.c_str() , hash );
+
+				RecvProp* local_prop = nullptr;
+
+				auto array_entry = GetArrayEntry( array_name );
+				auto offset = Get( array_entry , prop_name , &local_prop );
+			
+				if ( prop_out )
+					*prop_out = local_prop;
+
+				//m_props[hash].prop_ptr = local_prop;
+				m_props[hash].class_relative_offset = offset;
+
+				return offset;
+			}
+
+			return 0;
 		}
 
-		auto NetProp::Get( RecvTable * recv_entry , const string & prop_name , RecvProp * *prop_out /*= nullptr*/ ) -> int
+		auto NetProp::Get( RecvTable* recv_entry , const string& prop_name , RecvProp** prop_out /*= nullptr*/ ) -> int
 		{
 			if ( !recv_entry )
 				return 0;
@@ -56,7 +93,7 @@ namespace source
 				if ( !prop_name.compare( prop->m_pVarName ) )
 				{
 					if ( prop_out )
-						* prop_out = prop;
+						*prop_out = prop;
 
 					return ( prop->m_Offset + extra );
 				}

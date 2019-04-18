@@ -250,9 +250,7 @@ public:
 	template<typename T>
 	auto SetNetProp( T value , string dt_name , string prop ) -> void
 	{
-		static auto offset = 0;
-
-		offset = source::engine::NetProp::Instance().Get( dt_name , prop );
+		auto offset = source::engine::NetProp::Instance().Get( dt_name , prop );
 
 		if ( offset )
 			*(T*)( this + offset ) = value;
@@ -261,29 +259,33 @@ public:
 	template<typename T>
 	auto GetNetProp( string dt_name , string prop , DWORD custom_offset = 0 ) -> T
 	{
-		static auto offset = 0;
-		
-		offset = source::engine::NetProp::Instance().Get( dt_name , prop );
-
-		if ( offset && !custom_offset )
-			return *(T*)( this + offset );
-		else
+		if ( custom_offset )
 			return *(T*)( this + custom_offset );
+		else
+		{
+			auto offset = source::engine::NetProp::Instance().Get( dt_name , prop );
+
+			//Andromeda::WriteDebugLog( "GetNetProp (%s) (0x%X)\n" , prop.c_str() , offset );
+
+			if ( offset )
+				return *(T*)( this + offset );
+		}
 
 		return (T)0;
 	}
 
 	string GetNetPropString( string dt_name , string prop , DWORD custom_offset = 0 )
 	{
-		static auto offset = 0;
-
-		offset = source::engine::NetProp::Instance().Get( dt_name , prop );
-
-		if ( offset && !custom_offset )
+		if ( !custom_offset )
 		{
-			string str = "";
-			str = (const char*)( this + offset );
-			return str;
+			auto offset = source::engine::NetProp::Instance().Get( dt_name , prop );
+
+			if ( offset )
+			{
+				string str = "";
+				str = (const char*)( this + offset );
+				return str;
+			}
 		}
 		else
 		{
