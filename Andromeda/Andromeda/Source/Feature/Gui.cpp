@@ -105,6 +105,10 @@ namespace source
 			if ( GetFileAttributesA( font_unicode_ms_file.c_str() ) != INVALID_FILE_ATTRIBUTES )
 			{
 				m_font_unicode_ms = io.Fonts->AddFontFromFileTTF( font_unicode_ms_file.c_str() , 17.f , &FontUnicodeConfig , UnicodeRanges );
+				
+				if ( !m_font_unicode_ms )
+					return false;
+				
 				m_font_unicode_ms->DisplayOffset.y -= 1.f;
 
 				m_font_awesome_icon = io.Fonts->AddFontFromMemoryCompressedTTF( FontAwesomeIcon_compressed_data , FontAwesomeIcon_compressed_size , 25.f , &FontAwesomeIconConfig , AwesomeIconRanges );
