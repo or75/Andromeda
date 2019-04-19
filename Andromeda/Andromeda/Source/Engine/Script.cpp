@@ -424,9 +424,9 @@ namespace source
 
 							if ( script_module )
 							{
+								script_module->m_full_path = full_path_file_name;
+								
 								m_script_system->AddModule( script_module );
-
-								//m_script_system->m_script_jit->finalizePages();
 
 								if ( call_new_init )
 								{

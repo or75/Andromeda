@@ -230,9 +230,7 @@ namespace source
 				if ( m_gui_open )
 				{
 					if ( m_render_menu_fn )
-					{
 						m_render_menu_fn();
-					}
 				}
 			}
 		}

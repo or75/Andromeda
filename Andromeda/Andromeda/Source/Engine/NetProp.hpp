@@ -21,7 +21,6 @@ namespace source
 		private:
 			struct StoredPropData
 			{
-				//RecvProp* prop_ptr = nullptr;
 				uint16_t class_relative_offset = 0;
 			};
 

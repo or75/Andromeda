@@ -1,4 +1,5 @@
 #include "Notification.hpp"
+#include "Gui.hpp"
 
 #include "../Engine/Script.hpp"
 

@@ -11,8 +11,8 @@ namespace source
 		{
 		public:
 			auto Create() -> void;
-			auto RenderStartMenu() -> void;
 
+			auto RenderStartMenu() -> void;
 		private:
 			auto ButtonIcon( const char* icon , const char* text , ImVec2 size = ImVec2( -1.f , 0.f ) , float icon_offset = 0.f ) -> bool;
 
@@ -21,7 +21,7 @@ namespace source
 			float	m_start_height;
 
 		public:
-			size_t	m_select_script_index;
+			size_t		m_select_script_index;
 		};
 	}
 }

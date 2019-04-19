@@ -76,11 +76,9 @@ namespace source
 
 	auto OnRenderMenu() -> void
 	{
-		auto& gui = feature::Gui::Instance();
 		auto& menu = feature::Menu::Instance();
 
-		if ( gui.m_gui_open )
-			menu.RenderStartMenu();
+		menu.RenderStartMenu();
 	}
 
 	auto OnRender() -> void

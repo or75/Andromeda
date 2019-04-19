@@ -26,6 +26,7 @@ namespace source
 			bool				m_enable;
 			DWORD				m_timeout;
 			asIScriptModule*	m_script_module;
+			string				m_full_path;
 
 			asIScriptFunction*	m_script_function_init;
 			asIScriptFunction*	m_script_function_render;

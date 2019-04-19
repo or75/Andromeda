@@ -45,8 +45,8 @@ namespace source
 				
 				for ( size_t Index = 0; Index < script_system->m_module_list.size(); Index++ )
 				{
-					auto module = script_system->m_module_list.at( Index );
-					auto script_module = module.m_script_module;
+					auto s_module = script_system->m_module_list.at( Index );
+					auto script_module = s_module.m_script_module;
 					
 					if ( !script_module )
 						continue;
@@ -55,7 +55,7 @@ namespace source
 
 					ImColor script_status_color( 255 , 255 , 255 );
 
-					if ( module.m_enable )
+					if ( s_module.m_enable )
 					{
 						module_name += XorStr( " (enabled)" );
 						script_status_color = ImColor( 0 , 255 , 0 );
@@ -74,6 +74,7 @@ namespace source
 					if ( ImGui::Button( module_name.c_str() , ImVec2( -1.f , 0.f ) ) )
 					{
 						m_select_script_index = Index;
+
 						ImGui::OpenPopup( XorStr( "ModuleEdit##ModuleList" ) );
 					}
 
@@ -105,11 +106,6 @@ namespace source
 						
 						notify.AddNotification( 5 , feature::nt_success , XorStr( "module (%s) was successfully unloaded" ) , module_name.c_str() );
 					}
-
-					/*if ( ImGui::MenuItem( XorStr( "Edit Script##ModuleList" ) ) )
-					{
-
-					}*/
 
 					ImGui::EndPopup();
 				}

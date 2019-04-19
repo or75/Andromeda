@@ -265,8 +265,6 @@ public:
 		{
 			auto offset = source::engine::NetProp::Instance().Get( dt_name , prop );
 
-			//Andromeda::WriteDebugLog( "GetNetProp (%s) (0x%X)\n" , prop.c_str() , offset );
-
 			if ( offset )
 				return *(T*)( this + offset );
 		}

@@ -51,8 +51,6 @@ namespace source
 			}
 			else
 			{
-				//Andromeda::WriteDebugLog( "AddHashProp (%s) (0x%X)\n" , hash_name.c_str() , hash );
-
 				RecvProp* local_prop = nullptr;
 
 				auto array_entry = GetArrayEntry( array_name );
@@ -61,7 +59,6 @@ namespace source
 				if ( prop_out )
 					*prop_out = local_prop;
 
-				//m_props[hash].prop_ptr = local_prop;
 				m_props[hash].class_relative_offset = offset;
 
 				return offset;
