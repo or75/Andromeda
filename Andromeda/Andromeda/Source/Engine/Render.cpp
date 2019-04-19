@@ -39,7 +39,7 @@ namespace source
 
 		auto Render::Begin() -> void
 		{
-			if ( m_direct_device->CreateStateBlock( D3DSBT_PIXELSTATE , &m_pStateBlock ) == D3D_OK )
+			if ( m_direct_device->CreateStateBlock( D3DSBT_ALL , &m_pStateBlock ) == D3D_OK )
 			{
 				m_pStateBlock->Capture();
 

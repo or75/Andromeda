@@ -86,7 +86,7 @@ namespace source
 					Andromeda::WriteDebugLog( XorStr( "[warning] Module (%s) context aborted. The script was forcibly disabled.\n" ) , module_name_notifi.c_str() );
 				}
 
-				//m_enable = false;
+				m_enable = false;
 
 				return false;
 			}
