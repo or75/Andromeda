@@ -18,8 +18,8 @@ namespace source
 			auto& render = engine::Render::Instance();
 			auto& gui = feature::Gui::Instance();
 
-			render.DeviceLost();
 			gui.DeviceLost();
+			render.DeviceLost();
 
 			auto res = Reset_o( pDevice , pPresentationParameters );
 

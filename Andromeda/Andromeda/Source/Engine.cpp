@@ -12,8 +12,8 @@
 
 namespace source
 {
-	DWORD_PTR* Present_o;
-	DWORD_PTR* Reset_o;
+	DWORD_PTR* Present_o = nullptr;
+	DWORD_PTR* Reset_o = nullptr;
 
 	Andromeda::Memory::SwapVmt ClientMode;
 	Andromeda::Memory::SwapVmt Surface;
@@ -179,8 +179,8 @@ namespace source
 		hook::Present_o = ( hook::Present_t )( *Present_o );
 		hook::Reset_o = ( hook::Reset_t )( *Reset_o );
 
-		*Present_o = (DWORD_PTR)&hook::Hook_Present;
-		*Reset_o = (DWORD_PTR)&hook::Hook_Reset;
+		*Present_o = (DWORD_PTR)hook::Hook_Present;
+		*Reset_o = (DWORD_PTR)hook::Hook_Reset;
 
 		ClientMode.Hook( hook::Hook_CreateMove , index::IClientMode::CreateMove );
 		Surface.Hook( hook::Hook_LockCursor , index::ISurface::LockCursor );
@@ -190,17 +190,17 @@ namespace source
 
 	auto Destroy() -> void
 	{
+		if ( Present_o )
+			*Present_o = (DWORD_PTR)hook::Present_o;
+
+		if ( Reset_o )
+			*Reset_o = (DWORD_PTR)hook::Reset_o;
+
 		auto& log = Andromeda::Log::Instance();
 		auto& input = Andromeda::Input::Instance();
 		auto& netprop = engine::NetProp::Instance();
 		auto& render = engine::Render::Instance();
 		auto& script = engine::ScriptManager::Instance();
-
-		if ( Present_o )
-			*Present_o = (DWORD_PTR)&hook::Present_o;
-
-		if ( Reset_o )
-			*Reset_o = (DWORD_PTR)&hook::Reset_o;
 
 		script.Destroy();	
 		netprop.Destroy();

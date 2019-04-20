@@ -8,11 +8,14 @@
 #include "Feature/Gui.hpp"
 #include "Feature/Menu.hpp"
 #include "Feature/Notification.hpp"
+#include "Feature/Utils.hpp"
 
 namespace source
 {
 	int iScreenWidth = 0;
 	int iScreenHeight = 0;
+
+	bool ClientInit = false;
 
 	class ClientEventListener : IGameEventListener
 	{
@@ -47,13 +50,19 @@ namespace source
 	{
 		m_client_event_listener = new ClientEventListener();
 
-		auto& loader = Andromeda::ImageLoader::Instance();
 		auto& script = engine::ScriptManager::Instance();
 		auto& notify = feature::Notification::Instance();
+		auto& utils = feature::Utils::Instance();
 
 		if ( !script.Create() )
 		{
 			Andromeda::WriteDebugLog( XorStr( "[error] #ScriptManager\n" ) );
+			return false;
+		}
+
+		if ( !utils.Create() )
+		{
+			Andromeda::WriteDebugLog( XorStr( "[error] #Utils\n" ) );
 			return false;
 		}
 
@@ -71,6 +80,7 @@ namespace source
 
 		notify.AddNotification( 10 , feature::nt_warning , XorStr( "Welcome to Andromeda Hack !" ) );
 
+		ClientInit = true;
 		return true;
 	}
 
@@ -83,20 +93,20 @@ namespace source
 
 	auto OnRender() -> void
 	{
-		auto& render = engine::Render::Instance();
-		auto& gui = feature::Gui::Instance();
-		auto& menu = feature::Menu::Instance();
-		auto& notification = feature::Notification::Instance();
+		if ( ClientInit )
+		{
+			auto& render = engine::Render::Instance();
+			auto& gui = feature::Gui::Instance();
 
-		gui.Begin();
-		render.Begin();
+			gui.Begin();
+			render.Begin();
 
-		notification.RenderNotification();
+			feature::Notification::Instance().RenderNotification();
+			engine::ScriptManager::Instance().OnRender();
 
-		engine::ScriptManager::Instance().OnRender();
-
-		render.End();
-		gui.End();
+			render.End();
+			gui.End();
+		}
 	}
 
 	auto OnCreateMove( float flInputSampleTime , CUserCmd* pCmd ) -> void

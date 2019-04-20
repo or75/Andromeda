@@ -8,7 +8,7 @@ namespace source
 	{
 		auto Gui::Create( IDirect3DDevice9* direct_device , Andromeda::Input& input ) -> bool
 		{
-			m_gui_file = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( "gui.ini" );
+			m_gui_file = Andromeda::ImageLoader::Instance().GetDllDir() + XorStr( GUI_FILE );
 			m_gui_open = false;
 			m_render_menu_fn = nullptr;
 			m_gui_create = false;
@@ -231,11 +231,8 @@ namespace source
 
 				ImGui::NewFrame();
 
-				if ( m_gui_open )
-				{
-					if ( m_render_menu_fn )
+				if ( m_gui_open && m_render_menu_fn )
 						m_render_menu_fn();
-				}
 			}
 		}
 

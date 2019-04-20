@@ -5,6 +5,7 @@
 #include "../../Valve/Source/Weapon.hpp"
 
 #include "../Feature/Notification.hpp"
+#include "../Feature/Utils.hpp"
 
 #include "../Config.hpp"
 
@@ -980,6 +981,8 @@ namespace source
 
 			// Global Function
 			{
+				auto& utils = feature::Utils::Instance();
+
 				script_engine->RegisterGlobalFunction( XorStr( "string sprintf(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asSprintf ) , asCALL_GENERIC );
 				script_engine->RegisterGlobalFunction( XorStr( "void log(string &in, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null, ?&in = null)" ) , asFUNCTION( asLog ) , asCALL_GENERIC );
 
@@ -999,6 +1002,17 @@ namespace source
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );
 			
 				script_engine->RegisterGlobalFunction( XorStr( "array<IClientEntity@>@ GetEntityArrayByClassId(uint)" ) , asFUNCTION( asGetEntityArrayByClassId ) , asCALL_CDECL );
+
+				script_engine->RegisterGlobalFunction( XorStr( "void SetClanTag(string)" ) , asMETHOD( feature::Utils , SetClanTag ) , asCALL_THISCALL_ASGLOBAL , &utils );
+				
+				script_engine->RegisterGlobalFunction( XorStr( "int RandomInt(int,int)" ) , asMETHOD( feature::Utils , RandomInt ) , asCALL_THISCALL_ASGLOBAL , &utils );
+				script_engine->RegisterGlobalFunction( XorStr( "float RandomFloat(float flMinVal = 0.0f,float flMaxVal = 1.0f)" ) , asMETHOD( feature::Utils , RandomFloat ) , asCALL_THISCALL_ASGLOBAL , &utils );
+				script_engine->RegisterGlobalFunction( XorStr( "float RandomFloatExp(float flMinVal = 0.0f,float flMaxVal = 1.0f,float flExponent = 1.0f)" ) , asMETHOD( feature::Utils , RandomFloatExp ) , asCALL_THISCALL_ASGLOBAL , &utils );
+
+				script_engine->RegisterGlobalFunction( XorStr( "void AngleVectors(const QAngle &in,Vector3 &out)" ) , asFUNCTIONPR( AngleVectors , ( const QAngle& , Vector3& ) , void ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "void AngleVectors(const QAngle &in,Vector3 &out,Vector3 &out,Vector3 &out)" ) , asFUNCTIONPR( AngleVectors , ( const QAngle& , Vector3& , Vector3& , Vector3& ) , void ) , asCALL_CDECL );
+
+				script_engine->RegisterGlobalFunction( XorStr( "void VectorAngles(const Vector3 &in,QAngle &out)" ) , asFUNCTIONPR( VectorAngles , ( const Vector3& , QAngle& ) , void ) , asCALL_CDECL );
 			}
 		}
 	}

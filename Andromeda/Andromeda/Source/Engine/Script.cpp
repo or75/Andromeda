@@ -183,13 +183,9 @@ namespace source
 		auto ScriptSystem::Create() -> bool
 		{
 			m_script_engine = asCreateScriptEngine();
-			//m_script_jit = new asCJITCompiler( 0 );
-	
+
 			if ( !m_script_engine )
 				return false;
-
-			//m_script_engine->SetEngineProperty( asEP_INCLUDE_JIT_INSTRUCTIONS , 1 );
-			//m_script_engine->SetJITCompiler( m_script_jit );
 
 			m_script_engine->SetMessageCallback( asFUNCTION( MessageCallback ) , 0 , asCALL_CDECL );
 
@@ -213,8 +209,6 @@ namespace source
 
 			m_script_engine->ClearMessageCallback();
 			m_script_engine->ShutDownAndRelease();
-
-			//delete m_script_jit;
 		}
 
 		auto ScriptSystem::BuildModule( string file_name , string module_name ) -> ScriptModule*

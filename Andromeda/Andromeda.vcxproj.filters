@@ -348,6 +348,9 @@
     <ClInclude Include="Andromeda\Include\AngelScript\scripthelper\scripthelper.h">
       <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
     </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\Utils.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Andromeda\Main\Main.cpp">
@@ -480,6 +483,9 @@
       <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
     </ClCompile>
     <ClCompile Include="Andromeda\Source\Feature\Gui.cpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClCompile>
+    <ClCompile Include="Andromeda\Source\Feature\Utils.cpp">
       <Filter>Andromeda\Source\Feature</Filter>
     </ClCompile>
   </ItemGroup>

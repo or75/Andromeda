@@ -11,6 +11,8 @@ namespace source
 	extern int iScreenWidth;
 	extern int iScreenHeight;
 
+	extern bool ClientInit;
+
 	auto OnInit() -> bool;
 	auto OnRenderMenu() -> void;
 	auto OnRender() -> void;

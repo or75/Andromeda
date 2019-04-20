@@ -19,7 +19,6 @@ namespace Andromeda
 		auto ExecuteEventArray( HWND window , UINT message , WPARAM wparam , LPARAM lparam )->LRESULT;
 
 	private:
-		static auto WINAPI ProcedureEnum( HWND window , LPARAM lparam ) -> BOOL;
 		static auto WINAPI Procedure( HWND window , UINT message , WPARAM wparam , LPARAM lparam )->LRESULT;
 
 	private:

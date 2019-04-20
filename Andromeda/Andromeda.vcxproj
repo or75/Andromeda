@@ -122,7 +122,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <DebugInformationFormat>None</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -231,6 +231,7 @@
     <ClInclude Include="Andromeda\Source\Engine\ScriptReg.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\FontAwesomeIcon.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Gui.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\Utils.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Menu.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Notification.hpp" />
     <ClInclude Include="Andromeda\Source\Hook\Hook.hpp" />
@@ -276,6 +277,7 @@
     <ClCompile Include="Andromeda\Source\Feature\Gui.cpp" />
     <ClCompile Include="Andromeda\Source\Feature\Menu.cpp" />
     <ClCompile Include="Andromeda\Source\Feature\Notification.cpp" />
+    <ClCompile Include="Andromeda\Source\Feature\Utils.cpp" />
     <ClCompile Include="Andromeda\Source\Hook\CreateMove.cpp" />
     <ClCompile Include="Andromeda\Source\Hook\LockCursor.cpp" />
     <ClCompile Include="Andromeda\Source\Hook\Present.cpp" />

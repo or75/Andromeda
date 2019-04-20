@@ -49,3 +49,8 @@ constexpr auto ToDegrees( float radians ) -> float
 }
 
 auto AngleNormalize( float angle ) -> float;
+
+void AngleVectors( const QAngle& QAngle , Vector3& vForward );
+void AngleVectors( const QAngle& QAngle , Vector3& vForward , Vector3& vRight , Vector3& vUp );
+
+void VectorAngles( const Vector3& vForward , QAngle& QAngle );

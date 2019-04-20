@@ -4,7 +4,7 @@ namespace Andromeda
 {
 	auto Input::Create() -> bool
 	{
-		EnumWindows( &Input::ProcedureEnum , GetCurrentProcessId() );
+		m_window = FindWindowA( XorStr( "Valve001" ) , 0 );
 
 		if ( !m_window )
 			return false;
@@ -43,9 +43,7 @@ namespace Andromeda
 	auto Input::AddEvent( EventFn procedure ) -> void
 	{
 		if ( !procedure )
-		{
 			return;
-		}
 
 		if ( !m_event_array.empty() )
 		{
@@ -69,8 +67,8 @@ namespace Andromeda
 				code = event( message , wparam , lparam );
 		}
 
-		if ( code )
-			return TRUE;
+		//if ( code )
+		//	return TRUE;
 
 		auto execute_procedure = [&]( HWND window , UINT message , WPARAM wparam , LPARAM lparam )
 		{
@@ -80,21 +78,6 @@ namespace Andromeda
 		};
 
 		return execute_procedure( window , message , wparam , lparam );
-	}
-
-	auto WINAPI Input::ProcedureEnum( HWND window , LPARAM lparam ) -> BOOL
-	{
-		DWORD dwProcessID = 0;
-
-		GetWindowThreadProcessId( window , &dwProcessID );
-
-		if ( dwProcessID == static_cast<DWORD>( lparam ) )
-		{
-			Input::Instance().SetWindow( window );
-			return FALSE;
-		}
-
-		return TRUE;
 	}
 
 	auto WINAPI Input::Procedure( HWND window , UINT message , WPARAM wparam , LPARAM lparam ) -> LRESULT
