@@ -89,6 +89,7 @@ namespace source
 		auto& menu = feature::Menu::Instance();
 
 		menu.RenderStartMenu();
+		menu.RenderAboutMenu();
 	}
 
 	auto OnRender() -> void

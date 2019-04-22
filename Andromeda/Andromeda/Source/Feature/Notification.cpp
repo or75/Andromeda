@@ -74,7 +74,7 @@ namespace source
 					ImGui::PushStyleColor( ImGuiCol_TitleBg , notifi_color.operator ImVec4() );
 					ImGui::PushStyleColor( ImGuiCol_TitleBgActive , notifi_color.operator ImVec4() );
 
-					if ( ImGui::Begin( window_name_id.c_str() , &notifi.m_draw , ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoFocusOnAppearing ) )
+					if ( ImGui::Begin( window_name_id.c_str() , &notifi.m_draw , ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize ) )
 					{
 						if ( ImGui::IsWindowHovered( ImGuiHoveredFlags_RootWindow ) )
 							notifi.m_show_time = GetTickCount() + ( notifi.m_show_sec * 1000 );

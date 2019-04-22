@@ -17,6 +17,8 @@ namespace source
 			m_start_height = 560.f;
 
 			m_select_script_index = 0;
+
+			m_show_about = false;
 		}
 
 		auto Menu::RenderStartMenu() -> void
@@ -178,15 +180,38 @@ namespace source
 					notify.AddNotification( 5 , nt_info , "%s" , "Settings Menu Clicked !" );
 				}
 
-				if ( ButtonIcon( ICON_FA_INFO_CIRCLE , XorStr( "About (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
+				if ( ButtonIcon( ICON_FA_INFO_CIRCLE , XorStr( "About##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
 				{
-					notify.AddNotification( 5 , nt_info , "%s" , "About Menu Clicked !" );
+					m_show_about = !m_show_about;
 				}
 
 				ImGui::EndChild();
 				ImGui::EndGroup();
 				
 				ImGui::End();
+			}
+		}
+
+		auto Menu::RenderAboutMenu() -> void
+		{
+			if ( m_show_about )
+			{
+				constexpr auto w = 205.f;
+				constexpr auto h = 130.f;
+
+				ImGui::SetNextWindowSize( ImVec2( w , h ) , ImGuiCond_FirstUseEver );
+				ImGui::SetNextWindowPos( ImVec2( ( (float)iScreenWidth / 2.f ) - ( w / 2.f ) , ( (float)iScreenHeight / 2.f ) - ( h / 2.f ) ) , ImGuiCond_FirstUseEver );
+
+				if ( ImGui::Begin( XorStr( "About" ) , &m_show_about , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings ) )
+				{
+					ImGui::Text( XorStr( "Author: _or_75" ) );
+					ImGui::Text( XorStr( "Build: [%s | %s]" ) , __DATE__ , __TIME__ );
+					ImGui::Text( XorStr( "ImGui: [%s]" ) , ImGui::GetVersion() );
+					ImGui::Text( XorStr( "Version: %s" ) , XorStr( CHEAT_VERSION ) );
+					ImGui::Text( XorStr( "Web: [v-hack.ru]" ) );
+
+					ImGui::End();
+				}
 			}
 		}
 
