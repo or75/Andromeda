@@ -213,9 +213,6 @@
     <ClInclude Include="Andromeda\Source\Feature\Notification.hpp">
       <Filter>Andromeda\Source\Feature</Filter>
     </ClInclude>
-    <ClInclude Include="Andromeda\Source\Feature\FontAwesomeIcon.hpp">
-      <Filter>Andromeda\Source\Feature</Filter>
-    </ClInclude>
     <ClInclude Include="Andromeda\Source\Feature\Gui.hpp">
       <Filter>Andromeda\Source\Feature</Filter>
     </ClInclude>
@@ -349,6 +346,9 @@
       <Filter>Andromeda\Include\AngelScript\scripthelper</Filter>
     </ClInclude>
     <ClInclude Include="Andromeda\Source\Feature\Utils.hpp">
+      <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Source\Feature\Fonts.hpp">
       <Filter>Andromeda\Source\Feature</Filter>
     </ClInclude>
   </ItemGroup>

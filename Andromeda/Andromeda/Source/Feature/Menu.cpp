@@ -14,7 +14,7 @@ namespace source
 		auto Menu::Create() -> void
 		{
 			m_start_width = 462.f;
-			m_start_height = 560.f;
+			m_start_height = 550.f;
 
 			m_select_script_index = 0;
 
@@ -27,20 +27,22 @@ namespace source
 			auto& script_manager	= engine::ScriptManager::Instance();
 			auto& script_system		= script_manager.m_script_system;
 			auto& style				= ImGui::GetStyle();
+			auto& gui				= feature::Gui::Instance();
 
 			auto cheld_size_x = 220.f;
 
 			auto button_size_x = ( cheld_size_x - style.ItemSpacing.x ) / 2.f;
 			auto button_size_y = 25.f;
 
-			ImGui::SetNextWindowSize( ImVec2( m_start_width , m_start_height ) );
-			//ImGui::SetNextWindowPos( ImVec2( 0.f , (float)iScreenHeight - m_start_height ) , ImGuiSetCond_Once );
+			ImGui::PushFont( gui.m_font_unicode_ms );
+
+			ImGui::SetNextWindowSize( ImVec2( m_start_width , m_start_height ) , ImGuiCond_Always );
 			ImGui::SetNextWindowPos( ImVec2( 0.f , (float)iScreenHeight - m_start_height ) , ImGuiSetCond_FirstUseEver );
 
 			if ( ImGui::Begin( XorStr( "Andromeda DLC" ) , 0 , ImGuiWindowFlags_NoResize ) )
 			{
 				ImGui::BeginGroup();
-				ImGui::BeginChild( XorStr( "AndromedaChildLeft" ) , ImVec2( cheld_size_x , ImGui::GetContentRegionAvail().y - button_size_y - style.ItemSpacing.y ) , true );
+				ImGui::BeginChild( XorStr( "AndromedaChildLeft" ) , ImVec2( cheld_size_x , ImGui::GetContentRegionAvail().y - button_size_y - style.ItemSpacing.y - 2.f ) , true );
 
 				if ( m_select_script_index > script_system->m_module_list.size() )
 					m_select_script_index = script_system->m_module_list.size() - 1;
@@ -135,7 +137,7 @@ namespace source
 				ImGui::SameLine();
 
 				ImGui::BeginGroup();		
-				ImGui::BeginChild( XorStr( "AndromedaChildRightTop" ) , ImVec2( cheld_size_x , ImGui::GetContentRegionAvail().y ) , true );
+				ImGui::BeginChild( XorStr( "AndromedaChildRightTop" ) , ImVec2( cheld_size_x , ImGui::GetContentRegionAvail().y - 2.f ) , true );
 				
 				if ( ButtonIcon( ICON_FA_CROSSHAIRS , XorStr( "Aimbot (null)##AndromedaChildRightBottom" ) , ImVec2( -1.f , button_size_y ) ) )
 				{
@@ -190,20 +192,30 @@ namespace source
 				
 				ImGui::End();
 			}
+
+			ImGui::PopFont();
 		}
 
 		auto Menu::RenderAboutMenu() -> void
 		{
 			if ( m_show_about )
 			{
-				constexpr auto w = 205.f;
-				constexpr auto h = 130.f;
+				auto& gui = feature::Gui::Instance();
+
+				auto w = 500.f;
+				auto h = 210.f;
 
 				ImGui::SetNextWindowSize( ImVec2( w , h ) , ImGuiCond_FirstUseEver );
 				ImGui::SetNextWindowPos( ImVec2( ( (float)iScreenWidth / 2.f ) - ( w / 2.f ) , ( (float)iScreenHeight / 2.f ) - ( h / 2.f ) ) , ImGuiCond_FirstUseEver );
 
-				if ( ImGui::Begin( XorStr( "About" ) , &m_show_about , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings ) )
+				ImGui::PushFont( gui.m_font_unicode_ms );
+
+				if ( ImGui::Begin( XorStr( "About" ) , &m_show_about , ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings ) )
 				{
+					ImGui::PushFont( gui.m_font_color_tube );			
+					ImGui::Text( XorStr( "Andromeda" ) );				
+					ImGui::PopFont();
+
 					ImGui::Text( XorStr( "Author: _or_75" ) );
 					ImGui::Text( XorStr( "Build: [%s | %s]" ) , __DATE__ , __TIME__ );
 					ImGui::Text( XorStr( "ImGui: [%s]" ) , ImGui::GetVersion() );
@@ -212,6 +224,8 @@ namespace source
 
 					ImGui::End();
 				}
+
+				ImGui::PopFont();
 			}
 		}
 

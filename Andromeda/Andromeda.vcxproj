@@ -229,7 +229,7 @@
     <ClInclude Include="Andromeda\Source\Engine\Render.hpp" />
     <ClInclude Include="Andromeda\Source\Engine\Script.hpp" />
     <ClInclude Include="Andromeda\Source\Engine\ScriptReg.hpp" />
-    <ClInclude Include="Andromeda\Source\Feature\FontAwesomeIcon.hpp" />
+    <ClInclude Include="Andromeda\Source\Feature\Fonts.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Gui.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Utils.hpp" />
     <ClInclude Include="Andromeda\Source\Feature\Menu.hpp" />

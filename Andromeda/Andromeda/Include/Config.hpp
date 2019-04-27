@@ -13,6 +13,8 @@
 // Gui File
 #define GUI_FILE					"gui.ini"
 // Version
-#define CHEAT_VERSION				"BETA #5"
+#define CHEAT_VERSION				"BETA #6"
 // Loader License Key
 constexpr auto LOADER_LICENSE_KEY = 0xBF46F;
+
+// Begin( "Debug##Default" , 0 , ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs );

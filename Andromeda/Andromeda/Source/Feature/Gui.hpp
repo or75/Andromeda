@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../Engine.hpp"
-#include "FontAwesomeIcon.hpp"
+
+#include "Fonts.hpp"
 
 namespace source
 {
@@ -37,6 +38,7 @@ namespace source
 
 		public:
 			ImFont*			m_font_unicode_ms;
+			ImFont*			m_font_color_tube;
 			ImFont*			m_font_awesome_icon;
 
 		private:

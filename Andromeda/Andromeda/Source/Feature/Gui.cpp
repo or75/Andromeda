@@ -59,7 +59,7 @@ namespace source
 			FontUnicodeConfig.OversampleV = 1;
 			FontUnicodeConfig.PixelSnapH = true;
 
-			FontAwesomeIconConfig.OversampleH = 1;
+			FontAwesomeIconConfig.OversampleH = 3;
 			FontAwesomeIconConfig.OversampleV = 1;
 			FontAwesomeIconConfig.PixelSnapH = true;
 
@@ -104,8 +104,9 @@ namespace source
 
 			if ( GetFileAttributesA( font_unicode_ms_file.c_str() ) != INVALID_FILE_ATTRIBUTES )
 			{
+				m_font_color_tube = io.Fonts->AddFontFromMemoryCompressedTTF( FontColorTube_compressed_data , FontColorTube_compressed_size , 84.f , &FontUnicodeConfig , UnicodeRanges );
 				m_font_unicode_ms = io.Fonts->AddFontFromFileTTF( font_unicode_ms_file.c_str() , 17.f , &FontUnicodeConfig , UnicodeRanges );
-				
+					
 				if ( !m_font_unicode_ms )
 					return false;
 				
@@ -161,7 +162,7 @@ namespace source
 			colors[ImGuiCol_ChildBg] = ImVec4( 0.20f , 0.23f , 0.31f , 1.00f );
 			colors[ImGuiCol_PopupBg] = ImVec4( 0.20f , 0.23f , 0.31f , 1.00f );
 
-			colors[ImGuiCol_Border] = ImVec4( 0.25f , 0.28f , 0.38f , 1.00f );
+			colors[ImGuiCol_Border] = ImVec4( 0.f , 0.f , 0.f , 1.00f );
 			colors[ImGuiCol_BorderShadow] = ImVec4( 0.00f , 0.00f , 0.00f , 0.00f );
 			
 			colors[ImGuiCol_FrameBg] = ImVec4( 0.25f , 0.28f , 0.38f , 1.00f );

@@ -12,6 +12,10 @@ namespace source
 			if ( m_notification.empty() )
 				return;
 
+			auto& gui = feature::Gui::Instance();
+
+			ImGui::PushFont( gui.m_font_unicode_ms );
+
 			for ( size_t Index = 0; Index < m_notification.size(); Index++ )
 			{
 				auto& notifi = m_notification[Index];
@@ -94,6 +98,8 @@ namespace source
 					m_notification.erase( m_notification.begin() + Index );
 				}
 			}
+
+			ImGui::PopFont();
 		}
 
 		auto Notification::AddNotification( DWORD show_sec , notify_type type , const char* format , ... ) -> void
