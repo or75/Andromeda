@@ -3,9 +3,9 @@
 // Debug Interface
 #define ENABLE_DEBUG_INTERFACE		0
 // Xor String
-#define ENABLE_XOR_STR				0
+#define ENABLE_XOR_STR				1
 // Manual Map Inject
-#define ENABLE_SUPPORT_MANUAL_MAP	0
+#define ENABLE_SUPPORT_MANUAL_MAP	1
 // Error Log File
 #define LOG_ERROR_FILE				"debug.log"
 // Config File
