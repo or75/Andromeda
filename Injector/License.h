@@ -8,7 +8,7 @@
 #define CHEAT_API		XorStr( "http://v-hack.ru/api/license/" )
 
 #define PRODUCT_KEY		XorStr( "AD57F742956BC" )
-#define CHEAT_VERSION	XorStr( "5" )
+#define CHEAT_VERSION	XorStr( "6" )
 #define DLL_LIC_KEY		0xBF46F
 
 namespace License
