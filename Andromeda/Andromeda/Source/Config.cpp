@@ -11,9 +11,14 @@
 
 namespace config
 {
-	namespace script
+	namespace settings
 	{
-		UINT Timeout = 300;
+		namespace main
+		{
+			int WelcomeMsg = 1;
+			int Timeout = 300;
+			int MenuKey = VK_INSERT;
+		}
 	}
 }
 
@@ -21,18 +26,31 @@ namespace source
 {
 	using namespace rapidjson;
 
-	void GetUintJson( Value& json , const char* name , UINT& output , UINT min , UINT max )
+	void GetIntJson( Value& json , const char* name , int& output , int min , int max )
 	{
 		if ( !json.IsNull() && json.HasMember( name ) )
 		{
 			auto& value = json[name];
 
-			if ( !value.IsNull() && value.IsUint() )
+			if ( !value.IsNull() && value.IsInt() )
 			{
-				auto f = value.GetUint();
+				auto f = value.GetInt();
 
 				if ( f >= min && f <= max )
 					output = f;
+			}
+		}
+	}
+
+	void GetBoolJson( Value& json , const char* name , int& output )
+	{
+		if ( !json.IsNull() && json.HasMember( name ) )
+		{
+			auto& value = json[name];
+
+			if ( !value.IsNull() && value.IsBool() )
+			{
+				output = value.GetBool() ? 1 : 0;
 			}
 		}
 	}
@@ -93,10 +111,16 @@ namespace source
 		}
 	}
 
-	void AddUintJson( PrettyWriter<OStreamWrapper>& writer , const char* name , UINT& output )
+	void AddIntJson( PrettyWriter<OStreamWrapper>& writer , const char* name , int& output )
 	{
 		writer.String( name );
-		writer.Uint( output );
+		writer.Int( output );
+	}
+
+	void AddBoolJson( PrettyWriter<OStreamWrapper>& writer , const char* name , int& output )
+	{
+		writer.String( name );
+		writer.Bool( ( output ? true : false ) );
 	}
 
 	void AddImGuiStyleJson( PrettyWriter<OStreamWrapper>& writer , const char* name , float& value )
@@ -152,11 +176,12 @@ namespace source
 		{
 			// Script
 			{
-				auto& script_json = doc_config[XorStr( "Script" )];
+				auto& script_json = doc_config[XorStr( "Settings" )][XorStr( "Main" )];
 
 				if ( !script_json.IsNull() )
 				{
-					GetUintJson( script_json , XorStr( "Timeout" ) , config::script::Timeout , 150 , 5000 );
+					GetBoolJson( script_json , XorStr( "WelcomeMsg" ) , config::settings::main::WelcomeMsg );
+					GetIntJson( script_json , XorStr( "Timeout" ) , config::settings::main::Timeout , 150 , 5000 );	
 				}
 			}
 
@@ -235,11 +260,19 @@ namespace source
 		{
 			cfg_writer.StartObject();
 
-			cfg_writer.String( XorStr( "Script" ) );
+			cfg_writer.String( XorStr( "Settings" ) );
 			{
 				cfg_writer.StartObject();
 
-				AddUintJson( cfg_writer , XorStr( "Timeout" ) , config::script::Timeout );
+				cfg_writer.String( XorStr( "Main" ) );
+				{
+					cfg_writer.StartObject();
+
+					AddBoolJson( cfg_writer , XorStr( "WelcomeMsg" ) , config::settings::main::WelcomeMsg );
+					AddIntJson( cfg_writer , XorStr( "Timeout" ) , config::settings::main::Timeout );
+
+					cfg_writer.EndObject();
+				}
 
 				cfg_writer.EndObject();
 			}

@@ -195,6 +195,32 @@ namespace source
 			return nullptr;
 		}
 
+		auto asGetEntityArrayByClassName( string class_name ) -> CScriptArray*
+		{
+			asIScriptContext* ctx = asGetActiveContext();
+
+			if ( ctx )
+			{
+				asIScriptEngine* engine = ctx->GetEngine();
+				asITypeInfo* arr_type = engine->GetTypeInfoByDecl( "array<IClientEntity@>" );
+				CScriptArray* arr = CScriptArray::Create( arr_type );
+
+				for ( int ent_idx = 0; ent_idx < m_client_entity_list->GetHighestEntityIndex(); ent_idx++ )
+				{
+					auto pEntity = m_client_entity_list->GetClientEntity( ent_idx );
+
+					if ( pEntity && !strcmpi( class_name.c_str() , pEntity->GetClientClass()->m_pNetworkName ) )
+					{
+						arr->InsertLast( &pEntity );
+					}
+				}
+
+				return arr;
+			}
+
+			return nullptr;
+		}
+
 #pragma endregion
 
 #pragma region Vector2
@@ -1002,6 +1028,7 @@ namespace source
 				script_engine->RegisterGlobalFunction( XorStr( "bool WorldToScreen(const Vector3 &in,int &out,int &out)" ) , asFUNCTIONPR( WorldToScreen , ( const Vector3& , int& , int& ) , bool ) , asCALL_CDECL );
 			
 				script_engine->RegisterGlobalFunction( XorStr( "array<IClientEntity@>@ GetEntityArrayByClassId(uint)" ) , asFUNCTION( asGetEntityArrayByClassId ) , asCALL_CDECL );
+				script_engine->RegisterGlobalFunction( XorStr( "array<IClientEntity@>@ GetEntityArrayByClassName(string)" ) , asFUNCTION( asGetEntityArrayByClassName ) , asCALL_CDECL );
 
 				script_engine->RegisterGlobalFunction( XorStr( "void SetClanTag(string)" ) , asMETHOD( feature::Utils , SetClanTag ) , asCALL_THISCALL_ASGLOBAL , &utils );
 				

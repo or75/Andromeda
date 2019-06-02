@@ -4,9 +4,14 @@
 
 namespace config
 {
-	namespace script
+	namespace settings
 	{
-		extern UINT Timeout;
+		namespace main
+		{
+			extern int WelcomeMsg;
+			extern int Timeout;
+			extern int MenuKey;
+		}
 	}
 }
 

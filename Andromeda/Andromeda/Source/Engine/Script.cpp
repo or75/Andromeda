@@ -11,7 +11,7 @@ namespace source
 		{
 			if ( *time_out < GetTickCount() )
 			{
-				Andromeda::WriteDebugLog( "[LineCallback] (%s) Timeout: %s\n" , 
+				Andromeda::WriteDebugLog( XorStr( "[LineCallback] (%s) Timeout: %s\n" ) , 
 										  script_context->GetFunction()->GetModuleName() ,
 										  script_context->GetFunction()->GetDeclaration() );
 
@@ -49,7 +49,7 @@ namespace source
 
 			auto& notify = feature::Notification::Instance();
 
-			m_timeout = GetTickCount() + config::script::Timeout;
+			m_timeout = GetTickCount() + config::settings::main::Timeout;
 			
 			script_context->SetLineCallback( asFUNCTION( LineCallback ) , &m_timeout , asCALL_CDECL );
 			

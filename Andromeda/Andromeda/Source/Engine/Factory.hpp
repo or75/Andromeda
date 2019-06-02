@@ -29,6 +29,5 @@ namespace source
 			InterfaceReg* m_interface_array = nullptr;
 			factory_map_t m_factory_map = { };
 		};
-
 	}
 }

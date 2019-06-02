@@ -70,7 +70,6 @@ namespace source
 		
 		// Загрузим настройки
 		LoadConfig( XorStr( CONFIG_FILE ) , false );
-		//SaveConfig( XorStr( CONFIG_FILE ) , false );
 
 		// Выполняем Init во всех скриптах
 		script.OnInit();
@@ -78,7 +77,8 @@ namespace source
 		feature::Menu::Instance().Create();
 		feature::Gui::Instance().AddMenuRenderFn( OnRenderMenu );
 
-		notify.AddNotification( 10 , feature::nt_warning , XorStr( "Welcome to Andromeda Hack !" ) );
+		if ( config::settings::main::WelcomeMsg )
+			notify.AddNotification( 10 , feature::nt_info , XorStr( "Welcome to Andromeda Hack !" ) );
 
 		ClientInit = true;
 		return true;
@@ -89,6 +89,7 @@ namespace source
 		auto& menu = feature::Menu::Instance();
 
 		menu.RenderStartMenu();
+		menu.RenderSettingsMenu();
 		menu.RenderAboutMenu();
 	}
 

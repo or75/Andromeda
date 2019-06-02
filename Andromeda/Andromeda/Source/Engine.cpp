@@ -204,7 +204,7 @@ namespace source
 
 		script.Destroy();	
 		netprop.Destroy();
-		input.Destroy();	
+		input.Destroy();
 		render.Destroy();
 		log.Destroy();
 	}

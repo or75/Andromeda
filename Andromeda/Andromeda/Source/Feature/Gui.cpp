@@ -108,7 +108,10 @@ namespace source
 				m_font_unicode_ms = io.Fonts->AddFontFromFileTTF( font_unicode_ms_file.c_str() , 17.f , &FontUnicodeConfig , UnicodeRanges );
 					
 				if ( !m_font_unicode_ms )
+				{
+					Andromeda::WriteDebugLog( XorStr( "[error] #FontUnicodeMS [AddFontFromFileTTF: %s]\n" ) , font_unicode_ms_file.c_str() );
 					return false;
+				}
 				
 				m_font_unicode_ms->DisplayOffset.y -= 1.f;
 
@@ -144,7 +147,7 @@ namespace source
 			style.WindowRounding = 0.f;
 			style.FrameRounding = roundness;
 			style.PopupRounding = 0;
-			style.PopupBorderSize = 2;
+			style.PopupBorderSize = 1.f;
 			style.IndentSpacing = 6.0f;
 			style.ColumnsMinSpacing = 50.0f;
 			style.GrabMinSize = 14.0f;
@@ -265,7 +268,7 @@ namespace source
 			auto& input = Andromeda::Input::Instance();
 			auto& gui = Gui::Instance();
 
-			if ( message == WM_KEYUP && wparam == VK_INSERT )
+			if ( message == WM_KEYUP && wparam == config::settings::main::MenuKey )
 			{
 				gui.m_gui_open = !gui.m_gui_open;
 
