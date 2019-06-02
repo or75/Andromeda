@@ -70,6 +70,7 @@ namespace source
 		
 		// Загрузим настройки
 		LoadConfig( XorStr( CONFIG_FILE ) , false );
+		//SaveConfig( XorStr( CONFIG_FILE ) , false );
 
 		// Выполняем Init во всех скриптах
 		script.OnInit();

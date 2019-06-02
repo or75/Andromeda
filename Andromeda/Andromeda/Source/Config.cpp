@@ -55,6 +55,19 @@ namespace source
 		}
 	}
 
+	void GetStringJson( Value& json , const char* name , string& output )
+	{
+		if ( !json.IsNull() && json.HasMember( name ) )
+		{
+			auto& value = json[name];
+
+			if ( !value.IsNull() && value.IsString() )
+			{
+				output = value.GetString();
+			}
+		}
+	}
+
 	void GetFloatJson( Value& json , const char* name , float& output , float min , float max )
 	{
 		if ( !json.IsNull() && json.HasMember( name ) )
@@ -123,6 +136,12 @@ namespace source
 		writer.Bool( ( output ? true : false ) );
 	}
 
+	void AddStringJson( PrettyWriter<OStreamWrapper>& writer , const char* name , string& output )
+	{
+		writer.String( name );
+		writer.String( output.c_str() );
+	}
+
 	void AddImGuiStyleJson( PrettyWriter<OStreamWrapper>& writer , const char* name , float& value )
 	{
 		writer.String( name );
@@ -180,8 +199,13 @@ namespace source
 
 				if ( !script_json.IsNull() )
 				{
+					string key_name = "";
+
 					GetBoolJson( script_json , XorStr( "WelcomeMsg" ) , config::settings::main::WelcomeMsg );
-					GetIntJson( script_json , XorStr( "Timeout" ) , config::settings::main::Timeout , 150 , 5000 );	
+					GetIntJson( script_json , XorStr( "Timeout" ) , config::settings::main::Timeout , 150 , 5000 );
+					GetStringJson( script_json , XorStr( "MenuKey" ) , key_name );
+
+					config::settings::main::MenuKey = source::m_input_system->ButtonCodeToVirtualKey( source::m_input_system->StringToButtonCode( key_name ) );
 				}
 			}
 
@@ -268,8 +292,11 @@ namespace source
 				{
 					cfg_writer.StartObject();
 
+					string key_name = source::m_input_system->ButtonCodeToString( source::m_input_system->VirtualKeyToButtonCode( config::settings::main::MenuKey ) );
+
 					AddBoolJson( cfg_writer , XorStr( "WelcomeMsg" ) , config::settings::main::WelcomeMsg );
 					AddIntJson( cfg_writer , XorStr( "Timeout" ) , config::settings::main::Timeout );
+					AddStringJson( cfg_writer , XorStr( "MenuKey" ) , key_name );
 
 					cfg_writer.EndObject();
 				}
