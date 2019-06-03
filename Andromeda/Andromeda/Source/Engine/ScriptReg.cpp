@@ -209,7 +209,7 @@ namespace source
 				{
 					auto pEntity = m_client_entity_list->GetClientEntity( ent_idx );
 
-					if ( pEntity && !strcmpi( class_name.c_str() , pEntity->GetClientClass()->m_pNetworkName ) )
+					if ( pEntity && !_strcmpi( class_name.c_str() , pEntity->GetClientClass()->m_pNetworkName ) )
 					{
 						arr->InsertLast( &pEntity );
 					}

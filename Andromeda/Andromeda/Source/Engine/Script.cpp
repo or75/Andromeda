@@ -7,6 +7,11 @@ namespace source
 {
 	namespace engine
 	{
+		bool compareCategoryList( ScriptCategory c1 , ScriptCategory c2 )
+		{
+			return ( c1.name.size() < c2.name.size() );
+		}
+
 		void LineCallback( asIScriptContext* script_context , DWORD* time_out )
 		{
 			if ( *time_out < GetTickCount() )
@@ -103,9 +108,11 @@ namespace source
 			if ( m_script_engine )
 			{
 				m_enable = true;
+				m_category = XorStr( "--- Unknown Category ---" );
 				m_script_module = script_module;
 
 				m_script_function_init = m_script_module->GetFunctionByDecl( XorStr( "void Init()" ) );
+				m_script_function_initex = m_script_module->GetFunctionByDecl( XorStr( "void Init(string &out category,bool &out enable)" ) );
 				m_script_function_render = m_script_module->GetFunctionByDecl( XorStr( "void Render()" ) );
 				m_script_function_event = m_script_module->GetFunctionByDecl( XorStr( "void FireGameEvent(IGameEvent@)" ) );
 				m_script_function_move = m_script_module->GetFunctionByDecl( XorStr( "void CreateMove(CUserCmd@)" ) );
@@ -114,14 +121,26 @@ namespace source
 
 		auto ScriptModule::CallInit( asIScriptContext* script_context ) -> bool
 		{
-			if ( !m_enable || !m_script_function_init )
+			if ( !m_enable || ( !m_script_function_init && !m_script_function_initex ) )
 				return false;
 
 			if ( script_context )
 			{
-				script_context->Prepare( m_script_function_init );
+				if ( m_script_function_init )
+				{
+					script_context->Prepare( m_script_function_init );
 
-				return ExecuteScriptContext( script_context );
+					return ExecuteScriptContext( script_context );
+				}
+				else if ( m_script_function_initex )
+				{
+					script_context->Prepare( m_script_function_initex );
+
+					script_context->SetArgAddress( 0 , &m_category );
+					script_context->SetArgAddress( 1 , &m_enable );
+
+					return ExecuteScriptContext( script_context );
+				}
 			}
 
 			return false;
@@ -262,7 +281,7 @@ namespace source
 		{
 			if ( script_module )
 			{
-				m_module_list.push_back( *script_module );
+				m_module_list.push_back( script_module );
 				return true;
 			}
 
@@ -272,9 +291,46 @@ namespace source
 		auto ScriptSystem::UnloadAll() -> void
 		{
 			for ( auto& module : m_module_list )
-				module.Unload();
+				module->Unload();
 
 			m_module_list.clear();
+			m_module_cat_list.clear();
+		}
+
+		auto ScriptSystem::UnloadModule( ScriptModule* script_module ) -> void
+		{
+			script_module->Unload();
+
+			// удаляем модуль в списке всех модулей
+			for ( size_t Index = 0; Index < m_module_list.size(); Index++ )
+			{
+				if ( script_module == m_module_list.at( Index ) )
+				{
+					m_module_list.erase( m_module_list.begin() + Index );
+					break;
+				}
+			}
+
+			// перебираем все категории и удаляем модуль от туда и если категории пуста её тоже
+			for ( size_t CategoryIndex = 0; CategoryIndex < m_module_cat_list.size(); CategoryIndex++ )
+			{
+				auto& category = m_module_cat_list[CategoryIndex];
+
+				for ( size_t ModuleIndex = 0; ModuleIndex < category.modules.size(); ModuleIndex++ )
+				{
+					auto& module = category.modules.at( ModuleIndex );
+
+					if ( script_module == module )
+					{
+						category.modules.erase( category.modules.begin() + ModuleIndex );
+
+						if( category.modules.size() == 0 )
+							m_module_cat_list.erase( m_module_cat_list.begin() + CategoryIndex );
+
+						break;
+					}
+				}
+			}
 		}
 
 		auto ScriptManager::Create() -> bool
@@ -289,8 +345,6 @@ namespace source
 				m_script_context_render = m_script_system->m_script_engine->CreateContext();
 				m_script_context_event = m_script_system->m_script_engine->CreateContext();
 				m_script_context_move = m_script_system->m_script_engine->CreateContext();
-				
-				UpdateScriptList();
 
 				return true;
 			}
@@ -319,19 +373,17 @@ namespace source
 				m_script_system->Destroy();
 				m_script_system = nullptr;
 			}
-
-			m_script_list.clear();
 		}
 
 		auto ScriptManager::OnInit() -> void
 		{
 			if ( m_script_system )
 			{
-				for ( auto& csgo_script : m_script_system->m_module_list )
+				for ( auto csgo_script : m_script_system->m_module_list )
 				{
-					if ( csgo_script.m_enable )
+					if ( csgo_script->m_enable )
 					{
-						auto call_ok = csgo_script.CallInit( m_script_context_init );
+						auto call_ok = csgo_script->CallInit( m_script_context_init );
 					}
 				}
 			}
@@ -341,11 +393,11 @@ namespace source
 		{
 			if ( m_script_system )
 			{
-				for ( auto& csgo_script : m_script_system->m_module_list )
+				for ( auto csgo_script : m_script_system->m_module_list )
 				{
-					if ( csgo_script.m_enable )
+					if ( csgo_script->m_enable )
 					{
-						auto call_ok = csgo_script.CallRender( m_script_context_render );
+						auto call_ok = csgo_script->CallRender( m_script_context_render );
 					}
 				}
 			}
@@ -355,11 +407,11 @@ namespace source
 		{
 			if ( m_script_system )
 			{
-				for ( auto& csgo_script : m_script_system->m_module_list )
+				for ( auto csgo_script : m_script_system->m_module_list )
 				{
-					if ( csgo_script.m_enable )
+					if ( csgo_script->m_enable )
 					{
-						auto call_ok = csgo_script.CallFireGameEvent( m_script_context_event , pEvent );
+						auto call_ok = csgo_script->CallFireGameEvent( m_script_context_event , pEvent );
 					}
 				}
 			}
@@ -369,11 +421,11 @@ namespace source
 		{
 			if ( m_script_system )
 			{
-				for ( auto& csgo_script : m_script_system->m_module_list )
+				for ( auto csgo_script : m_script_system->m_module_list )
 				{
-					if ( csgo_script.m_enable )
+					if ( csgo_script->m_enable )
 					{
-						auto call_ok = csgo_script.CallCreateMove( m_script_context_move , pCmd );
+						auto call_ok = csgo_script->CallCreateMove( m_script_context_move , pCmd );
 					}
 				}
 			}
@@ -381,7 +433,16 @@ namespace source
 
 		auto ScriptManager::UpdateScriptList( bool call_new_init ) -> void
 		{
-			m_script_list.clear();
+			// copy sounds
+			string script_sound_dir = m_script_dir + XorStr( "sound\\" );
+			string csgo_sound_dir = m_engine_client->GetGameDirectory() + XorStr( "sound\\andromeda\\" );
+
+			if ( filesystem::exists( script_sound_dir ) )
+			{
+				filesystem::remove_all( csgo_sound_dir );
+				filesystem::create_directory( csgo_sound_dir );
+				filesystem::copy( script_sound_dir , csgo_sound_dir , filesystem::copy_options::recursive );
+			}
 
 			HANDLE hSearch = 0;
 			WIN32_FIND_DATA wfd = { 0 };
@@ -397,13 +458,11 @@ namespace source
 						string file_name = wfd.cFileName;
 						string full_path_file_name = m_script_dir + file_name;
 
-						m_script_list.push_back( file_name );
-
 						bool module_added = false;
 
-						for ( auto& csgo_script : m_script_system->m_module_list )
+						for ( auto module : m_script_system->m_module_list )
 						{
-							string name = csgo_script.m_script_module->GetName();
+							string name = module->m_script_module->GetName();
 
 							if ( file_name == name )
 							{
@@ -434,18 +493,36 @@ namespace source
 				FindClose( hSearch );
 			}
 
-			//m_script_system->m_script_jit->finalizePages();
+			// очистим список категорий
+			m_script_system->m_module_cat_list.clear();
 
-			// copy sounds
-			string script_sound_dir = m_script_dir + XorStr( "sound\\" );
-			string csgo_sound_dir = m_engine_client->GetGameDirectory() + XorStr( "sound\\andromeda\\" );
-
-			if ( filesystem::exists( script_sound_dir ) )
+			// обновим список модулей в каждой категории
+			for ( auto module : m_script_system->m_module_list )
 			{
-				filesystem::remove_all( csgo_sound_dir );
-				filesystem::create_directory( csgo_sound_dir );
-				filesystem::copy( script_sound_dir , csgo_sound_dir , filesystem::copy_options::recursive );
+				bool module_added = false;
+
+				for ( auto& category : m_script_system->m_module_cat_list )
+				{
+					if ( !_stricmp( category.name.c_str() , module->m_category.c_str() ) )
+					{
+						category.modules.push_back( module );
+						module_added = true;
+						break;
+					}
+				}
+
+				if ( !module_added )
+				{
+					ScriptCategory category;
+
+					category.name = module->m_category;
+					category.modules.push_back( module );
+
+					m_script_system->m_module_cat_list.push_back( category );
+				}
 			}
+
+			sort( m_script_system->m_module_cat_list.begin() , m_script_system->m_module_cat_list.end() , compareCategoryList );
 		}
 	}
 }

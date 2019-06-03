@@ -73,7 +73,10 @@ namespace source
 		//SaveConfig( XorStr( CONFIG_FILE ) , false );
 
 		// Выполняем Init во всех скриптах
-		script.OnInit();
+		//script.OnInit();
+
+		// Обновляем список скриптов и выполняем Init функцию
+		script.UpdateScriptList( true );
 
 		feature::Menu::Instance().Create();
 		feature::Gui::Instance().AddMenuRenderFn( OnRenderMenu );

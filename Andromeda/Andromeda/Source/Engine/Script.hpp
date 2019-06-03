@@ -2,12 +2,18 @@
 
 #include "../Engine.hpp"
 
-//constexpr auto EXECUTE_TIMEOUT = 250;
-
 namespace source
 {
 	namespace engine
 	{
+		class ScriptModule;
+
+		struct ScriptCategory
+		{
+			string name = "";
+			vector<ScriptModule*> modules;
+		};
+
 		class ScriptModule
 		{
 		public:
@@ -27,8 +33,10 @@ namespace source
 			DWORD				m_timeout;
 			asIScriptModule*	m_script_module;
 			string				m_full_path;
+			string				m_category;
 
 			asIScriptFunction*	m_script_function_init;
+			asIScriptFunction*	m_script_function_initex;
 			asIScriptFunction*	m_script_function_render;
 			asIScriptFunction*	m_script_function_event;
 			asIScriptFunction*	m_script_function_move;
@@ -44,11 +52,12 @@ namespace source
 			auto AddModule( ScriptModule* script_module ) -> bool;
 
 			auto UnloadAll() -> void;
+			auto UnloadModule( ScriptModule* script_module ) -> void;
 
 		public:
-			vector<ScriptModule>	m_module_list;
+			vector<ScriptModule*>	m_module_list;
+			vector<ScriptCategory>	m_module_cat_list;
 			asIScriptEngine*		m_script_engine;
-			//asCJITCompiler*		m_script_jit;
 		};
 
 		class ScriptManager : public Singleton<ScriptManager>
@@ -67,7 +76,6 @@ namespace source
 
 		public:
 			ScriptSystem*	m_script_system;
-			vector<string>	m_script_list;
 			string			m_script_dir;
 
 			asIScriptContext*	m_script_context_init;

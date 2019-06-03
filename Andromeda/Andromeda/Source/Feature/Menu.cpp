@@ -49,52 +49,64 @@ namespace source
 				if ( m_select_script_index > script_system->m_module_list.size() )
 					m_select_script_index = script_system->m_module_list.size() - 1;
 
-				for ( size_t Index = 0; Index < script_system->m_module_list.size(); Index++ )
+				for ( auto& category : script_system->m_module_cat_list )
 				{
-					auto s_module = script_system->m_module_list.at( Index );
-					auto script_module = s_module.m_script_module;
-
-					if ( !script_module )
-						continue;
-
-					string module_name = script_module->GetName();
-
-					ImColor script_status_color( 255 , 255 , 255 );
-
-					if ( s_module.m_enable )
+					if ( category.modules.size() )
 					{
-						module_name += XorStr( " (enabled)" );
-						script_status_color = ImColor( 0 , 255 , 0 );
+						if ( ImGui::CollapsingHeader( category.name.c_str() ) )
+						{
+							for ( size_t ModuleIndex = 0; ModuleIndex < category.modules.size(); ModuleIndex++ )
+							{
+								auto module = category.modules.at( ModuleIndex );
+								auto script_module = module->m_script_module;
+
+								string module_name = script_module->GetName();
+
+								ImColor script_status_color( 255 , 255 , 255 );
+
+								if ( module->m_enable )
+								{
+									module_name += XorStr( " (enabled)" );
+									script_status_color = ImColor( 0 , 255 , 0 );
+								}
+								else
+								{
+									module_name += XorStr( " (disabled)" );
+									script_status_color = ImColor( 255 , 140 , 0 );
+								}
+
+								ImGui::PushStyleVar( ImGuiStyleVar_ButtonTextAlign , ImVec2( 0.f , 0.5f ) );
+								ImGui::PushStyleColor( ImGuiCol_Text , script_status_color.operator ImVec4() );
+
+								module_name = Andromeda::str_wide_to_str_unicode( module_name );
+
+								if ( ImGui::Button( module_name.c_str() , ImVec2( -1.f , 0.f ) ) )
+								{
+									for ( size_t Index = 0; Index < script_system->m_module_list.size(); Index++ )
+									{
+										if ( script_module == script_system->m_module_list.at( Index )->m_script_module )
+										{
+											m_select_script_index = Index;
+											ImGui::OpenPopup( XorStr( "ModuleEdit##ModuleList" ) );
+											break;
+										}
+									}
+								}
+
+								ImGui::PopStyleColor();
+								ImGui::PopStyleVar();
+							}
+						}
 					}
-					else
-					{
-						module_name += XorStr( " (disabled)" );
-						script_status_color = ImColor( 255 , 140 , 0 );
-					}
-
-					ImGui::PushStyleVar( ImGuiStyleVar_ButtonTextAlign , ImVec2( 0.f , 0.5f ) );
-					ImGui::PushStyleColor( ImGuiCol_Text , script_status_color.operator ImVec4() );
-
-					module_name = Andromeda::str_wide_to_str_unicode( module_name );
-
-					if ( ImGui::Button( module_name.c_str() , ImVec2( -1.f , 0.f ) ) )
-					{
-						m_select_script_index = Index;
-
-						ImGui::OpenPopup( XorStr( "ModuleEdit##ModuleList" ) );
-					}
-
-					ImGui::PopStyleColor();
-					ImGui::PopStyleVar();
 				}
 
 				if ( ImGui::BeginPopup( XorStr( "ModuleEdit##ModuleList" ) , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize ) )
 				{
-					auto& module = script_system->m_module_list.at( m_select_script_index );
+					auto module = script_system->m_module_list.at( m_select_script_index );
 
 					if ( ImGui::BeginMenu( "Options" ) )
 					{
-						ImGui::MenuItem( XorStr( "Enable Script##ModuleList" ) , 0 , &module.m_enable );
+						ImGui::MenuItem( XorStr( "Enable Script##ModuleList" ) , 0 , &module->m_enable );
 						ImGui::EndMenu();
 					}
 
@@ -102,11 +114,9 @@ namespace source
 
 					if ( ImGui::MenuItem( XorStr( "Unload Script##ModuleList" ) ) )
 					{
-						string module_name = Andromeda::str_wide_to_str_unicode( module.m_script_module->GetName() );
+						string module_name = Andromeda::str_wide_to_str_unicode( module->m_script_module->GetName() );
 
-						module.Unload();
-
-						script_system->m_module_list.erase( script_system->m_module_list.begin() + m_select_script_index );
+						script_system->UnloadModule( module );
 
 						ImGui::CloseCurrentPopup();
 
@@ -206,7 +216,7 @@ namespace source
 			{
 				ImGui::PushFont( gui.m_font_unicode_ms );
 
-				ImGui::SetNextWindowSize( ImVec2( 500.f , 300.f ) , ImGuiCond_FirstUseEver );
+				ImGui::SetNextWindowSize( ImVec2( 500.f , 200.f ) , ImGuiCond_FirstUseEver );
 
 				if ( ImGui::Begin( XorStr( "Settings" ) , &m_show_settings , ImGuiWindowFlags_NoCollapse ) )
 				{

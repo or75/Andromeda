@@ -245,7 +245,7 @@ namespace source
 				if ( !imgui_color_json.IsNull() )
 				{
 					for ( size_t idx = ImGuiCol_Text; idx < ImGuiCol_COUNT; idx++ )
-						GetImVec4Json( imgui_style_json , ImGui::GetStyleColorName( idx ) , ImGui_Colors[ImGuiCol_Text] );
+						GetImVec4Json( imgui_color_json , ImGui::GetStyleColorName( idx ) , ImGui_Colors[idx] );
 				}
 			}
 

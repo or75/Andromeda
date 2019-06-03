@@ -180,8 +180,8 @@ namespace source
 			
 			colors[ImGuiCol_ScrollbarBg] = ImVec4( 0.00f , 0.00f , 0.00f , 0.00f );
 			colors[ImGuiCol_ScrollbarGrab] = ImVec4( 0.39f , 0.44f , 0.56f , 1.00f );
-			colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4( 0.39f , 0.44f , 0.56f , 1.00f );
-			colors[ImGuiCol_ScrollbarGrabActive] = ImVec4( 0.39f , 0.44f , 0.56f , 1.00f );
+			colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4( 0.12f , 0.43f , 1.00f , 1.00f );
+			colors[ImGuiCol_ScrollbarGrabActive] = ImVec4( 0.00f , 0.55f , 1.00f , 1.00f );
 			
 			colors[ImGuiCol_CheckMark] = ImVec4( 0.00f , 0.55f , 1.00f , 1.00f );
 			
