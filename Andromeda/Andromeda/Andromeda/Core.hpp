@@ -31,9 +31,13 @@ namespace Andromeda
 	public:
 		auto OnLoadImage( HMODULE DllImage , PVOID pReserved ) -> bool;
 		auto Destroy() -> void;
+
+	public:
 		auto GetDllDir() -> string;
+		auto GetGameDir() -> string;
 
 	private:
 		string m_dll_dir = "";
+		string m_game_dir = "";
 	};
 }

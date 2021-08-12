@@ -50,7 +50,7 @@ namespace source
 
 		while ( !GetModuleHandleA( XorStr( "ServerBrowser.dll" ) ) )
 		{
-			if ( TimeOut >= 30 )
+			if ( TimeOut >= 120 )
 			{
 				Andromeda::WriteDebugLog( XorStr( "[error] #TimeOut\n" ) );
 				return false;
@@ -66,7 +66,7 @@ namespace source
 			return false;
 		}
 
-		engine::Factory factory_client( XorStr( "client_panorama.dll" ) );
+		engine::Factory factory_client( XorStr( "client.dll" ) );
 		engine::Factory factory_engine( XorStr( "engine.dll" ) );
 		engine::Factory factory_filesystem_stdio( XorStr( "filesystem_stdio.dll" ) );
 		engine::Factory factory_vstdlib( XorStr( "vstdlib.dll" ) );
@@ -80,10 +80,10 @@ namespace source
 		m_engine_sound = factory_engine.Get< IEngineSound* >( XorStr( "IEngineSoundClient" ) );
 		m_file_system = factory_filesystem_stdio.Get< IFileSystem* >( XorStr( "VFileSystem" ) );
 		m_engine_trace = factory_engine.Get< IEngineTrace* >( XorStr( "EngineTraceClient" ) );
-		m_globals = (CGlobalVarsBase*)Andromeda::Memory::FindPattern( XorStr( "client_panorama.dll" ) , XorStr( "A1 ? ? ? ? 5E 8B 40 10" ) , 1 , 2 );
+		m_globals = (CGlobalVarsBase*)Andromeda::Memory::FindPattern( XorStr( "client.dll" ) , XorStr( "A1 ? ? ? ? 5E 8B 40 10" ) , 1 , 2 );
 		m_client_state = **(CBaseClientState***)( ( *(PDWORD_PTR*)m_engine_client )[12] + 0x0010 );
 		m_cvar = factory_vstdlib.Get< ICvar* >( XorStr( "VEngineCvar" ) );
-		m_clientmode = (IClientMode*)Andromeda::Memory::FindPattern( XorStr( "client_panorama.dll" ) , XorStr( "B9 ? ? ? ? 83 38 02 75 0D" ) , 1 , 1 );
+		m_clientmode = (IClientMode*)Andromeda::Memory::FindPattern( XorStr( "client.dll" ) , XorStr( "B9 ? ? ? ? 83 38 02 75 0D" ) , 1 , 1 );
 		m_input_system = (IInputSystem*)factory_inputsystem.Get< IInputSystem* >( XorStr( "InputSystemVersion" ) );
 		m_surface = (ISurface*)factory_vguimatsurface.Get< ISurface* >( XorStr( "VGUI_Surface" ) );
 
@@ -105,6 +105,18 @@ namespace source
 		Andromeda::WriteDebugLog( XorStr( "[m_surface] %p\n" ) , m_surface );
 
 		Andromeda::WriteDebugLog( XorStr( "[m_direct_device] %p\n" ) , m_direct_device );
+
+		ClientClass* Current = m_base_client->GetAllClasses();
+
+		Andromeda::WriteDebugLog( XorStr( "enum class CLIENT_CLASS_ID\n{\n" ) );
+
+		while ( Current->m_pNext )
+		{
+			Andromeda::WriteDebugLog( XorStr( "\t%s = %i ,\n" ) , Current->m_pNetworkName , Current->m_ClassID );
+			Current = Current->m_pNext;
+		}
+
+		Andromeda::WriteDebugLog( XorStr( "};\n" ) );
 #endif
 
 		if ( !m_globals )

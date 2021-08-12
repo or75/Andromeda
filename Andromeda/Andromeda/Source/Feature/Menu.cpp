@@ -456,7 +456,7 @@ namespace source
 				}
 			}
 
-			char buf_display[64] = XorStr( "None" );
+			char buf_display[64] = "None";
 
 			ImGui::RenderFrame( frame_bb.Min , frame_bb.Max , ImGui::ColorConvertFloat4ToU32( ImGui::GetStyleColorVec4( ImGuiCol_FrameBg ) ) , true , style.FrameRounding );
 
@@ -467,7 +467,7 @@ namespace source
 				if ( key_string.empty() )
 				{
 					*k = VK_INSERT;
-					notifi.AddNotification( 5 , notify_type::nt_warning , XorStr( "KeyButton not found, set default to INS" ) );							
+					notifi.AddNotification( 5 , notify_type::nt_warning , XorStr( "KeyButton not found, set default to INS" ) );
 				}
 				else
 					strcpy_s( buf_display , key_string.c_str() );

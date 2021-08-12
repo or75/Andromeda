@@ -23,7 +23,7 @@
     <ProjectGuid>{864C76C8-69BD-47A1-8D36-8777F7538224}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Andromeda</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
@@ -80,7 +80,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <GenerateManifest>false</GenerateManifest>
-    <IncludePath>Andromeda\Include\DirectX\include;$(IncludePath)</IncludePath>
+    <IncludePath>Andromeda\Include\DirectX\include;Andromeda\Include\AngelScript;$(IncludePath)</IncludePath>
     <LibraryPath>Andromeda\Include\DirectX\lib;Andromeda\Include\Json;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\Cheat\</OutDir>
   </PropertyGroup>
@@ -128,6 +128,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FloatingPointModel>Fast</FloatingPointModel>
       <UseFullPaths>false</UseFullPaths>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,6 +137,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

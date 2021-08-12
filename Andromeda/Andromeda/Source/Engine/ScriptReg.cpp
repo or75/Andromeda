@@ -710,7 +710,7 @@ namespace source
 			// ClientClass
 			{
 				script_engine->RegisterObjectType( XorStr( "ClientClass" ) , 0 , asOBJ_REF | asOBJ_NOCOUNT );
-				script_engine->RegisterObjectMethod( XorStr( "ClientClass" ) , XorStr( "const string get_m_pNetworkName()" ) , asFUNCTION( ClientClass_get_m_pNetworkName ) , asCALL_CDECL_OBJLAST );
+				script_engine->RegisterObjectMethod( XorStr( "ClientClass" ) , XorStr( "const string get_m_pNetworkName() property" ) , asFUNCTION( ClientClass_get_m_pNetworkName ) , asCALL_CDECL_OBJLAST );
 				script_engine->RegisterObjectProperty( XorStr( "ClientClass" ) , XorStr( "ClientClass@ m_pNext" ) , asOFFSET( ClientClass , m_pNext ) );
 				script_engine->RegisterObjectProperty( XorStr( "ClientClass" ) , XorStr( "int m_ClassID" ) , asOFFSET( ClientClass , m_ClassID ) );
 			}
@@ -719,7 +719,7 @@ namespace source
 			{
 				script_engine->RegisterObjectType( XorStr( "model_t" ) , sizeof( model_t ) , asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<model_t>() );
 
-				script_engine->RegisterObjectMethod( XorStr( "model_t" ) , XorStr( "const string get_name()" ) , asFUNCTION( model_t_get_name ) , asCALL_CDECL_OBJLAST );
+				script_engine->RegisterObjectMethod( XorStr( "model_t" ) , XorStr( "const string get_name() property" ) , asFUNCTION( model_t_get_name ) , asCALL_CDECL_OBJLAST );
 
 				script_engine->RegisterObjectProperty( XorStr( "model_t" ) , XorStr( "const Vector3 vecMins" ) , asOFFSET( model_t , vecMins ) );
 				script_engine->RegisterObjectProperty( XorStr( "model_t" ) , XorStr( "const Vector3 vecMaxs" ) , asOFFSET( model_t , vecMaxs ) );
@@ -792,7 +792,7 @@ namespace source
 				script_engine->RegisterObjectType( XorStr( "player_info_t" ) , sizeof( player_info_t ) , asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<player_info_t>() );
 
 				script_engine->RegisterObjectProperty( XorStr( "player_info_t" ) , XorStr( "const int64 steamID64" ) , asOFFSET( player_info_t , steamID64 ) );
-				script_engine->RegisterObjectMethod( XorStr( "player_info_t" ) , XorStr( "const string get_name()" ) , asFUNCTION( player_info_t_get_name ) , asCALL_CDECL_OBJLAST );
+				script_engine->RegisterObjectMethod( XorStr( "player_info_t" ) , XorStr( "const string get_name() property" ) , asFUNCTION( player_info_t_get_name ) , asCALL_CDECL_OBJLAST );
 				script_engine->RegisterObjectProperty( XorStr( "player_info_t" ) , XorStr( "const int userid" ) , asOFFSET( player_info_t , userid ) );
 				script_engine->RegisterObjectProperty( XorStr( "player_info_t" ) , XorStr( "const bool fakeplayer" ) , asOFFSET( player_info_t , fakeplayer ) );
 				script_engine->RegisterObjectProperty( XorStr( "player_info_t" ) , XorStr( "const bool ishltv" ) , asOFFSET( player_info_t , ishltv ) );
@@ -987,8 +987,8 @@ namespace source
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarSize" ) , asOFFSET( ImGuiStyle , ScrollbarSize ) );
 						script_engine->RegisterObjectProperty( XorStr( "ImGuiStyle" ) , XorStr( "float ScrollbarRounding" ) , asOFFSET( ImGuiStyle , ScrollbarRounding ) );
 
-						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 get_Colors(uint)" ) , asFUNCTION( ImGuiStyle_Colors_get_array ) , asCALL_CDECL_OBJLAST );
-						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "void set_Colors(uint, ImVec4)" ) , asFUNCTION( ImGuiStyle_Colors_set_array ) , asCALL_CDECL_OBJLAST );
+						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "ImVec4 get_Colors(uint) property" ) , asFUNCTION( ImGuiStyle_Colors_get_array ) , asCALL_CDECL_OBJLAST );
+						script_engine->RegisterObjectMethod( XorStr( "ImGuiStyle" ) , XorStr( "void set_Colors(uint, ImVec4) property" ) , asFUNCTION( ImGuiStyle_Colors_set_array ) , asCALL_CDECL_OBJLAST );
 					}
 
 					script_engine->SetDefaultNamespace( XorStr( "ImGui" ) );

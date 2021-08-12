@@ -13,7 +13,7 @@
 
 #ifndef ANGELSCRIPT_H 
 // Avoid having to inform include path if header is already include before
-#include "../angelscript.h"
+#include <angelscript.h>
 #endif
 
 #include <string>
@@ -40,8 +40,8 @@
 
 BEGIN_AS_NAMESPACE
 
-void RegisterStdString( asIScriptEngine *engine );
-void RegisterStdStringUtils( asIScriptEngine *engine );
+void RegisterStdString(asIScriptEngine *engine);
+void RegisterStdStringUtils(asIScriptEngine *engine);
 
 END_AS_NAMESPACE
 

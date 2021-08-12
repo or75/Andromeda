@@ -6,7 +6,7 @@ namespace index
 {
 	namespace C_WeaponCSBase
 	{
-		constexpr auto GetCSWeaponData = 454;
+		constexpr auto GetCSWeaponData = 457;
 	}
 }
 
