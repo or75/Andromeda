@@ -7,8 +7,6 @@
 
 #include "../../Include/ImGui/imgui_internal.h"
 
-
-
 namespace source
 {
 	namespace feature

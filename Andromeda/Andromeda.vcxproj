@@ -163,6 +163,7 @@
     <ClInclude Include="Andromeda\Andromeda\Log.hpp" />
     <ClInclude Include="Andromeda\Andromeda\Memory.hpp" />
     <ClInclude Include="Andromeda\Include\AngelScript\angelscript.h" />
+    <ClInclude Include="Andromeda\Include\AngelScript\autowrapper\aswrappedcall.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\datetime\datetime.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptany\scriptany.h" />
     <ClInclude Include="Andromeda\Include\AngelScript\scriptarray\scriptarray.h" />

@@ -167,8 +167,8 @@ namespace source
 			return false;
 		}
 
-		Present_o = (DWORD_PTR*)Andromeda::Memory::FindPattern( XorStr( "gameoverlayrenderer.dll" ) , XorStr( "FF 15 ? ? ? ? 8B F8 85 DB" ) , 2 , 1 );
-		Reset_o = (DWORD_PTR*)Andromeda::Memory::FindPattern( XorStr( "gameoverlayrenderer.dll" ) , XorStr( "C7 45 ? ? ? ? ? FF 15 ? ? ? ? 8B F8" ) , 9 , 1 );
+		Present_o = (DWORD_PTR*)Andromeda::Memory::FindPattern( XorStr( "gameoverlayrenderer.dll" ) , XorStr( "FF 15 ? ? ? ? 8B F0 EB 1B 8B 45 18 50" ) , 2 , 1 );
+		Reset_o = (DWORD_PTR*)Andromeda::Memory::FindPattern( XorStr( "gameoverlayrenderer.dll" ) , XorStr( "C7 45 FC ? ? ? ? FF 15 ? ? ? ? 8B D8 85 DB 78 ? 85 F6 74" ) , 9 , 1 );
 
 		if ( !Present_o || !Reset_o )
 		{

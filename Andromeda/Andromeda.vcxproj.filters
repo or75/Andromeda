@@ -79,6 +79,9 @@
     <Filter Include="Andromeda\Include\AngelScript\scripthelper">
       <UniqueIdentifier>{5b72ecea-adeb-4f2b-9770-19d4ad638ade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Andromeda\Include\AngelScript\autowrapper">
+      <UniqueIdentifier>{e7e1ba73-ce1c-4585-b047-6ade66247ec5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Andromeda\Include\Win32.hpp">
@@ -350,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="Andromeda\Source\Feature\Fonts.hpp">
       <Filter>Andromeda\Source\Feature</Filter>
+    </ClInclude>
+    <ClInclude Include="Andromeda\Include\AngelScript\autowrapper\aswrappedcall.h">
+      <Filter>Andromeda\Include\AngelScript\autowrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

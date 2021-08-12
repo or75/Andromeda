@@ -188,7 +188,7 @@ namespace Inject
 		pDll = HeapAlloc( GetProcessHeap() , HEAP_ZERO_MEMORY , dwDllFileSize );
 
 		DWORD dwReadSize = 0;
-		ReadFile( hDllFile , pDll , dwDllFileSize , &dwReadSize , false );
+		auto Ret = ReadFile( hDllFile , pDll , dwDllFileSize , &dwReadSize , 0 );
 
 		if ( dwReadSize != dwDllFileSize )
 		{
