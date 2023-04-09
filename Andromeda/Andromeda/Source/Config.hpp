@@ -11,6 +11,7 @@ namespace config
 			extern int WelcomeMsg;
 			extern int Timeout;
 			extern int MenuKey;
+			extern int PanicKey;
 		}
 	}
 }

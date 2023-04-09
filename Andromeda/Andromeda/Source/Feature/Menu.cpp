@@ -224,7 +224,9 @@ namespace source
 						{
 							CheckBox( XorStr( "Welcome Message" ) , XorStr( "##Settings.Tab.Main.1" ) , &config::settings::main::WelcomeMsg , 180.f );
 							SliderInt( XorStr( "Script Timeout" ) , XorStr( "##Settings.Tab.Main.2" ) , &config::settings::main::Timeout , 150 , 5000 , 180.f );
+
 							HotKey( XorStr( "Menu Key" ) , XorStr( "##Settings.Tab.Main.3" ) , &config::settings::main::MenuKey , 180.f );
+							HotKey( XorStr( "Panic Key" ) , XorStr( "##Settings.Tab.Main.4" ) , &config::settings::main::PanicKey , 180.f );
 
 							ImGui::EndTabItem();
 						}

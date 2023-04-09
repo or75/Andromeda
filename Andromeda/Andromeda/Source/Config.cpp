@@ -18,6 +18,7 @@ namespace config
 			int WelcomeMsg = 1;
 			int Timeout = 300;
 			int MenuKey = VK_INSERT;
+			int PanicKey = VK_DELETE;
 		}
 	}
 }
